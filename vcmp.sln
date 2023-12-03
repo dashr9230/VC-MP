@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcmp", "vcmp\vcmp.vcproj", "{FD25BE8E-6CDF-4752-8C8F-29E9CC0DFDE7}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "server", "server\server.vcproj", "{D5EBCB95-0412-4526-B8F5-2BD1E048293A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{FD25BE8E-6CDF-4752-8C8F-29E9CC0DFDE7}.Debug.ActiveCfg = Debug|Win32
+		{FD25BE8E-6CDF-4752-8C8F-29E9CC0DFDE7}.Debug.Build.0 = Debug|Win32
+		{FD25BE8E-6CDF-4752-8C8F-29E9CC0DFDE7}.Release.ActiveCfg = Release|Win32
+		{FD25BE8E-6CDF-4752-8C8F-29E9CC0DFDE7}.Release.Build.0 = Release|Win32
+		{D5EBCB95-0412-4526-B8F5-2BD1E048293A}.Debug.ActiveCfg = Debug|Win32
+		{D5EBCB95-0412-4526-B8F5-2BD1E048293A}.Debug.Build.0 = Debug|Win32
+		{D5EBCB95-0412-4526-B8F5-2BD1E048293A}.Release.ActiveCfg = Release|Win32
+		{D5EBCB95-0412-4526-B8F5-2BD1E048293A}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
