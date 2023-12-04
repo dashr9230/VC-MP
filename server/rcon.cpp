@@ -29,5 +29,59 @@ CRcon::~CRcon()
 
 void CRcon::Process(void)
 {
-	// TODO: CRcon::Process
+	if (!m_pRak)
+		return;
+
+	Packet* pPacket;
+	while(pPacket = m_pRak->Receive())
+	{
+		switch (pPacket->data[0])
+		{
+		case ID_NEW_INCOMING_CONNECTION:
+			Packet_NewIncomingConnection(pPacket);
+			break;
+		case ID_DISCONNECTION_NOTIFICATION:
+			Packet_DisconnectionNotification(pPacket);
+			break;
+		case ID_CONNECTION_LOST:
+			Packet_ConnectionLost(pPacket);
+			break;
+		case ID_RCON_COMMAND:
+			Packet_RconCommand(pPacket);
+			break;
+		}
+		m_pRak->DeallocatePacket(pPacket);
+	}
+}
+
+void CRcon::Packet_NewIncomingConnection(Packet* pPacket)
+{
+	field_4[pPacket->playerIndex] = 0;
+	in_addr in;
+	in.s_addr = pPacket->playerId.binaryAddress;
+	logprintf("RCON: Admin [%s] has connected.", inet_ntoa(in));
+	printf("RCON: Admin [%s] has connected.\n", inet_ntoa(in));
+}
+
+void CRcon::Packet_DisconnectionNotification(Packet* pPacket)
+{
+	field_4[pPacket->playerIndex] = 0;
+	in_addr in;
+	in.s_addr = pPacket->playerId.binaryAddress;
+	logprintf("RCON: Admin [%s] has disconnected.", inet_ntoa(in));
+	printf("RCON: Admin [%s] has disconnected.\n", inet_ntoa(in));
+}
+
+void CRcon::Packet_ConnectionLost(Packet* pPacket)
+{
+	field_4[pPacket->playerIndex] = 0;
+	in_addr in;
+	in.s_addr = pPacket->playerId.binaryAddress;
+	logprintf("RCON: Admin [%s] has lost connection.", inet_ntoa(in));
+	printf("RCON: Admin [%s] has lost connection.\n", inet_ntoa(in));
+}
+
+void CRcon::Packet_RconCommand(Packet* pPacket)
+{
+	// TODO: CRcon::Packet_RconCommand
 }

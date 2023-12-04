@@ -31,7 +31,8 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/server.exe"
+				AdditionalDependencies="wsock32.lib"
+				OutputFile="$(OutDir)/vcmp-svr.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/server.pdb"
@@ -76,7 +77,8 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/server.exe"
+				AdditionalDependencies="wsock32.lib"
+				OutputFile="$(OutDir)/vcmp-svr.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
@@ -118,6 +120,9 @@
 				RelativePath="..\raknet\NetworkTypes.h">
 			</File>
 			<File
+				RelativePath="..\raknet\PacketEnumerations.h">
+			</File>
+			<File
 				RelativePath="..\raknet\RakClient.cpp">
 			</File>
 			<File
@@ -140,6 +145,16 @@
 			</File>
 			<File
 				RelativePath="..\raknet\RakServerInterface.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="amx"
+			Filter="">
+			<File
+				RelativePath=".\amx\amx.c">
+			</File>
+			<File
+				RelativePath=".\amx\amx.h">
 			</File>
 		</Filter>
 		<File
@@ -179,10 +194,22 @@
 			RelativePath=".\netrpc.h">
 		</File>
 		<File
+			RelativePath=".\pickup.cpp">
+		</File>
+		<File
+			RelativePath=".\pickup.h">
+		</File>
+		<File
 			RelativePath=".\pickuppool.cpp">
 		</File>
 		<File
 			RelativePath=".\pickuppool.h">
+		</File>
+		<File
+			RelativePath=".\player.cpp">
+		</File>
+		<File
+			RelativePath=".\player.h">
 		</File>
 		<File
 			RelativePath=".\playerpool.cpp">
@@ -197,10 +224,25 @@
 			RelativePath=".\rcon.h">
 		</File>
 		<File
+			RelativePath=".\resource.h">
+		</File>
+		<File
+			RelativePath=".\scrcore.cpp">
+		</File>
+		<File
+			RelativePath=".\scrcustom.cpp">
+		</File>
+		<File
 			RelativePath=".\scrtimers.cpp">
 		</File>
 		<File
 			RelativePath=".\scrtimers.h">
+		</File>
+		<File
+			RelativePath=".\server.ico">
+		</File>
+		<File
+			RelativePath=".\svr.rc">
 		</File>
 		<File
 			RelativePath=".\system.h">

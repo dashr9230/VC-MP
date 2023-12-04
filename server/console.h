@@ -37,6 +37,7 @@ public:
 	void ModifyVariableFlags(char* pVarName, DWORD VarFlags);
 
 	char* GetStringVariable(char* pVarName);
+	void SetStringVariable(char* pVarName, char* pString);
 
 	int GetIntVariable(char* pVarName);
 	void SetIntVariable(char* pVarName, int iInt);

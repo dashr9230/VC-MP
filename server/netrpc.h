@@ -4,7 +4,7 @@
 
 //----------------------------------------------------
 
-//void RegisterRPCs(RakServerInterface *);
+void RegisterRPCs(RakServerInterface *);
 void UnRegisterRPCs(RakServerInterface *);
 
 //----------------------------------------------------

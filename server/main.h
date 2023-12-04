@@ -25,12 +25,14 @@
 // ------------
 
 #ifdef WIN32
-	#define WIN32_LEAN_AND_MEAN
+	//#define WIN32_LEAN_AND_MEAN
 	#define SLEEP(x) { Sleep(x); }
+	#define _cst(t,m) (t*m)
 
 	#include <windows.h>
 #else
 	#define SLEEP(x) { usleep(x * 1000); }
+	#define _cst(t,m) (t)
 
 	#include <unistd.h>
 #endif
@@ -49,6 +51,10 @@
 // RakNet
 #include "../raknet/RakServer.h"
 #include "../raknet/RakNetworkFactory.h"
+#include "../raknet/PacketEnumerations.h"
+
+// amx
+#include "amx/amx.h"
 
 // VC:MP
 
@@ -58,8 +64,10 @@
 #include "gamemodes.h"
 #include "filterscripts.h"
 #include "netrpc.h"
+#include "player.h"
 #include "playerpool.h"
 #include "vehiclepool.h"
+#include "pickup.h"
 #include "pickuppool.h"
 #include "netgame.h"
 #include "rcon.h"

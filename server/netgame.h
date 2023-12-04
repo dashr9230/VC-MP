@@ -21,6 +21,8 @@ private:
 
 	char _gap0[2280];
 
+	void UpdateNetwork();
+
 public:
 	CNetGame();
 	~CNetGame();
@@ -32,11 +34,22 @@ public:
 
 	void Process();
 
+	void PlayerSync(Packet *p);
+	void AimSync(Packet *p);
+	void VehicleSync(Packet *p);
+	void PassengerSync(Packet *p);
+
+	void MasterServerAnnounce();
+	void LoadBanList();
+	DWORD GetCount();
+	void ProcessGameTime();
+
 	// CLASS SYSTEM
 	int					m_iSpawnsAvailable;
 
 	BYTE field_8A1;
 
+	DWORD field_8A3;
 	BYTE field_8A7;
 };
 

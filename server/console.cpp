@@ -88,6 +88,23 @@ char* CConsole::GetStringVariable(char* pVarName)
 	return NULL;
 }
 
+void CConsole::SetStringVariable(char* pVarName, char* pString)
+{
+	ConsoleVariable_s* ConVar = FindVariable(pVarName);
+	if (ConVar != NULL)
+	{
+		if (ConVar->VarType == CON_VARTYPE_STRING)
+		{
+			if (ConVar->VarPtr != NULL)
+				free(ConVar->VarPtr);
+
+			char* str = (char*)malloc(strlen(pString)+1);
+			strcpy(str, pString);
+			ConVar->VarPtr = str;
+		}
+	}
+}
+
 int CConsole::GetIntVariable(char* pVarName)
 {
 	ConsoleVariable_s* ConVar = FindVariable(pVarName);

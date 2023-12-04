@@ -16,6 +16,7 @@ private:
 	DWORD m_dwTimerCount;
 public:
 	CScriptTimers();
+	void Process(int iElapsedTime);
 };
 
 #endif

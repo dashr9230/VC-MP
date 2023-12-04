@@ -4,9 +4,9 @@
 CPlayerPool::CPlayerPool()
 {
 	for(BYTE bytePlayerID = 0; bytePlayerID != MAX_PLAYERS; bytePlayerID++) {
-		field_0[bytePlayerID] = 0;
+		m_bPlayerSlotState[bytePlayerID] = FALSE;
 		field_190[bytePlayerID] = 0;
-		field_C8[bytePlayerID] = 0;
+		m_pPlayers[bytePlayerID] = NULL;
 	}
 }
 
@@ -23,3 +23,16 @@ BOOL CPlayerPool::Delete(BYTE bytePlayerID, BYTE byteReason)
 
 	return FALSE;
 }
+
+void CPlayerPool::Process()
+{
+	BYTE bytePlayerID = 0;
+
+	while(bytePlayerID != MAX_PLAYERS) {
+		if(TRUE == m_bPlayerSlotState[bytePlayerID]) {
+			m_pPlayers[bytePlayerID]->Process();
+		}
+		bytePlayerID++;
+	}
+}
+

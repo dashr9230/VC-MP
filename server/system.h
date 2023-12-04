@@ -2,7 +2,9 @@
 #ifndef _SYSTEM_H
 #define _SYSTEM_H
 
-typedef unsigned long DWORD;
+typedef struct _VECTOR {
+	float X,Y,Z;
+} VECTOR, *PVECTOR;
 
 #ifdef _WIN32
 # include <windows.h>
@@ -15,6 +17,7 @@ typedef unsigned long DWORD;
 #define TRUE                1
 #endif
 
+typedef unsigned long       DWORD;
 typedef int                 BOOL;
 typedef unsigned char       BYTE;
 typedef unsigned short      WORD;

@@ -7,12 +7,13 @@
 class CPickUpPool
 {
 private:
-	int field_0[MAX_PICKUPS];
-	int field_540[MAX_PICKUPS];
+	BOOL	m_bPickUpSlotState[MAX_PICKUPS];
+	CPickup *m_pPickups[MAX_PICKUPS];
 public:
 
 	CPickUpPool();
 
+	void Process();
 };
 
 #endif

@@ -1,7 +1,12 @@
 
 #include "main.h"
 
+extern int iListenPort;
+
 char szGameModeFile[256];
+
+DWORD count = _cst(21600,600);
+DWORD sTime;
 
 //----------------------------------------------------
 
@@ -19,6 +24,11 @@ CNetGame::CNetGame()
 
 	// Setup RakNet
 	m_pRak = RakNetworkFactory::GetRakServerInterface();
+
+	LoadBanList();
+
+	// Register our RPC handlers
+	RegisterRPCs(m_pRak);
 
 	// TODO: CNetGame::CNetGame()
 }
@@ -73,8 +83,6 @@ void CNetGame::Init()
 
 	// Flag we're in a running state.
 	m_iGameState = GAMESTATE_RUNNING;
-
-	// TODO: CNetGame::Init()
 }
 
 //----------------------------------------------------
@@ -86,7 +94,190 @@ void CNetGame::ShutdownForGameModeRestart()
 
 //----------------------------------------------------
 
+
+
+
+
+//----------------------------------------------------
+
+#ifdef WIN32
+
+#pragma comment(lib, "winmm.lib")
+float GetElapsedTime()
+{
+	static BOOL bTimerInit = false;
+	static BOOL bUsingOPF  = false;
+	static LONGLONG nTicksPerSec = 0;
+
+	if (!bTimerInit)
+	{
+		bTimerInit = true;
+		LARGE_INTEGER qwTicksPerSec;
+		bUsingOPF = QueryPerformanceFrequency(&qwTicksPerSec);
+		if (bUsingOPF) nTicksPerSec = qwTicksPerSec.QuadPart;
+	}
+
+	if (bUsingOPF)
+	{
+		LARGE_INTEGER qwTime;
+		QueryPerformanceCounter(&qwTime);
+		static LONGLONG llLastTime = qwTime.QuadPart;
+		double fElapsedTime = (double)(qwTime.QuadPart - llLastTime) / (double) nTicksPerSec;
+		llLastTime = qwTime.QuadPart;
+		return (float)fElapsedTime;
+	} else {
+		double fTime = timeGetTime() * 0.001;
+		static double fLastTime = fTime;
+		double fElapsedTime = (double)(fTime - fLastTime);
+		fLastTime = fTime;
+		return (float)fElapsedTime;
+	}
+}
+
+#else
+
+float GetElapsedTime()
+{
+	static timeval lasttv;
+	timeval tv;
+	float fRet;
+
+	gettimeofday(&tv, NULL);
+
+	if (!timerisset(&lasttv)) memcpy(&lasttv, &tv, sizeof(timeval));
+
+	fRet = (float)((tv.tv_sec - lasttv.tv_sec) * 1000000) + (tv.tv_usec - lasttv.tv_usec);
+	fRet /= 1000000.0f;
+
+	memcpy(&lasttv,&tv,sizeof(timeval));
+
+	return fRet;
+}
+
+#endif // WIN32
+
+//----------------------------------------------------
+
+void CNetGame::MasterServerAnnounce()
+{
+	char szPort[256];
+	sprintf(szPort, "%i", iListenPort);
+
+#ifdef WIN32
+	ShellExecute(0,"open","announce.exe",szPort,NULL,SW_HIDE);
+#else
+	char szAnnounceCmd[256];
+	sprintf(szAnnounceCmd,"./announce %s &",szPort);
+	system(szAnnounceCmd);
+#endif
+}
+
+//----------------------------------------------------
+
 void CNetGame::Process()
 {
-	// TODO: CNetGame::Process
+	float fElapsedTime = GetElapsedTime();
+
+	UpdateNetwork();
+
+	m_pPlayerPool->Process();
+	m_pPickUpPool->Process();
+
+	if ((GetCount() - sTime) > count) {
+		MasterServerAnnounce();
+		sTime = GetCount();
+	}
+
+	m_pGameMode->Frame(fElapsedTime);
+
+	if(field_8A3 >= 4) {
+		ProcessGameTime();
+	}
+}
+
+void CNetGame::UpdateNetwork()
+{
+	Packet* p;
+
+	while(p=m_pRak->Receive())
+	{
+		switch(p->data[0]) {
+
+		case ID_DISCONNECTION_NOTIFICATION:
+			m_pPlayerPool->Delete((BYTE)p->playerIndex,1);
+			break;
+		case ID_CONNECTION_LOST:
+			m_pPlayerPool->Delete((BYTE)p->playerIndex,0);
+			break;
+		case ID_PLAYER_SYNC:
+			PlayerSync(p);
+			break;
+		case ID_AIM_SYNC:
+			AimSync(p);
+			break;
+		case ID_VEHICLE_SYNC:
+			VehicleSync(p);
+			break;
+		case ID_PASSENGER_SYNC:
+			PassengerSync(p);
+			break;
+		}
+
+		m_pRak->DeallocatePacket(p);
+	}
+}
+
+void CNetGame::PlayerSync(Packet *p)
+{
+	// TODO: CNetGame::PlayerSync
+}
+
+void CNetGame::AimSync(Packet *p)
+{
+	// TODO: CNetGame::AimSync
+}
+
+void CNetGame::VehicleSync(Packet *p)
+{
+	// TODO: CNetGame::VehicleSync
+}
+
+void CNetGame::PassengerSync(Packet *p)
+{
+	// TODO: CNetGame::PassengerSync
+}
+
+void CNetGame::LoadBanList()
+{
+	FILE * fileBanList = fopen("vcmp-svr.banlist","r");
+
+	if(!fileBanList) {
+		return;
+	}
+
+	char tmpban_ip[256];
+
+	while(!feof(fileBanList)) {
+		fgets(tmpban_ip,256,fileBanList);
+		tmpban_ip[strlen(tmpban_ip) - 1] = 0;
+		m_pRak->AddToBanList(tmpban_ip);
+	}
+
+	fclose(fileBanList);
+}
+
+DWORD CNetGame::GetCount()
+{
+#ifdef WIN32
+	return GetTickCount();
+#else
+	timeval tv;
+	gettimeofday( &tv, NULL );
+	return tv.tv_sec + (0.000001f * tv.tv_usec);
+#endif
+}
+
+void CNetGame::ProcessGameTime()
+{
+	// TODO: CNetGame::ProcessGameTime
 }

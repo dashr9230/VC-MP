@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "server", "server\server.vcp
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "announce", "announce\announce.vcproj", "{D30C49E0-5DE7-4A71-9F0F-7D365D5EE398}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -21,6 +25,10 @@ Global
 		{D5EBCB95-0412-4526-B8F5-2BD1E048293A}.Debug.Build.0 = Debug|Win32
 		{D5EBCB95-0412-4526-B8F5-2BD1E048293A}.Release.ActiveCfg = Release|Win32
 		{D5EBCB95-0412-4526-B8F5-2BD1E048293A}.Release.Build.0 = Release|Win32
+		{D30C49E0-5DE7-4A71-9F0F-7D365D5EE398}.Debug.ActiveCfg = Debug|Win32
+		{D30C49E0-5DE7-4A71-9F0F-7D365D5EE398}.Debug.Build.0 = Debug|Win32
+		{D30C49E0-5DE7-4A71-9F0F-7D365D5EE398}.Release.ActiveCfg = Release|Win32
+		{D30C49E0-5DE7-4A71-9F0F-7D365D5EE398}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

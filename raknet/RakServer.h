@@ -13,9 +13,17 @@ public:
 
 	void SetPassword( const char *_password );
 
+	Packet* Receive( void );
+
+	void DeallocatePacket( Packet *packet );
+
 	void SetAllowedPlayers( unsigned short AllowedPlayers );
 
+	void RegisterAsRemoteProcedureCall( char* uniqueID, void ( *functionPointer ) ( RPCParameters *rpcParms ) );
+
 	void UnregisterAsRemoteProcedureCall( char* uniqueID );
+
+	void AddToBanList( const char *IP );
 };
 
 #endif

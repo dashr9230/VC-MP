@@ -13,9 +13,17 @@ public:
 
 	virtual void SetPassword( const char *_password )=0;
 
+	virtual Packet* Receive( void )=0;
+
+	virtual void DeallocatePacket( Packet *packet )=0;
+
 	virtual void SetAllowedPlayers( unsigned short AllowedPlayers )=0;
 
+	virtual void RegisterAsRemoteProcedureCall( char* uniqueID, void ( *functionPointer ) ( RPCParameters *rpcParms ) )=0;
+
 	virtual void UnregisterAsRemoteProcedureCall( char* uniqueID )=0;
+
+	virtual void AddToBanList( const char *IP )=0;
 };
 
 #endif
