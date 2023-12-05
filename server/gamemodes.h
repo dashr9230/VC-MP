@@ -17,6 +17,7 @@ public:
 	CGameMode();
 
 	char* GetFileName() { return &szGameModeFileName[0]; };
+	CScriptTimers* GetTimers() { return m_pScriptTimers; };
 
 	bool Load(char* pFileName);
 	void Unload();

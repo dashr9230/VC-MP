@@ -170,6 +170,12 @@
 			RelativePath=".\filterscripts.h">
 		</File>
 		<File
+			RelativePath=".\format.cpp">
+		</File>
+		<File
+			RelativePath=".\format.h">
+		</File>
+		<File
 			RelativePath=".\gamemodes.cpp">
 		</File>
 		<File
@@ -246,6 +252,12 @@
 		</File>
 		<File
 			RelativePath=".\system.h">
+		</File>
+		<File
+			RelativePath=".\vehicle.cpp">
+		</File>
+		<File
+			RelativePath=".\vehicle.h">
 		</File>
 		<File
 			RelativePath=".\vehiclepool.cpp">

@@ -4,6 +4,17 @@
 
 #define UPDATE_TYPE_NONE		0
 
+#pragma pack(1)
+typedef struct _PLAYER_SPAWN_INFO
+{
+	BYTE byteTeam;
+	BYTE byteSkin;
+	VECTOR vecPos;
+	float fRotation;
+	int iSpawnWeapons[3];
+	int iSpawnWeaponsAmmo[3];
+} PLAYER_SPAWN_INFO;
+
 class CPlayer
 {
 private:

@@ -1,6 +1,11 @@
 
 #include "RakServer.h"
 
+RakServer::RakServer()
+{
+	// TODO: RakServer::RakServer()
+}
+
 bool RakServer::Start( unsigned short AllowedPlayers, unsigned int depreciated, int threadSleepTimer, unsigned short port, const char *forceHostAddress )
 {
 	// TODO: RakServer::Start

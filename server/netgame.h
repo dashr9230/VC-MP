@@ -2,6 +2,8 @@
 #ifndef VCMPSRV_NETGAME_H
 #define VCMPSRV_NETGAME_H
 
+#define MAX_SPAWNS 50
+
 #define GAMESTATE_RUNNING	 1
 
 class CNetGame
@@ -19,7 +21,9 @@ private:
 	CGameMode					*m_pGameMode;
 	CFilterScripts				*m_pFilterScripts;
 
-	char _gap0[2280];
+	int							m_iCurrentGameModeIndex;
+	int							m_iCurrentGameModeRepeat;
+	BOOL						m_bFirstGameModeLoaded;
 
 	void UpdateNetwork();
 
@@ -29,8 +33,12 @@ public:
 
 	void Init();
 	void ShutdownForGameModeRestart();
+	BOOL SetNextScriptFile(char *szFile);
 
+	CVehiclePool * GetVehiclePool() { return m_pVehiclePool; };
+	CPickUpPool * GetPickupPool() { return m_pPickUpPool; };
 	RakServerInterface * GetRakServer() { return m_pRak; };
+	CGameMode * GetGameMode() { return m_pGameMode; };
 
 	void Process();
 
@@ -43,9 +51,12 @@ public:
 	void LoadBanList();
 	DWORD GetCount();
 	void ProcessGameTime();
+	int CanFileBeOpenedForReading(char * filename);
 
 	// CLASS SYSTEM
 	int					m_iSpawnsAvailable;
+	PLAYER_SPAWN_INFO	m_AvailableSpawns[MAX_SPAWNS];
+	void AddSpawn(PLAYER_SPAWN_INFO *pSpawnInfo);
 
 	BYTE field_8A1;
 

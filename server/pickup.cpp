@@ -5,6 +5,16 @@ extern CNetGame *pNetGame;
 
 DWORD dwPickupTime = _cst(90,800);
 
+CPickup::CPickup(int iType, VECTOR *vecPos, int iAmount)
+{
+	m_iType = iType;
+	m_vecPos.X = vecPos->X;
+	m_vecPos.Y = vecPos->Y;
+	m_vecPos.Z = vecPos->Z;
+	m_iAmount = iAmount;
+	field_18 = 1;
+}
+
 void CPickup::Process()
 {
 	if(!field_18 && (pNetGame->GetCount() - field_1C) > dwPickupTime)

@@ -8,6 +8,7 @@ class RakServer : public RakServerInterface
 {
 
 public:
+	RakServer();
 
 	bool Start( unsigned short AllowedPlayers, unsigned int depreciated, int threadSleepTimer, unsigned short port, const char *forceHostAddress=0 );
 

@@ -10,6 +10,19 @@ CPickUpPool::CPickUpPool()
 	}
 }
 
+BOOL CPickUpPool::New(int iID, int iType, VECTOR *vecPos, int iAmount)
+{
+	m_pPickups[iID] = new CPickup(iType, vecPos, iAmount);
+
+	if(m_pPickups[iID])
+	{
+		m_pPickups[iID]->SetID(iID);
+		m_bPickUpSlotState[iID] = TRUE;
+	}
+
+	return TRUE;
+}
+
 void CPickUpPool::Process()
 {
 	int i=0;

@@ -5,11 +5,18 @@
 class CPickup
 {
 private:
-	char _gap0[12];
-	VECTOR m_vecPos;
+	int			m_iPickupID;
+	int			m_iType;
+	int			m_iAmount;
+	VECTOR		m_vecPos;
 	int field_18;
 	DWORD field_1C;
 public:
+
+	CPickup(int iType, VECTOR *vecPos, int iAmount);
+
+	void SetID(int iPickupID) { m_iPickupID = iPickupID; }
+
 	void Process();
 	void SpawnForPlayer(BYTE bytePlayerID);
 	BOOL ValidateSyncData();

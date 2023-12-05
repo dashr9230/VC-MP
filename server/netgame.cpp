@@ -46,6 +46,74 @@ CNetGame::~CNetGame()
 
 
 
+BOOL CNetGame::SetNextScriptFile(char *szFile)
+{
+	char szCurGameModeConsoleVar[64];
+	char szConfigFileName[64];
+	char *szTemp;
+	int  iConfigRepeatCount=0;
+
+	if(NULL == szFile) {
+		// rotate by config
+
+		if(!m_iCurrentGameModeRepeat && m_bFirstGameModeLoaded) {
+			// repeats of this script, cycle to the current
+			m_iCurrentGameModeIndex++;
+		}
+
+		sprintf(szCurGameModeConsoleVar,"gamemode%u",m_iCurrentGameModeIndex);
+		szTemp = pConsole->GetStringVariable(szCurGameModeConsoleVar);
+
+		// if the var isn't there then cycle back to 0
+		if(!szTemp || !strlen(szTemp)) {
+			m_iCurrentGameModeIndex = 0;
+			sprintf(szCurGameModeConsoleVar,"gamemode%u",m_iCurrentGameModeIndex);
+			szTemp = pConsole->GetStringVariable(szCurGameModeConsoleVar);
+		}
+
+		// if it's still NULL then we've got an error.
+		if(!szTemp || !strlen(szTemp)) return FALSE;
+
+		//logprintf("szTemp is %s\n",szTemp);
+
+		sscanf(szTemp,"%s%d",szConfigFileName,&iConfigRepeatCount);
+
+		// set it and verify the file is readable
+		sprintf(szGameModeFile,"gamemodes/%s.amx",szConfigFileName);
+
+		//logprintf("Set szGameModeFile to %s\n",szGameModeFile);
+
+		if(!CanFileBeOpenedForReading(szGameModeFile)) {
+			return FALSE;
+		}
+
+		if(!m_iCurrentGameModeRepeat) {
+			m_iCurrentGameModeRepeat = iConfigRepeatCount;
+		}
+
+		m_iCurrentGameModeRepeat--;
+
+		//logprintf("Repeat is %d ConfigRepeat is %d\n",m_iCurrentGameModeRepeat,iConfigRepeatCount);
+
+		m_bFirstGameModeLoaded = TRUE;
+
+		return TRUE;
+
+	} else {
+		// set the script from szFile
+
+		// set it and verify the file is readable
+		sprintf(szGameModeFile,"gamemodes/%s.amx",szFile);
+
+		if(!CanFileBeOpenedForReading(szGameModeFile)) {
+			return FALSE;
+		}
+
+		m_iCurrentGameModeRepeat = 0;
+
+		return TRUE;
+	}
+}
 
 //----------------------------------------------------
 
@@ -277,7 +345,26 @@ DWORD CNetGame::GetCount()
 #endif
 }
 
+void CNetGame::AddSpawn(PLAYER_SPAWN_INFO *pSpawnInfo)
+{
+	if (m_iSpawnsAvailable < MAX_SPAWNS)
+	{
+		memcpy(&m_AvailableSpawns[m_iSpawnsAvailable],pSpawnInfo,sizeof(PLAYER_SPAWN_INFO));
+		m_iSpawnsAvailable++;
+	}
+}
+
 void CNetGame::ProcessGameTime()
 {
 	// TODO: CNetGame::ProcessGameTime
+}
+
+int CNetGame::CanFileBeOpenedForReading(char * filename)
+{
+	FILE *f;
+	if(f=fopen(filename,"r")) {
+		fclose(f);
+		return 1;
+	}
+	return 0;
 }

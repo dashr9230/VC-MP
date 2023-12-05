@@ -13,6 +13,7 @@ public:
 
 	CPickUpPool();
 
+	BOOL New(int iID, int iType, VECTOR *vecPos, int iAmount);
 	void Process();
 };
 

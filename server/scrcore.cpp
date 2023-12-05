@@ -1,5 +1,6 @@
 
 #include "main.h"
+#include "format.h"
 
 int AMXAPI aux_LoadProgram(AMX* amx, char* filename)
 {
@@ -87,6 +88,35 @@ void AMXPrintError(CGameMode* pGameMode, AMX *amx, int error)
 		logprintf("Script[%s]: Run time error %d: \"%s\"",// on line %ld\n",
 			pGameMode->GetFileName(), error, aux_StrError(error));//, (long)amx->curline);
 	}
+}
+
+//----------------------------------------------------------------------------------
+
+cell* get_amxaddr(AMX *amx,cell amx_addr)
+{
+  return (cell *)(amx->base + (int)(((AMX_HEADER *)amx->base)->dat + amx_addr));
+}
+
+//----------------------------------------------------------------------------------
+
+int set_amxstring(AMX *amx,cell amx_addr,const char *source,int max)
+{
+  cell* dest = (cell *)(amx->base + (int)(((AMX_HEADER *)amx->base)->dat + amx_addr));
+  cell* start = dest;
+  while (max--&&*source)
+    *dest++=(cell)*source++;
+  *dest = 0;
+  return dest-start;
+}
+
+//----------------------------------------------------------------------------------
+
+char* format_amxstring(AMX *amx, cell *params, int parm, int &len)
+{
+	static char outbuf[4096];
+	cell *addr = get_amxaddr(amx, params[parm++]);
+	len = atcprintf(outbuf, sizeof(outbuf)-1, addr, amx, params, &parm);
+	return outbuf;
 }
 
 //----------------------------------------------------------------------------------

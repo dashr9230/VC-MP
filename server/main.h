@@ -14,6 +14,8 @@
 #define DEFAULT_RCON_PORT		8190
 #define DEFAULT_RCON_MAXUSERS	8
 
+#define SAFE_DELETE(p)	{ if (p) { delete (p); (p) = NULL; } }
+
 // ------------
 // VERSION INFO
 // ------------
@@ -30,6 +32,7 @@
 	#define _cst(t,m) (t*m)
 
 	#include <windows.h>
+	#include <malloc.h>
 #else
 	#define SLEEP(x) { usleep(x * 1000); }
 	#define _cst(t,m) (t)
@@ -66,6 +69,7 @@
 #include "netrpc.h"
 #include "player.h"
 #include "playerpool.h"
+#include "vehicle.h"
 #include "vehiclepool.h"
 #include "pickup.h"
 #include "pickuppool.h"
