@@ -147,6 +147,62 @@
 				RelativePath="..\raknet\RakServerInterface.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="game"
+			Filter="">
+			<File
+				RelativePath=".\game\address.h">
+			</File>
+			<File
+				RelativePath=".\game\aimstuff.cpp">
+			</File>
+			<File
+				RelativePath=".\game\aimstuff.h">
+			</File>
+			<File
+				RelativePath=".\game\common.h">
+			</File>
+			<File
+				RelativePath=".\game\game.cpp">
+			</File>
+			<File
+				RelativePath=".\game\game.h">
+			</File>
+			<File
+				RelativePath=".\game\hooks.cpp">
+			</File>
+			<File
+				RelativePath=".\game\keystuff.cpp">
+			</File>
+			<File
+				RelativePath=".\game\keystuff.h">
+			</File>
+			<File
+				RelativePath=".\game\util.cpp">
+			</File>
+			<File
+				RelativePath=".\game\util.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="net"
+			Filter="">
+			<File
+				RelativePath=".\net\netgame.cpp">
+			</File>
+			<File
+				RelativePath=".\net\netgame.h">
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\exceptions.cpp">
+		</File>
+		<File
+			RelativePath=".\main.cpp">
+		</File>
+		<File
+			RelativePath=".\main.h">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
