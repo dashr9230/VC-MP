@@ -11,9 +11,14 @@ BYTE					Map;
 
 BOOL					bWindowedMode=FALSE;
 
+IDirect3D8				*pD3D;
+IDirect3DDevice8		*pD3DDevice;
+
 HANDLE					hInstance;
 
 // forwards
+
+BOOL SubclassGameWindow();
 
 void TheGameLoop();
 void TheRenderLoop();
@@ -47,6 +52,17 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			dwRenderLoop = (DWORD)TheRenderLoop;
 
 			pGame = new CGame();
+			pGame->StartGame();
+
+			SubclassGameWindow();
+
+			// Time to hook directx...
+
+			// Grab the real IDirect3D8 * from the game.
+			pD3D = (IDirect3D8 *)pGame->GetD3D();
+
+			// Grab the real IDirect3DDevice8 * from the game.
+			pD3DDevice = (IDirect3DDevice8 *)pGame->GetD3DDevice();
 
 			// TODO: DllMain
 		}

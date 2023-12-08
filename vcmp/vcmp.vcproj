@@ -31,8 +31,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="winmm.lib d3dx8.lib"
 				OutputFile="$(OutDir)/vcmp.dll"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="d3d8"
+				IgnoreDefaultLibraryNames="libci.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/vcmp.pdb"
 				SubSystem="2"
@@ -77,8 +80,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="winmm.lib d3dx8.lib"
 				OutputFile="$(OutDir)/vcmp.dll"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="d3d8"
+				IgnoreDefaultLibraryNames="libci.lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -110,43 +116,6 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="raknet"
-			Filter="">
-			<File
-				RelativePath="..\raknet\NetworkTypes.cpp">
-			</File>
-			<File
-				RelativePath="..\raknet\NetworkTypes.h">
-			</File>
-			<File
-				RelativePath="..\raknet\PacketEnumerations.h">
-			</File>
-			<File
-				RelativePath="..\raknet\RakClient.cpp">
-			</File>
-			<File
-				RelativePath="..\raknet\RakClient.h">
-			</File>
-			<File
-				RelativePath="..\raknet\RakClientInterface.h">
-			</File>
-			<File
-				RelativePath="..\raknet\RakNetworkFactory.cpp">
-			</File>
-			<File
-				RelativePath="..\raknet\RakNetworkFactory.h">
-			</File>
-			<File
-				RelativePath="..\raknet\RakServer.cpp">
-			</File>
-			<File
-				RelativePath="..\raknet\RakServer.h">
-			</File>
-			<File
-				RelativePath="..\raknet\RakServerInterface.h">
-			</File>
-		</Filter>
 		<Filter
 			Name="game"
 			Filter="">
@@ -193,10 +162,116 @@
 			<File
 				RelativePath=".\net\netgame.h">
 			</File>
+			<Filter
+				Name="raknet"
+				Filter="">
+				<File
+					RelativePath="..\raknet\NetworkTypes.cpp">
+				</File>
+				<File
+					RelativePath="..\raknet\NetworkTypes.h">
+				</File>
+				<File
+					RelativePath="..\raknet\PacketEnumerations.h">
+				</File>
+				<File
+					RelativePath="..\raknet\RakClient.cpp">
+				</File>
+				<File
+					RelativePath="..\raknet\RakClient.h">
+				</File>
+				<File
+					RelativePath="..\raknet\RakClientInterface.h">
+				</File>
+				<File
+					RelativePath="..\raknet\RakNetworkFactory.cpp">
+				</File>
+				<File
+					RelativePath="..\raknet\RakNetworkFactory.h">
+				</File>
+				<File
+					RelativePath="..\raknet\RakServer.cpp">
+				</File>
+				<File
+					RelativePath="..\raknet\RakServer.h">
+				</File>
+				<File
+					RelativePath="..\raknet\RakServerInterface.h">
+				</File>
+			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\exceptions.cpp">
-		</File>
+		<Filter
+			Name="d3d8"
+			Filter="">
+		</Filter>
+		<Filter
+			Name="general"
+			Filter="">
+			<File
+				RelativePath=".\exceptions.cpp">
+			</File>
+			<File
+				RelativePath=".\subclass.cpp">
+			</File>
+			<Filter
+				Name="d3d"
+				Filter="">
+				<File
+					RelativePath=".\d3d8\include\d3d8.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3d8caps.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3d8types.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\d3dfont.cpp">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dfont.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\d3dutil.cpp">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dutil.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8core.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8effect.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8math.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8mesh.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8shape.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8tex.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\dinput.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\dxfile.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\dxutil.cpp">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\dxutil.h">
+				</File>
+			</Filter>
+		</Filter>
 		<File
 			RelativePath=".\main.cpp">
 		</File>
