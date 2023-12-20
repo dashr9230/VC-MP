@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <stdio.h>
 #include <windows.h>
 
 #define MAX_SETTINGS_STRING 128
@@ -24,7 +25,13 @@ typedef struct _GAME_SETTINGS {
 
 #include "game/game.h"
 
+#include "net/localplayer.h"
+#include "net/playerpool.h"
 #include "net/netgame.h"
+
+#include "cmdwindow.h"
+
+#include "game/scripting.h"
 
 //----------------------------------------------------
 

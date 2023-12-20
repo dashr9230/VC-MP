@@ -15,7 +15,7 @@ CGame::CGame()
 {
 	// TODO: CGame::CGame()
 	field_1D = (int)operator new(1u);
-	field_21 = 0;
+	m_pInternalPlayer = NULL;
 	field_25 = 0;
 	field_0 = 0;
 	field_A = 0;
@@ -29,6 +29,37 @@ CGame::CGame()
 	field_2 = 0.0080000004f;
 	field_6 = 1.0f;
 	field_10 = 1;
+}
+
+//-----------------------------------------------------------
+
+BYTE byteEnableInput1[] = {0xE8,0xB2,0xD9,0xFF,0xFF};
+BYTE byteEnableInput2[] = {0xE8,0xF2,0xD9,0xFF,0xFF};
+BYTE byteDisableInput[] = {0xB0,0x01,0x90,0x90,0x90};
+BYTE byteEnablePadKeyBuf[] = {0x66,0xC7,0x04,0x5D,0x18,0x4A,0x86,0x00,0xFF,0x00};
+
+void CGame::ToggleKeyInputsDisabled(BOOL bDisable)
+{
+	DWORD oldProt, oldProt2;
+
+	if(bDisable == FALSE) {
+		VirtualProtect((PVOID)0x602BDD,10,PAGE_EXECUTE_READWRITE,&oldProt);
+		memcpy((PVOID)0x602BDD,byteEnablePadKeyBuf,10);
+		VirtualProtect((PVOID)0x602BDD,10,oldProt,&oldProt2);
+
+		VirtualProtect((PVOID)0x601349,5,PAGE_EXECUTE_READWRITE,&oldProt);
+		memcpy((PVOID)0x601349,byteEnableInput2,5);
+		VirtualProtect((PVOID)0x601349,5,oldProt,&oldProt2);
+
+	} else { // TRUE
+		VirtualProtect((PVOID)0x602BDD,10,PAGE_EXECUTE_READWRITE,&oldProt);
+		memset((PVOID)0x602BDD,0x90,10);
+		VirtualProtect((PVOID)0x602BDD,10,oldProt,&oldProt2);
+
+		VirtualProtect((PVOID)0x601349,5,PAGE_EXECUTE_READWRITE,&oldProt);
+		memcpy((PVOID)0x601349,byteDisableInput,5);
+		VirtualProtect((PVOID)0x601349,5,oldProt,&oldProt2);
+	}
 }
 
 //-----------------------------------------------------------

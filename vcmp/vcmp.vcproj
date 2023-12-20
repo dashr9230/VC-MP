@@ -147,6 +147,18 @@
 				RelativePath=".\game\keystuff.h">
 			</File>
 			<File
+				RelativePath=".\game\playerped.cpp">
+			</File>
+			<File
+				RelativePath=".\game\playerped.h">
+			</File>
+			<File
+				RelativePath=".\game\scripting.cpp">
+			</File>
+			<File
+				RelativePath=".\game\scripting.h">
+			</File>
+			<File
 				RelativePath=".\game\util.cpp">
 			</File>
 			<File
@@ -157,10 +169,22 @@
 			Name="net"
 			Filter="">
 			<File
+				RelativePath=".\net\localplayer.cpp">
+			</File>
+			<File
+				RelativePath=".\net\localplayer.h">
+			</File>
+			<File
 				RelativePath=".\net\netgame.cpp">
 			</File>
 			<File
 				RelativePath=".\net\netgame.h">
+			</File>
+			<File
+				RelativePath=".\net\playerpool.cpp">
+			</File>
+			<File
+				RelativePath=".\net\playerpool.h">
 			</File>
 			<Filter
 				Name="raknet"
@@ -272,6 +296,15 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\cmdprocs.cpp">
+		</File>
+		<File
+			RelativePath=".\cmdwindow.cpp">
+		</File>
+		<File
+			RelativePath=".\cmdwindow.h">
+		</File>
 		<File
 			RelativePath=".\main.cpp">
 		</File>
