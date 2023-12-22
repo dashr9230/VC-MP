@@ -2,9 +2,11 @@
 #ifndef __RAK_SERVER_H
 #define __RAK_SERVER_H
 
+#include "RakPeer.h"
 #include "RakServerInterface.h"
+#include "Export.h"
 
-class RakServer : public RakServerInterface
+class RAK_DLL_EXPORT RakServer : public RakServerInterface, public RakPeer
 {
 
 public:
@@ -20,11 +22,16 @@ public:
 
 	void SetAllowedPlayers( unsigned short AllowedPlayers );
 
+	void StartOccasionalPing( void );
+
 	void RegisterAsRemoteProcedureCall( char* uniqueID, void ( *functionPointer ) ( RPCParameters *rpcParms ) );
 
 	void UnregisterAsRemoteProcedureCall( char* uniqueID );
 
 	void AddToBanList( const char *IP );
+
+private:
+
 };
 
 #endif

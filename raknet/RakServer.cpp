@@ -35,6 +35,11 @@ void RakServer::SetAllowedPlayers( unsigned short AllowedPlayers )
 	// TODO: RakServer::SetAllowedPlayers
 }
 
+void RakServer::StartOccasionalPing( void )
+{
+	// TODO: RakServer::StartOccasionalPing
+}
+
 void RakServer::RegisterAsRemoteProcedureCall( char* uniqueID, void ( *functionPointer ) ( RPCParameters *rpcParms ) )
 {
 	// TODO: RakServer::RegisterAsRemoteProcedureCall

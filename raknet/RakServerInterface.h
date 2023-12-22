@@ -3,8 +3,9 @@
 #define __RAK_SERVER_INTERFACE_H
 
 #include "NetworkTypes.h"
+#include "Export.h"
 
-class RakServerInterface
+class RAK_DLL_EXPORT RakServerInterface
 {
 
 public:
@@ -19,11 +20,14 @@ public:
 
 	virtual void SetAllowedPlayers( unsigned short AllowedPlayers )=0;
 
+	virtual void StartOccasionalPing( void )=0;
+
 	virtual void RegisterAsRemoteProcedureCall( char* uniqueID, void ( *functionPointer ) ( RPCParameters *rpcParms ) )=0;
 
 	virtual void UnregisterAsRemoteProcedureCall( char* uniqueID )=0;
 
 	virtual void AddToBanList( const char *IP )=0;
+
 };
 
 #endif
