@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <windows.h>
 
+#define MAX_PLAYER_NAME		24
 #define MAX_SETTINGS_STRING 128
 
 #define MAP_VICE			0
@@ -25,10 +26,19 @@ typedef struct _GAME_SETTINGS {
 
 #include "game/game.h"
 
+#include "../raknet/RakClient.h"
+#include "../raknet/RakNetworkFactory.h"
+#include "../raknet/BitStream.h"
+#include "../raknet/PacketEnumerations.h"
+
 #include "net/localplayer.h"
+#include "gamemode/generic.h"
+#include "net/netrpc.h"
 #include "net/playerpool.h"
+#include "net/vehiclepool.h"
 #include "net/netgame.h"
 
+#include "chatwindow.h"
 #include "cmdwindow.h"
 
 #include "game/scripting.h"

@@ -2,6 +2,7 @@
 #pragma once
 
 #define MAX_PLAYERS		50
+#define MAX_VEHICLES	200
 
 typedef struct _ENTITY_TYPE {
 	char _gap;

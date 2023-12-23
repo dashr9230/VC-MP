@@ -1,15 +1,9 @@
 
 #include "RakServer.h"
 
-RakServer::RakServer()
-{
-	// TODO: RakServer::RakServer()
-}
-
 bool RakServer::Start( unsigned short AllowedPlayers, unsigned int depreciated, int threadSleepTimer, unsigned short port, const char *forceHostAddress )
 {
 	// TODO: RakServer::Start
-
 	return false;
 }
 
@@ -21,7 +15,6 @@ void RakServer::SetPassword( const char *_password )
 Packet* RakServer::Receive( void )
 {
 	// TODO: RakServer::Receive
-
 	return 0;
 }
 

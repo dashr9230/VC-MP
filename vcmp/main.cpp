@@ -5,6 +5,7 @@ CGame					*pGame=0;
 DWORD					dwGameLoop=0;
 DWORD					dwRenderLoop=0;
 GAME_SETTINGS			tSettings;
+CChatWindow				*pChatWindow=0;
 CCmdWindow				*pCmdWindow=0;
 CNetGame				*pNetGame=0;
 
@@ -20,6 +21,7 @@ HANDLE					hInstance;
 // forwards
 
 BOOL SubclassGameWindow();
+void SetupCommands();
 
 void TheGameLoop();
 void TheRenderLoop();
@@ -65,9 +67,13 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			// Grab the real IDirect3DDevice8 * from the game.
 			pD3DDevice = (IDirect3DDevice8 *)pGame->GetD3DDevice();
 
+			// Create instances of the chat and input classes.
+			pChatWindow = new CChatWindow(pD3DDevice);
 			pCmdWindow = new CCmdWindow(pD3DDevice);
 
 			// TODO: DllMain
+
+			SetupCommands();
 		}
 	}
 

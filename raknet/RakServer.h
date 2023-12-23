@@ -10,7 +10,6 @@ class RAK_DLL_EXPORT RakServer : public RakServerInterface, public RakPeer
 {
 
 public:
-	RakServer();
 
 	bool Start( unsigned short AllowedPlayers, unsigned int depreciated, int threadSleepTimer, unsigned short port, const char *forceHostAddress=0 );
 
