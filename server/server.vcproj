@@ -112,10 +112,22 @@
 			Name="raknet"
 			Filter="">
 			<File
+				RelativePath="..\raknet\BitStream.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\BitStream.h">
+			</File>
+			<File
 				RelativePath="..\raknet\NetworkTypes.cpp">
 			</File>
 			<File
 				RelativePath="..\raknet\NetworkTypes.h">
+			</File>
+			<File
+				RelativePath="..\raknet\PacketEnumerations.h">
+			</File>
+			<File
+				RelativePath="..\raknet\PacketPriority.h">
 			</File>
 			<File
 				RelativePath="..\raknet\RakNetworkFactory.cpp">
@@ -140,6 +152,16 @@
 			</File>
 			<File
 				RelativePath="..\raknet\RakServerInterface.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="gamemode"
+			Filter="">
+			<File
+				RelativePath=".\gamemode\generic.cpp">
+			</File>
+			<File
+				RelativePath=".\gamemode\generic.h">
 			</File>
 		</Filter>
 		<File
@@ -167,10 +189,22 @@
 			RelativePath=".\netrpc.h">
 		</File>
 		<File
+			RelativePath=".\pickup.cpp">
+		</File>
+		<File
+			RelativePath=".\pickup.h">
+		</File>
+		<File
 			RelativePath=".\pickuppool.cpp">
 		</File>
 		<File
 			RelativePath=".\pickuppool.h">
+		</File>
+		<File
+			RelativePath=".\player.cpp">
+		</File>
+		<File
+			RelativePath=".\player.h">
 		</File>
 		<File
 			RelativePath=".\playerpool.cpp">
@@ -179,7 +213,19 @@
 			RelativePath=".\playerpool.h">
 		</File>
 		<File
+			RelativePath=".\rcon.cpp">
+		</File>
+		<File
+			RelativePath=".\rcon.h">
+		</File>
+		<File
 			RelativePath=".\system.h">
+		</File>
+		<File
+			RelativePath=".\vehicle.cpp">
+		</File>
+		<File
+			RelativePath=".\vehicle.h">
 		</File>
 		<File
 			RelativePath=".\vehiclepool.cpp">
