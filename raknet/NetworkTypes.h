@@ -24,6 +24,8 @@ struct Packet
 	char* data;
 };
 
+const PlayerID UNASSIGNED_PLAYER_ID={0xFFFFFFFF, 0xFFFF};
+
 //-----------------------------------------------------
 // RPC FUNCTION IMPLEMENTATION
 // --------------------------------------------------------

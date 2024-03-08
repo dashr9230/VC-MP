@@ -46,6 +46,16 @@ public:
 	// You can call this anytime
 	void SetPassword(char *_password);
 
+	// This function only works while the server is active (Use the Start function).  Returns false on failure, true on success
+	// Send the bitstream to whichever playerId you specify.
+	// You can set the first byte to a packet identifier, however you will need to have TYPE_CHECKING undefined or the internal type checking
+	// will add extra data and make this not work.  If you want TYPE_CHECKING on, you will need to use BitStream::WriteBits to avoid the type checking.
+	// This interface will probably change to fix this in future versions.
+	// If you aren't sure what to specify for priority and reliability, use HIGH_PRIORITY and RELIABLE, 0 for ordering stream
+	// Set broadcast to true to broadcast to all connected clients EXCEPT the one specified in the playerId field.
+	// To broadcast to everyone specify UNASSIGNED_PLAYER_ID for the playerId field.
+	bool Send(RakNet::BitStream *bitStream, PacketPriority priority, PacketReliability reliability, char orderingStream, PlayerID playerId, bool broadcast);
+
 	// Ping all players every so often.  This is on by default.  In games where you don't care about ping you can call
 	// StopOccasionalPing to save the bandwidth
 	// This will work anytime
@@ -61,6 +71,20 @@ public:
 	// This can be called whether the client is active or not, and registered functions stay registered unless unregistered with
 	// UnregisterAsRemoteProcedureCall
 	void RegisterAsRemoteProcedureCall(char* uniqueID, void (*functionName)(char *input, int numberOfBitsOfData, PlayerID sender));
+
+	// Calls a C function on the client that the client already registered using RegisterAsRemoteProcedureCall
+	// Pass the data you want to pass to that function in parameters, or 0 for no data to pass
+	// You can also pass a regular data stream which will be converted to a bitstream internally by passing data and bit length
+	// playerId and broadcast are used the same way as in Send to specify a recipient or to broadcast to all clients
+	// If you want that function to return data you should call RPC from that system in the same way
+	// Returns true on a successful packet send (this does not indicate the recipient performed the call), false on failure
+	// The uniqueID must be composed of a string with only characters from a-z and is not case sensitive
+
+	bool RPC(char* uniqueID, RakNet::BitStream *parameters, PacketPriority priority, PacketReliability reliability, char orderingStream, PlayerID playerId, bool broadcast, bool shiftTimestamp);
+
+	// This function is only useful for looping through all players.
+	// Index should range between 0 and the maximum number of players allowed - 1.
+	PlayerID GetPlayerIDFromIndex(int index);
 
 	// Description:
 	// Bans an IP from connecting.  Banned IPs persist between connections.

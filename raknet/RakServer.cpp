@@ -25,6 +25,12 @@ void RakServer::SetPassword(char *_password)
 	// TODO: RakServer::SetPassword
 }
 
+bool RakServer::Send(RakNet::BitStream *bitStream, PacketPriority priority, PacketReliability reliability, char orderingStream, PlayerID playerId, bool broadcast)
+{
+	// TODO: RakServer::Send
+	return false;
+}
+
 void RakServer::StartOccasionalPing(void)
 {
 	// TODO: RakServer::StartOccasionalPing
@@ -38,6 +44,18 @@ void RakServer::StartSynchronizedRandomInteger(void)
 void RakServer::RegisterAsRemoteProcedureCall(char* uniqueID, void (*functionName)(char *input, int numberOfBitsOfData, PlayerID sender))
 {
 	// TODO: RakServer::RegisterAsRemoteProcedureCall
+}
+
+bool RakServer::RPC(char* uniqueID, RakNet::BitStream *parameters, PacketPriority priority, PacketReliability reliability, char orderingStream, PlayerID playerId, bool broadcast, bool shiftTimestamp)
+{
+	// TODO: RakServer::RPC
+	return false;
+}
+
+PlayerID RakServer::GetPlayerIDFromIndex(int index)
+{
+	// TODO: RakServer::GetPlayerIDFromIndex
+	return UNASSIGNED_PLAYER_ID;
 }
 
 void RakServer::AddToBanList(const char *IP)
