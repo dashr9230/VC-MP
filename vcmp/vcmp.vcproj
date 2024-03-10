@@ -31,8 +31,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="d3dx8.lib winmm.lib"
 				OutputFile="$(OutDir)/vcmp.dll"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="d3d8"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/vcmp.pdb"
 				SubSystem="2"
@@ -77,8 +79,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="d3dx8.lib winmm.lib"
 				OutputFile="$(OutDir)/vcmp.dll"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="d3d8"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -153,6 +157,83 @@
 				RelativePath=".\game\util.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="general"
+			Filter="">
+			<Filter
+				Name="d3d"
+				Filter="">
+				<File
+					RelativePath=".\d3d8\include\d3d8.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3d8caps.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3d8types.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\d3dfont.cpp">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dfont.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\d3dutil.cpp">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dutil.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8core.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8effect.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8math.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8mesh.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8shape.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\d3dx8tex.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\dinput.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\dxfile.h">
+				</File>
+				<File
+					RelativePath=".\d3d8\dxutil.cpp">
+				</File>
+				<File
+					RelativePath=".\d3d8\include\dxutil.h">
+				</File>
+				<File
+					RelativePath=".\d3dhook\IDirect3DDevice8Hook.cpp">
+				</File>
+				<File
+					RelativePath=".\d3dhook\IDirect3DDevice8Hook.h">
+				</File>
+			</Filter>
+		</Filter>
+		<File
+			RelativePath=".\cmdprocs.cpp">
+		</File>
+		<File
+			RelativePath=".\cmdwindow.cpp">
+		</File>
+		<File
+			RelativePath=".\cmdwindow.h">
+		</File>
 		<File
 			RelativePath=".\exceptbox.rc">
 		</File>
@@ -167,6 +248,9 @@
 		</File>
 		<File
 			RelativePath=".\resource.h">
+		</File>
+		<File
+			RelativePath=".\subclass.cpp">
 		</File>
 	</Files>
 	<Globals>

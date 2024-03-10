@@ -10,6 +10,17 @@ DWORD dwPlayerPedPtrs[MAX_PLAYERS];
 
 //-----------------------------------------------------------
 
+void VCMP_SAFECALL GameDisableCheatCodes()
+{
+	DWORD p1,p2;
+	VirtualProtect((void*)0x602BDC,16,PAGE_EXECUTE_READWRITE,&p1);
+	*(BYTE *)0x602BDC = 0x90;
+	memset((void*)0x602BE7,0x90,5);
+	VirtualProtect((void*)0x602BDC,16,p1,&p2);
+}
+
+//-----------------------------------------------------------
+
 void VCMP_SAFECALL InitPlayerPedPtrRecords()
 {
 	memset(&dwPlayerPedPtrs[0],0,sizeof(DWORD) * MAX_PLAYERS);

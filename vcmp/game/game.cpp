@@ -5,6 +5,8 @@
 
 extern BYTE byteMapType;
 
+void GameInstallHooks();
+
 //-----------------------------------------------------------
 
 CGame::CGame()
@@ -190,6 +192,14 @@ void CGame::StartGame()
 	VirtualProtect((PVOID)0x42BD48,1,PAGE_EXECUTE_READWRITE,&dwVP);
 	*(BYTE *)0x42BD48 = 0x90;
 	VirtualProtect((PVOID)0x42BD48,1,dwVP,&dwVP2);
+
+	// Install all hooks
+	GameInstallHooks();
+
+	GameDisableCheatCodes();
+
+	*(DWORD *)ADDR_MENU = 0;
+	*(DWORD *)ADDR_STARTGAME = 1;
 }
 
 //-----------------------------------------------------------

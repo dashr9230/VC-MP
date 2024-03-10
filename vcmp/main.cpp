@@ -7,12 +7,20 @@ CGame					*pGame=0;
 DWORD					dwGameLoop=0;
 DWORD					dwRenderLoop=0;
 GAME_SETTINGS			tSettings;
+CCmdWindow				*pCmdWindow=0;
 
 BOOL					bWindowedMode=FALSE;
+
+IDirect3D8				*pD3D;
+IDirect3DDevice8		*pD3DDevice;
+IDirect3DDevice8Hook	*pD3DDeviceHook;
 
 HANDLE					hInstance;
 
 // forwards
+
+BOOL SubclassGameWindow();
+void SetupCommands();
 
 void TheGameLoop();
 void TheRenderLoop();
@@ -34,6 +42,27 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 
 			pGame = new CGame();
 			pGame->StartGame();
+
+			SubclassGameWindow();
+
+			// Time to hook directx...
+
+			// Grab the real IDirect3D8 * from the game.
+			pD3D = (IDirect3D8 *)pGame->GetD3D();
+
+			// Grab the real IDirect3DDevice8 * from the game.
+			pD3DDevice = (IDirect3DDevice8 *)pGame->GetD3DDevice();
+
+			// Create instances of our hook classes and force GTA to
+			// chew on them.
+			pD3DDeviceHook = new IDirect3DDevice8Hook;
+
+			pGame->SetD3DDevice((DWORD)pD3DDeviceHook);
+
+			// Create instances of the chat and input classes.
+			pCmdWindow = new CCmdWindow(pD3DDevice);
+
+			SetupCommands();
 		}
 		// else they must want to play single
 		// player or they got the command line

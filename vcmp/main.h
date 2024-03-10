@@ -15,7 +15,13 @@ typedef struct _GAME_SETTINGS {
 	CHAR szNickName[MAX_SETTINGS_STRING+1];
 } GAME_SETTINGS;
 
+#include "d3d8/include/d3d8.h"
+
 #include "game/game.h"
+
+#include "d3dhook/IDirect3DDevice8Hook.h"
+
+#include "cmdwindow.h"
 
 //----------------------------------------------------
 
