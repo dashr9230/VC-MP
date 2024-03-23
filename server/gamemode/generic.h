@@ -1,15 +1,18 @@
 
 #include "../main.h"
 
+#define MAX_SPAWNS 100
+
 //----------------------------------------------------
 
 class CGameModeGeneric
 {
 private:
-	char _gap0[4];
-	int field_4;
-	char _gap8[12300];
-	int field_3014;
+	BOOL				m_bGameStated;
+	int					m_iLastSpawnIssued;
+	PLAYER_SPAWN_INFO	m_AvailableSpawns[MAX_SPAWNS];
+	
+	int					m_iAvailableSpawnCount;
 public:
 
 	int Init();
@@ -18,8 +21,8 @@ public:
 	BOOL HandleSpawnClassRequest(BYTE bytePlayerID,int iSpawnType);
 
 	CGameModeGeneric() {
-		field_4 = 0;
-		field_3014 = 0;
+		m_iLastSpawnIssued = 0;
+		m_iAvailableSpawnCount = 0;
 	}
 };
 
