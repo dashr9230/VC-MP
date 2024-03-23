@@ -10,6 +10,8 @@
 class CGame
 {
 public:
+	int field_0;
+	int field_4;
 
 	void	StartGame();
 
@@ -18,12 +20,20 @@ public:
 	DWORD	GetD3D() { return *(DWORD *)ADDR_ID3D8DEVICE; };
 	HWND	GetMainWindowHwnd() { return *(HWND *)ADDR_HWND; };
 
+	//-----------------------------------------------------------
+
+	CPlayerPed  *FindPlayerPed() {
+		if(m_pInternalPlayer==NULL)	m_pInternalPlayer = new CPlayerPed();
+		return m_pInternalPlayer;
+	};
+
+	//-----------------------------------------------------------
+
 	CGame();
 
 private:
-	char _gap0[8];
 	int field_8;
-	int field_C;
+	CPlayerPed		*m_pInternalPlayer;
 	char field_10;
 };
 

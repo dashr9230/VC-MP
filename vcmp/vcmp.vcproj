@@ -83,6 +83,7 @@
 				OutputFile="$(OutDir)/vcmp.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="d3d8"
+				IgnoreDefaultLibraryNames="libci.lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -225,6 +226,58 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="raknet"
+			Filter="">
+			<File
+				RelativePath="..\raknet\BitStream.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\BitStream.h">
+			</File>
+			<File
+				RelativePath="..\raknet\NetworkTypes.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\NetworkTypes.h">
+			</File>
+			<File
+				RelativePath="..\raknet\PacketEnumerations.h">
+			</File>
+			<File
+				RelativePath="..\raknet\PacketPriority.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakNetworkFactory.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\RakNetworkFactory.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakPeer.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\RakPeer.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakPeerInterface.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakServer.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\RakServer.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakServerInterface.h">
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\chatwindow.cpp">
+		</File>
+		<File
+			RelativePath=".\chatwindow.h">
+		</File>
 		<File
 			RelativePath=".\cmdprocs.cpp">
 		</File>
@@ -241,16 +294,58 @@
 			RelativePath=".\exceptions.cpp">
 		</File>
 		<File
+			RelativePath=".\net\localplayer.cpp">
+		</File>
+		<File
+			RelativePath=".\net\localplayer.h">
+		</File>
+		<File
 			RelativePath=".\main.cpp">
 		</File>
 		<File
 			RelativePath=".\main.h">
 		</File>
 		<File
+			RelativePath=".\net\netgame.cpp">
+		</File>
+		<File
+			RelativePath=".\net\netgame.h">
+		</File>
+		<File
+			RelativePath=".\net\netrpc.cpp">
+		</File>
+		<File
+			RelativePath=".\net\netrpc.h">
+		</File>
+		<File
+			RelativePath=".\netstats.cpp">
+		</File>
+		<File
+			RelativePath=".\netstats.h">
+		</File>
+		<File
+			RelativePath=".\net\playerpool.cpp">
+		</File>
+		<File
+			RelativePath=".\net\playerpool.h">
+		</File>
+		<File
 			RelativePath=".\resource.h">
 		</File>
 		<File
+			RelativePath=".\scoreboard.cpp">
+		</File>
+		<File
+			RelativePath=".\scoreboard.h">
+		</File>
+		<File
 			RelativePath=".\subclass.cpp">
+		</File>
+		<File
+			RelativePath=".\net\vehiclepool.cpp">
+		</File>
+		<File
+			RelativePath=".\net\vehiclepool.h">
 		</File>
 	</Files>
 	<Globals>

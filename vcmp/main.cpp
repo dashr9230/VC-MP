@@ -7,6 +7,7 @@ CGame					*pGame=0;
 DWORD					dwGameLoop=0;
 DWORD					dwRenderLoop=0;
 GAME_SETTINGS			tSettings;
+CChatWindow				*pChatWindow=0;
 CCmdWindow				*pCmdWindow=0;
 
 BOOL					bWindowedMode=FALSE;
@@ -16,6 +17,8 @@ IDirect3DDevice8		*pD3DDevice;
 IDirect3DDevice8Hook	*pD3DDeviceHook;
 
 HANDLE					hInstance;
+CScoreBoard				*pScoreBoard;
+CNetStats				*pNetStats;
 
 // forwards
 
@@ -24,6 +27,12 @@ void SetupCommands();
 
 void TheGameLoop();
 void TheRenderLoop();
+
+int DetermineGTAVersion();
+
+#define UNKNOWN_VERSION	0
+#define VICE_10			1
+#define VICE_11			2
 
 //----------------------------------------------------
 
@@ -36,6 +45,13 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 		InitSettings();
 
 		if(tSettings.bDebug || tSettings.bPlayOnline) {
+
+			// Check the GTA version
+			if(DetermineGTAVersion() != VICE_10) {
+				MessageBox(0,"Incorrect gta-vc.exe version detected.\nYou must use GTA:VC 1.0 to play VC:MP","VC:MP Error",MB_OK);
+				SetForegroundWindow(HWND_DESKTOP);
+				ExitProcess(1);
+			}
 
 			dwGameLoop = (DWORD)TheGameLoop;
 			dwRenderLoop = (DWORD)TheRenderLoop;
@@ -60,7 +76,11 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 			pGame->SetD3DDevice((DWORD)pD3DDeviceHook);
 
 			// Create instances of the chat and input classes.
+			pChatWindow = new CChatWindow(pD3DDevice);
 			pCmdWindow = new CCmdWindow(pD3DDevice);
+
+			pScoreBoard = new CScoreBoard();
+			pNetStats = new CNetStats();
 
 			SetupCommands();
 		}
@@ -165,6 +185,22 @@ void SetStringFromCommandLine(char *szCmdLine, char *szString)
 		szString++; szCmdLine++;
 	}
 	*szString = '\0';
+}
+
+//----------------------------------------------------
+
+int DetermineGTAVersion()
+{
+	BYTE* VerCheck = (BYTE*)0x608578;
+
+	switch (*VerCheck)
+	{
+	case 0x81: 
+		return VICE_11;
+	case 0x5D: 
+		return VICE_10;
+	}
+	return UNKNOWN_VERSION;
 }
 
 //----------------------------------------------------

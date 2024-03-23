@@ -12,7 +12,7 @@ void GameInstallHooks();
 CGame::CGame()
 {
 	//field_8 = new void[1];
-	field_C = 0;
+	m_pInternalPlayer = NULL;
 	field_10 = 0;
 }
 

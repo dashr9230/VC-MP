@@ -21,6 +21,194 @@ void VCMP_SAFECALL GameDisableCheatCodes()
 
 //-----------------------------------------------------------
 
+PED_TYPE * VCMP_SAFECALL GamePool_Ped_GetAt(int iID)
+{
+	PED_TYPE *pActorRet;
+
+	_asm mov ebx, ADDR_PED_TABLE
+	_asm mov ecx, [ebx]
+	_asm push iID
+	_asm mov ebx, ADDR_ACTOR_FROM_ID
+	_asm call ebx
+	_asm mov pActorRet, eax
+
+	return pActorRet;
+}
+
+//-----------------------------------------------------------
+
+int VCMP_SAFECALL GamePool_Ped_GetIndex(PED_TYPE *pPed)
+{
+	int iRetVal;
+
+	_asm mov ebx, ADDR_PED_TABLE
+	_asm mov ecx, [ebx]
+	_asm push pPed
+	_asm mov ebx, ADDR_ID_FROM_ACTOR
+	_asm call ebx
+	_asm mov iRetVal, eax
+
+	return iRetVal;
+}
+
+//-----------------------------------------------------------
+
+VEHICLE_TYPE * VCMP_SAFECALL GamePool_Vehicle_GetAt(int iID)
+{
+	VEHICLE_TYPE *pVehicleRet;
+
+	_asm mov ebx, ADDR_VEHICLE_TABLE
+	_asm mov ecx, [ebx]
+	_asm push iID
+	_asm mov ebx, ADDR_VEHICLE_FROM_ID
+	_asm call ebx
+	_asm mov pVehicleRet, eax
+
+	return pVehicleRet;
+}
+
+//-----------------------------------------------------------
+
+int VCMP_SAFECALL GamePool_Vehicle_GetIndex(VEHICLE_TYPE *pVehicle)
+{
+	int iRetVal;
+
+	_asm mov ebx, ADDR_VEHICLE_TABLE
+	_asm mov ecx, [ebx]
+	_asm push pVehicle
+	_asm mov ebx, ADDR_ID_FROM_VEHICLE
+	_asm call ebx
+	_asm mov iRetVal, eax
+
+	return iRetVal;
+}
+
+//-----------------------------------------------------------
+// Return the PED_TYPE * of the local player.
+
+PED_TYPE * VCMP_SAFECALL GamePool_FindPlayerPed()
+{
+	return GamePool_Ped_GetAt(1);
+}
+
+//-----------------------------------------------------------
+// Convert weapon ID to ide model ID
+
+int VCMP_SAFECALL GameGetWeaponModelFromWeapon(int iWeaponID)
+{
+	switch(iWeaponID)
+	{
+	case WEAPON_BRASSKNUCKLE:
+		return WEAPON_MODEL_BRASSKNUCKLE;
+
+	case WEAPON_SCREWDRIVER:
+		return WEAPON_MODEL_SCREWDRIVER;
+
+	case WEAPON_GOLFCLUB:
+		return WEAPON_MODEL_GOLFCLUB;
+
+	case WEAPON_NITESTICK:
+		return WEAPON_MODEL_NITESTICK;
+
+	case WEAPON_KNIFECUR:
+		return WEAPON_MODEL_KNIFECUR;
+
+	case WEAPON_BASEBALL_BAT:
+		return WEAPON_MODEL_BASEBALL_BAT;
+
+	case WEAPON_HAMMER:
+		return WEAPON_MODEL_HAMMER;
+
+	case WEAPON_CLEAVER:
+		return WEAPON_MODEL_CLEAVER;
+
+	case WEAPON_MACHETE:
+		return WEAPON_MODEL_MACHETE;
+
+	case WEAPON_KATANA:
+		return WEAPON_MODEL_KATANA;
+
+	case WEAPON_CHAINSAW:
+		return WEAPON_MODEL_CHAINSAW;
+
+	case WEAPON_GRENADE:
+		return WEAPON_MODEL_GRENADE;
+
+	case WEAPON_TEARGAS:
+		return WEAPON_MODEL_TEARGAS;
+
+	case WEAPON_MOLOTOV:
+		return WEAPON_MODEL_MOLOTOV;
+
+	case WEAPON_MISSILE:
+		return WEAPON_MODEL_MISSILE;
+
+	case WEAPON_COLT45:
+		return WEAPON_MODEL_COLT45;
+
+	case WEAPON_PYTHON:
+		return WEAPON_MODEL_PYTHON;
+
+	case WEAPON_CHROMEGUN:
+		return WEAPON_MODEL_CHROMEGUN;
+
+	case WEAPON_SHOTGSPA:
+		return WEAPON_MODEL_SHOTGSPA;
+
+	case WEAPON_BUDDYSHOT:
+		return WEAPON_MODEL_BUDDYSHOT;
+
+	case WEAPON_TEC9:
+		return WEAPON_MODEL_TEC9;
+
+	case WEAPON_UZI:
+		return WEAPON_MODEL_UZI;
+
+	case WEAPON_INGRAMSL:
+		return WEAPON_MODEL_INGRAMSL;
+
+	case WEAPON_MP5LNG:
+		return WEAPON_MODEL_MP5LNG;
+
+	case WEAPON_M4:
+		return WEAPON_MODEL_M4;
+
+	case WEAPON_RUGER:
+		return WEAPON_MODEL_RUGER;
+
+	case WEAPON_SNIPER:
+		return WEAPON_MODEL_SNIPER;
+
+	case WEAPON_LASER:
+		return WEAPON_MODEL_LASER;
+
+	case WEAPON_ROCKETLA:
+		return WEAPON_MODEL_ROCKETLA;
+
+	case WEAPON_FLAME:
+		return WEAPON_MODEL_FLAME;
+
+	case WEAPON_M60:
+		return WEAPON_MODEL_M60;
+
+	case WEAPON_MINIGUN:
+		return WEAPON_MODEL_MINIGUN;
+
+	case WEAPON_BOMB:
+		return WEAPON_MODEL_BOMB;
+
+	case WEAPON_HELICANNON:
+		return WEAPON_MODEL_M60;
+
+	case WEAPON_CAMERA:
+		return WEAPON_MODEL_CAMERA;
+	}
+
+	return -1;
+}
+
+//-----------------------------------------------------------
+
 void VCMP_SAFECALL InitPlayerPedPtrRecords()
 {
 	memset(&dwPlayerPedPtrs[0],0,sizeof(DWORD) * MAX_PLAYERS);
