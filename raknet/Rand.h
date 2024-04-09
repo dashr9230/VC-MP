@@ -7,15 +7,29 @@
 
 // Refer to the appropriate license agreement for distribution, modification, and warranty rights.
 
-#ifndef __RAK_PEER_INTERFACE_H
-#define __RAK_PEER_INTERFACE_H
+#ifndef __RAND_H
+#define __RAND_H 
+/**
+ * Initialise seed for Random Generator
+ * @param seed The initial value of the pseudo random suite. 
+ */
+extern void seedMT( unsigned int seed ); // Defined in cokus_c.c
 
-#include "NetworkTypes.h"
+/**
+ * @todo Document this function 
+ */
+extern unsigned int reloadMT( void );
 
-class RakPeerInterface
-{
-public:
+/**
+ * Get next random value from the generator 
+ * @return an integer random value. 
+ */
+extern unsigned int randomMT( void );
 
-};
+/**
+ * Get next random value form the generator 
+ * @return a real random value. 
+ */
+extern float frandomMT( void );
 
 #endif

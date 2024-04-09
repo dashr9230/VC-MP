@@ -9,7 +9,15 @@
 
 #include "RakNetworkFactory.h"
 #include "RakServerInterface.h"
+#include "RakClientInterface.h"
 #include "RakServer.h"
+#include "RakClient.h"
+
+// Returns a new instance of the network client.
+RakClientInterface* RakNetworkFactory::GetRakClientInterface(void)
+{
+	return new RakClient;
+}
 
 // Returns a new instance of the network server.
 RakServerInterface* RakNetworkFactory::GetRakServerInterface(void)

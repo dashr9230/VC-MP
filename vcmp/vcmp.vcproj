@@ -230,10 +230,25 @@
 			Name="raknet"
 			Filter="">
 			<File
+				RelativePath="..\raknet\ArrayList.h">
+			</File>
+			<File
+				RelativePath="..\raknet\BigTypes.h">
+			</File>
+			<File
 				RelativePath="..\raknet\BitStream.cpp">
 			</File>
 			<File
 				RelativePath="..\raknet\BitStream.h">
+			</File>
+			<File
+				RelativePath="..\raknet\GetTime.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\GetTime.h">
+			</File>
+			<File
+				RelativePath="..\raknet\MTUSize.h">
 			</File>
 			<File
 				RelativePath="..\raknet\NetworkTypes.cpp">
@@ -246,6 +261,18 @@
 			</File>
 			<File
 				RelativePath="..\raknet\PacketPriority.h">
+			</File>
+			<File
+				RelativePath="..\raknet\Queue.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakClient.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\RakClient.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakClientInterface.h">
 			</File>
 			<File
 				RelativePath="..\raknet\RakNetworkFactory.cpp">
@@ -270,6 +297,30 @@
 			</File>
 			<File
 				RelativePath="..\raknet\RakServerInterface.h">
+			</File>
+			<File
+				RelativePath="..\raknet\Rand.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\Rand.h">
+			</File>
+			<File
+				RelativePath="..\raknet\ReliabilityLayer.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\ReliabilityLayer.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RSACrypt.h">
+			</File>
+			<File
+				RelativePath="..\raknet\SimpleMutex.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\SimpleMutex.h">
+			</File>
+			<File
+				RelativePath="..\raknet\Types.h">
 			</File>
 		</Filter>
 		<File

@@ -11,6 +11,10 @@ CNetGame::CNetGame(PCHAR szHostOrIp, int iPort,
 	m_pPlayerPool->SetLocalPlayerName(szPlayerName);
 
 	m_pVehiclePool = new CVehiclePool();
+
+	m_pRakClient = RakNetworkFactory::GetRakClientInterface();
+
+	m_pRakClient->InitializeSecurity(0,0);
 }
 
 //----------------------------------------------------

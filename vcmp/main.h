@@ -7,6 +7,8 @@
 #define MAX_PLAYER_NAME		24
 #define MAX_SETTINGS_STRING 128
 
+#define SAFE_DELETE(p)       { if(p) { delete (p);     (p)=NULL; } }
+
 typedef struct _GAME_SETTINGS {
 	BOOL bDebug;
 	BOOL bPlayOnline;
@@ -23,7 +25,9 @@ typedef struct _GAME_SETTINGS {
 
 #include "d3dhook/IDirect3DDevice8Hook.h"
 
+#include "../raknet/RakClient.h"
 #include "../raknet/RakNetworkFactory.h"
+#include "../raknet/BitStream.h"
 
 #include "net/localplayer.h"
 #include "net/playerpool.h"

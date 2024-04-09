@@ -7,15 +7,37 @@
 
 // Refer to the appropriate license agreement for distribution, modification, and warranty rights.
 
-#ifndef __RAK_PEER_INTERFACE_H
-#define __RAK_PEER_INTERFACE_H
+#ifndef __SIMPLE_MUTEX_H
+#define __SIMPLE_MUTEX_H
 
-#include "NetworkTypes.h"
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <pthread.h>
+#include <sys/types.h>
+#endif
 
-class RakPeerInterface
+class SimpleMutex
 {
 public:
 
+	/// Constructor
+	SimpleMutex();
+	
+	// Destructor
+	~SimpleMutex();
+	
+	// Locks the mutex.  Slow!
+	void Lock(void);
+	
+	// Unlocks the mutex.
+	void Unlock(void);
+private:
+	#ifdef _WIN32
+	CRITICAL_SECTION criticalSection; /// Docs say this is faster than a mutex for single process access
+	#else
+	pthread_mutex_t hMutex;
+	#endif
 };
 
 #endif
