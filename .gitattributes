@@ -1,0 +1,5 @@
+*.sln text eol=crlf
+*.vcproj text eol=crlf
+*.cpp text eol=crlf
+*.h text eol=crlf
+
