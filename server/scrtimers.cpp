@@ -1,9 +1,23 @@
 
 #include "main.h"
 
+//----------------------------------------------------------------------------------
+
 CScriptTimers::CScriptTimers()
 {
 	m_dwTimerCount = 0;
+}
+
+//----------------------------------------------------------------------------------
+
+CScriptTimers::~CScriptTimers()
+{
+	DwordTimerMap::iterator itor;
+	for (itor = m_Timers.begin(); itor != m_Timers.end(); itor++)
+	{
+		SAFE_DELETE(itor->second);
+	}
+	m_Timers.clear();
 }
 
 //----------------------------------------------------------------------------------
@@ -14,24 +28,12 @@ DWORD CScriptTimers::New(char* szScriptFunc, int iInterval, BOOL bRepeating, AMX
 
 	ScriptTimer_s* NewTimer = new ScriptTimer_s;
 
-	//if(iInterval < 500) iInterval = 500;
-
 	strncpy(NewTimer->szScriptFunc, szScriptFunc, 255);
 	NewTimer->iTotalTime = iInterval;
 	NewTimer->iRemainingTime = iInterval;
 	NewTimer->bRepeating = bRepeating;
 	NewTimer->pAMX = pAMX;
-	// Checks if it's called from a filterscript, if not, mark it for destruction at gamemode end
-	/*if (pAMX == pNetGame->GetGameMode()->GetGameModePointer())
-	{
-		NewTimer->bFilterscript = false;
-		//print("GM");
-	}
-	else
-	{
-		NewTimer->bFilterscript = true;
-		//print("FS");
-	}*/
+
 	m_Timers.insert(DwordTimerMap::value_type(m_dwTimerCount, NewTimer));
 	return m_dwTimerCount;
 }

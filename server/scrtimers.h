@@ -20,6 +20,7 @@ private:
 	DWORD m_dwTimerCount;
 public:
 	CScriptTimers();
+	~CScriptTimers();
 
 	DWORD New(char* szScriptFunc, int iInterval, BOOL bRepeating, AMX* pAMX);
 	void Delete(DWORD dwTimerId);

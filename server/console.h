@@ -25,6 +25,7 @@ public:
 	StringConvarMap ConsoleVariables;
 
 	CConsole();
+	~CConsole();
 
 	ConsoleVariable_s* FindVariable(char* pVarName);
 
@@ -32,7 +33,7 @@ public:
 		VARCHANGEFUNC VarChangeFunc = NULL);
 	char* AddStringVariable(char* pVarName, DWORD VarFlags, char* pInitStr,
 		VARCHANGEFUNC VarChangeFunc = NULL);
-
+	void RemoveVariable(char* pVarName);
 	void ModifyVariableFlags(char* pVarName, DWORD VarFlags);
 
 	char* GetStringVariable(char* pVarName);

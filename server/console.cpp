@@ -22,6 +22,11 @@ CConsole::CConsole()
 
 }
 
+CConsole::~CConsole()
+{
+	ConsoleVariables.clear();
+}
+
 ConsoleVariable_s* CConsole::FindVariable(char* pVarName)
 {
 	char VarName[255];
@@ -77,6 +82,24 @@ char* CConsole::AddStringVariable(char* pVarName, DWORD VarFlags, char* pInitStr
 	}
 	AddVariable(pVarName, CON_VARTYPE_STRING, VarFlags, (void*)str, VarChangeFunc);
 	return str;
+}
+
+void CConsole::RemoveVariable(char* pVarName)
+{
+	ConsoleVariable_s* ConVar = FindVariable(pVarName);
+	if (ConVar != NULL)
+	{
+		if (ConVar->VarType == CON_VARTYPE_STRING)
+		{
+			if (ConVar->VarPtr != NULL)
+				free(ConVar->VarPtr);
+		}
+		char VarName[255];
+		strncpy(VarName, pVarName, 255);
+		strlwr(VarName);
+		SAFE_DELETE(ConVar);
+		ConsoleVariables.erase(VarName);
+	}
 }
 
 void CConsole::ModifyVariableFlags(char* pVarName, DWORD VarFlags)

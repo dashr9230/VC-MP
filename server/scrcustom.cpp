@@ -44,7 +44,7 @@ static cell AMX_NATIVE_CALL n_SetTeamCount(AMX *amx, cell *params)
 }
 
 //----------------------------------------------------------------------------------
-
+// native AddPlayerClass(modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, Float:z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
 static cell AMX_NATIVE_CALL n_AddPlayerClass(AMX *amx, cell *params)
 {
 	PLAYER_SPAWN_INFO Spawn;
@@ -65,11 +65,12 @@ static cell AMX_NATIVE_CALL n_AddPlayerClass(AMX *amx, cell *params)
 	Spawn.iSpawnWeaponsAmmo[2] = (int)params[11];
 
 	pNetGame->AddSpawn(&Spawn);
+
 	return 0;
 }
 
 //----------------------------------------------------------------------------------
-
+// native AddPlayerClassEx(teamid, modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, Float:z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
 static cell AMX_NATIVE_CALL n_AddPlayerClassEx(AMX *amx, cell *params)
 {
 	PLAYER_SPAWN_INFO Spawn;
@@ -91,11 +92,13 @@ static cell AMX_NATIVE_CALL n_AddPlayerClassEx(AMX *amx, cell *params)
 	Spawn.iSpawnWeaponsAmmo[2] = (int)params[12];
 
 	pNetGame->AddSpawn(&Spawn);
+
 	return 0;
 }
 
 //----------------------------------------------------------------------------------
 
+// native AddStaticVehicle(modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, Float:z_angle, color1, color2)
 static cell AMX_NATIVE_CALL n_AddStaticVehicle(AMX *amx, cell *params)
 {
 	CHECK_PARAMS(7);
@@ -105,14 +108,14 @@ static cell AMX_NATIVE_CALL n_AddStaticVehicle(AMX *amx, cell *params)
 	vecPos.Y = amx_ctof(params[3]);
 	vecPos.Z = amx_ctof(params[4]);
 
-	BYTE ret = pNetGame->GetVehiclePool()->New((BYTE)params[1], &vecPos, amx_ctof(params[5]),
+	BYTE ret = pNetGame->GetVehiclePool()->New(params[1], &vecPos, amx_ctof(params[5]),
 		(int)params[6], (int)params[7]);
 
 	return ret;
 }
 
 //----------------------------------------------------------------------------------
-
+// native AddStaticVehicleEx(modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, Float:z_angle, color1, color2)
 static cell AMX_NATIVE_CALL n_AddStaticVehicleEx(AMX *amx, cell *params)
 {
 	CHECK_PARAMS(7);
@@ -122,7 +125,7 @@ static cell AMX_NATIVE_CALL n_AddStaticVehicleEx(AMX *amx, cell *params)
 	vecPos.Y = amx_ctof(params[3]);
 	vecPos.Z = amx_ctof(params[4]);
 
-	BYTE ret = pNetGame->GetVehiclePool()->New((BYTE)params[1], &vecPos, amx_ctof(params[5]),
+	BYTE ret = pNetGame->GetVehiclePool()->New(params[1], &vecPos, amx_ctof(params[5]),
 		(int)params[6], (int)params[7]);
 
 	return ret;
@@ -374,7 +377,7 @@ AMX_NATIVE_INFO custom_Natives[] =
 
 int amx_CustomInit(AMX *amx)
 {
-	return amx_Register(amx, custom_Natives, -1);
+  return amx_Register(amx, custom_Natives, -1);
 }
 
 //----------------------------------------------------------------------------------
