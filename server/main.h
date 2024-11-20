@@ -6,8 +6,10 @@
 // DEFINES
 // -------
 
+#define MAX_PLAYER_NAME			24
 #define MAX_PLAYERS				50
 #define MAX_VEHICLES			200
+#define MAX_PICKUPS				336
 #define MAX_FILTER_SCRIPTS		15
 
 #define DEFAULT_MAX_PLAYERS		50
@@ -28,7 +30,7 @@
 // ------------
 
 #ifdef WIN32
-	//#define WIN32_LEAN_AND_MEAN
+	#define WIN32_LEAN_AND_MEAN
 	#define SLEEP(x) { Sleep(x); }
 	#define _cst(t,m) (t*m)
 
@@ -55,6 +57,7 @@
 // RakNet
 #include "../raknet/RakServer.h"
 #include "../raknet/RakNetworkFactory.h"
+#include "../raknet/BitStream.h"
 #include "../raknet/PacketEnumerations.h"
 
 // amx

@@ -74,14 +74,10 @@ BOOL CNetGame::SetNextScriptFile(char *szFile)
 		// if it's still NULL then we've got an error.
 		if(!szTemp || !strlen(szTemp)) return FALSE;
 
-		//logprintf("szTemp is %s\n",szTemp);
-
 		sscanf(szTemp,"%s%d",szConfigFileName,&iConfigRepeatCount);
 
 		// set it and verify the file is readable
 		sprintf(szGameModeFile,"gamemodes/%s.amx",szConfigFileName);
-
-		//logprintf("Set szGameModeFile to %s\n",szGameModeFile);
 
 		if(!CanFileBeOpenedForReading(szGameModeFile)) {
 			return FALSE;
@@ -92,8 +88,6 @@ BOOL CNetGame::SetNextScriptFile(char *szFile)
 		}
 
 		m_iCurrentGameModeRepeat--;
-
-		//logprintf("Repeat is %d ConfigRepeat is %d\n",m_iCurrentGameModeRepeat,iConfigRepeatCount);
 
 		m_bFirstGameModeLoaded = TRUE;
 
@@ -133,7 +127,7 @@ void CNetGame::Init()
 		m_pVehiclePool = new CVehiclePool();
 	}
 
-	// Setup pickup pool
+	// Setup pick up pool
 	if(!m_pPickUpPool) {
 		m_pPickUpPool = new CPickUpPool();
 	}
@@ -263,6 +257,10 @@ void CNetGame::Process()
 	}
 }
 
+//----------------------------------------------------
+// UPDATE NETWORK
+//----------------------------------------------------
+
 void CNetGame::UpdateNetwork()
 {
 	Packet* p;
@@ -270,7 +268,6 @@ void CNetGame::UpdateNetwork()
 	while(p=m_pRak->Receive())
 	{
 		switch(p->data[0]) {
-
 		case ID_DISCONNECTION_NOTIFICATION:
 			m_pPlayerPool->Delete((BYTE)p->playerIndex,1);
 			break;
@@ -295,10 +292,16 @@ void CNetGame::UpdateNetwork()
 	}
 }
 
+//----------------------------------------------------
+// PACKET HANDLERS
+//----------------------------------------------------
+
 void CNetGame::PlayerSync(Packet *p)
 {
 	// TODO: CNetGame::PlayerSync
 }
+
+//----------------------------------------------------
 
 void CNetGame::AimSync(Packet *p)
 {
@@ -315,20 +318,20 @@ void CNetGame::PassengerSync(Packet *p)
 	// TODO: CNetGame::PassengerSync
 }
 
+
+//----------------------------------------------------
+
 void CNetGame::LoadBanList()
 {
 	FILE * fileBanList = fopen("vcmp-svr.banlist","r");
+	if(!fileBanList) return;
 
-	if(!fileBanList) {
-		return;
-	}
-
-	char tmpban_ip[256];
+	char ban_ip[256];
 
 	while(!feof(fileBanList)) {
-		fgets(tmpban_ip,256,fileBanList);
-		tmpban_ip[strlen(tmpban_ip) - 1] = 0;
-		m_pRak->AddToBanList(tmpban_ip);
+		fgets(ban_ip,256,fileBanList);
+		ban_ip[strlen(ban_ip) - 1] = '\0';
+		m_pRak->AddToBanList(ban_ip);
 	}
 
 	fclose(fileBanList);
@@ -368,3 +371,5 @@ int CNetGame::CanFileBeOpenedForReading(char * filename)
 	}
 	return 0;
 }
+
+//----------------------------------------------------

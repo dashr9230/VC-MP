@@ -8,9 +8,7 @@ DWORD dwPickupTime = _cst(90,800);
 CPickup::CPickup(int iType, VECTOR *vecPos, int iAmount)
 {
 	m_iType = iType;
-	m_vecPos.X = vecPos->X;
-	m_vecPos.Y = vecPos->Y;
-	m_vecPos.Z = vecPos->Z;
+	m_vecPos = *vecPos;
 	m_iAmount = iAmount;
 	field_18 = 1;
 }

@@ -55,7 +55,6 @@ bool CFilterScripts::LoadFilterScript(char* pFileName)
 	amx_StringInit(amx);
 	amx_FileInit(amx);
 	amx_TimeInit(amx);
-	//amx_DGramInit(amx);
 	amx_CustomInit(amx);
 
 	int tmp;

@@ -10,7 +10,7 @@ private:
 
 	BOOL	m_bPlayerSlotState[MAX_PLAYERS];
 	CPlayer *m_pPlayers[MAX_PLAYERS];
-	int field_190[50];
+	int field_190[MAX_PLAYERS];
 	CHAR	m_szPlayerName[MAX_PLAYERS][MAX_PLAYER_NAME+1];
 	int 	m_iPlayerScore[MAX_PLAYERS];
 	int		m_iPlayerMoney[MAX_PLAYERS];

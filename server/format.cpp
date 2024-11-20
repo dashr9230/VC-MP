@@ -156,22 +156,10 @@ void AddInt(U **buf_p, size_t &maxlen, int val, int width, int flags)
 		val /= 10;
 	} while (val);
 
-	//if (signedVal < 0)
-		//text[digits++] = '-';
+	if (signedVal < 0)
+		text[digits++] = '-';
 		
 	buf = *buf_p;
-
-	if (signedVal < 0)
-	{
-		if (flags & ZEROPAD)
-		{
-			*buf++ = '-';
-		}
-		else
-		{
-			text[digits++] = '-';
-		}
-	}
 
 	if( !(flags & LADJUST) )
 	{
@@ -201,7 +189,6 @@ void AddInt(U **buf_p, size_t &maxlen, int val, int width, int flags)
 
 	*buf_p = buf;
 }
-
 
 template <typename D, typename S>
 size_t atcprintf(D *buffer, size_t maxlen, const S *format, AMX *amx, cell *params, int *param)
@@ -253,20 +240,11 @@ reswitch:
 			flags |= LADJUST;
 			goto rflag;
 		case '.':
-			if (( ch = static_cast<D>(*fmt)) == '*')
-			{
-				prec = *get_amxaddr(amx, params[arg++]);
-				fmt++;
-				goto rflag;
-			}
-			else
-			{
-				n = 0;
-				while( is_digit( ( ch = static_cast<D>(*fmt++)) ) )
-					n = 10 * n + ( ch - '0' );
-				prec = n < 0 ? -1 : n;
-				goto reswitch;
-			}
+			n = 0;
+			while( is_digit( ( ch = static_cast<D>(*fmt++)) ) )
+				n = 10 * n + ( ch - '0' );
+			prec = n < 0 ? -1 : n;
+			goto reswitch;
 		case '0':
 			flags |= ZEROPAD;
 			goto rflag;
@@ -286,9 +264,6 @@ reswitch:
 			} while( is_digit( ch ) );
 			width = n;
 			goto reswitch;
-		case '*':
-			width = *get_amxaddr(amx, params[arg++]);
-			goto rflag;
 		case 'c':
 			*buf_p++ = static_cast<D>(*get_amxaddr(amx, params[arg]));
 			arg++;

@@ -9,13 +9,12 @@ extern char szGameModeFileName[256];
 class CGameMode
 {
 private:
-
 	AMX m_amx;
 	bool m_bInitialised;
 	bool m_bSleeping;
 	float m_fSleepTime;
-	CScriptTimers* m_pScriptTimers;
 
+	CScriptTimers* m_pScriptTimers;
 public:
 
 	CGameMode();
