@@ -11,6 +11,7 @@ extern CNetGame* pNetGame;
 
 //----------------------------------------------------------------------------------
 
+// native GameModeExit()
 static cell AMX_NATIVE_CALL n_GameModeExit(AMX *amx, cell *params)
 {
 	if(pNetGame->SetNextScriptFile(NULL)) {
@@ -25,6 +26,7 @@ static cell AMX_NATIVE_CALL n_GameModeExit(AMX *amx, cell *params)
 
 //----------------------------------------------------------------------------------
 
+// native SetGameModeText(const string[])
 static cell AMX_NATIVE_CALL n_SetGameModeText(AMX *amx, cell *params)
 {
 	CHECK_PARAMS(1);
@@ -38,6 +40,7 @@ static cell AMX_NATIVE_CALL n_SetGameModeText(AMX *amx, cell *params)
 
 //----------------------------------------------------------------------------------
 
+// native SetTeamCount(count)
 static cell AMX_NATIVE_CALL n_SetTeamCount(AMX *amx, cell *params)
 {
 	return 0;
@@ -70,6 +73,7 @@ static cell AMX_NATIVE_CALL n_AddPlayerClass(AMX *amx, cell *params)
 }
 
 //----------------------------------------------------------------------------------
+// native AddPlayerClassEx(teamid, modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, Float:z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
 // native AddPlayerClassEx(teamid, modelid, Float:spawn_x, Float:spawn_y, Float:spawn_z, Float:z_angle, weapon1, weapon1_ammo, weapon2, weapon2_ammo, weapon3, weapon3_ammo)
 static cell AMX_NATIVE_CALL n_AddPlayerClassEx(AMX *amx, cell *params)
 {
@@ -108,7 +112,7 @@ static cell AMX_NATIVE_CALL n_AddStaticVehicle(AMX *amx, cell *params)
 	vecPos.Y = amx_ctof(params[3]);
 	vecPos.Z = amx_ctof(params[4]);
 
-	BYTE ret = pNetGame->GetVehiclePool()->New(params[1], &vecPos, amx_ctof(params[5]),
+	BYTE ret = pNetGame->GetVehiclePool()->New((int)params[1], &vecPos, amx_ctof(params[5]),
 		(int)params[6], (int)params[7]);
 
 	return ret;
@@ -125,7 +129,7 @@ static cell AMX_NATIVE_CALL n_AddStaticVehicleEx(AMX *amx, cell *params)
 	vecPos.Y = amx_ctof(params[3]);
 	vecPos.Z = amx_ctof(params[4]);
 
-	BYTE ret = pNetGame->GetVehiclePool()->New(params[1], &vecPos, amx_ctof(params[5]),
+	BYTE ret = pNetGame->GetVehiclePool()->New((int)params[1], &vecPos, amx_ctof(params[5]),
 		(int)params[6], (int)params[7]);
 
 	return ret;
@@ -133,7 +137,7 @@ static cell AMX_NATIVE_CALL n_AddStaticVehicleEx(AMX *amx, cell *params)
 
 //----------------------------------------------------------------------------------
 
-// native AddStaticPickup(id,type,Float:X,Float:Y,Float:Z,amount);
+// native AddStaticPickup(id,type,Float:X,Float:Y,Float:Z,amount)
 static cell AMX_NATIVE_CALL n_AddStaticPickup(AMX *amx, cell *params)
 {
 	VECTOR vecPos;
@@ -141,7 +145,7 @@ static cell AMX_NATIVE_CALL n_AddStaticPickup(AMX *amx, cell *params)
 	vecPos.Y = amx_ctof(params[4]);
 	vecPos.Z = amx_ctof(params[5]);
 
-	pNetGame->GetPickupPool()->New((int)params[1], (int)params[2], &vecPos, (int)params[6]);
+	pNetGame->GetPickupPool()->New(params[1], params[2], &vecPos, params[6]);
 	return 1;
 }
 
@@ -163,13 +167,13 @@ static cell AMX_NATIVE_CALL n_AddStaticPickup(AMX *amx, cell *params)
 //----------------------------------------------------------------------------------
 
 // native print(const string[])
-static cell AMX_NATIVE_CALL n_print(AMX* amx, cell* params)
+static cell AMX_NATIVE_CALL n_print(AMX *amx, cell *params)
 {
 	CHECK_PARAMS(1);
 
 	char* msg;
 	amx_StrParam(amx, params[1], msg);
-	logprintf("%s",msg);
+	logprintf(msg);
 	return 0;
 }
 
@@ -179,7 +183,7 @@ static cell AMX_NATIVE_CALL n_print(AMX* amx, cell* params)
 static cell AMX_NATIVE_CALL n_printf(AMX *amx, cell *params)
 {
 	int len;
-	logprintf("%s",format_amxstring(amx, params, 1, len));
+	logprintf(format_amxstring(amx, params, 1, len));
 
 	return 0;
 }
@@ -189,8 +193,8 @@ static cell AMX_NATIVE_CALL n_printf(AMX *amx, cell *params)
 // native format(output[], len, const format[], {Float,_}:...)
 static cell AMX_NATIVE_CALL n_format(AMX *amx, cell *params)
 {
-  int len;
-  return set_amxstring(amx, params[1], format_amxstring(amx, params, 3, len), params[2]);
+	int len;
+	return set_amxstring(amx, params[1], format_amxstring(amx, params, 3, len), params[2]);
 }
 
 //----------------------------------------------------------------------------------
@@ -236,8 +240,7 @@ static cell AMX_NATIVE_CALL n_GetTickCount(AMX *amx, cell *params)
 static cell AMX_NATIVE_CALL n_GetMaxPlayers(AMX *amx, cell *params)
 {
 	CHECK_PARAMS(0);
-	
-	extern CConsole *pConsole;
+
 	return pConsole->GetIntVariable("maxplayers");
 }
 

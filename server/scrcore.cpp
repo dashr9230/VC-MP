@@ -1,6 +1,9 @@
 
 #include "main.h"
+#include <ctype.h>
 #include "format.h"
+
+//----------------------------------------------------------------------------------
 
 int AMXAPI aux_LoadProgram(AMX* amx, char* filename)
 {
@@ -32,7 +35,6 @@ int AMXAPI aux_LoadProgram(AMX* amx, char* filename)
 	fread(memblock, 1, (size_t)hdr.size, fp);
 	fclose(fp);
 
-	//amx_SetDebugHook(amx, (AMX_DEBUG)amx_Debug);
 	memset(amx, 0, sizeof(*amx));
 	int result = amx_Init(amx, memblock);
 	if (result != AMX_ERR_NONE)
@@ -99,8 +101,8 @@ void AMXPrintError(CGameMode* pGameMode, AMX *amx, int error)
 {
 	if (error != AMX_ERR_NONE)
 	{
-		logprintf("Script[%s]: Run time error %d: \"%s\"",// on line %ld\n",
-			pGameMode->GetFileName(), error, aux_StrError(error));//, (long)amx->curline);
+		logprintf("Script[%s]: Run time error %d: \"%s\"",
+			pGameMode->GetFileName(), error, aux_StrError(error));
 	}
 }
 
@@ -108,19 +110,19 @@ void AMXPrintError(CGameMode* pGameMode, AMX *amx, int error)
 
 cell* get_amxaddr(AMX *amx,cell amx_addr)
 {
-  return (cell *)(amx->base + (int)(((AMX_HEADER *)amx->base)->dat + amx_addr));
+	return (cell *)(amx->base + (int)(((AMX_HEADER *)amx->base)->dat + amx_addr));
 }
 
 //----------------------------------------------------------------------------------
 
 int set_amxstring(AMX *amx,cell amx_addr,const char *source,int max)
 {
-  cell* dest = (cell *)(amx->base + (int)(((AMX_HEADER *)amx->base)->dat + amx_addr));
-  cell* start = dest;
-  while (max--&&*source)
-    *dest++=(cell)*source++;
-  *dest = 0;
-  return dest-start;
+	cell* dest = (cell *)(amx->base + (int)(((AMX_HEADER *)amx->base)->dat + amx_addr));
+	cell* start = dest;
+	while (max--&&*source)
+		*dest++=(cell)*source++;
+	*dest = 0;
+	return dest-start;
 }
 
 //----------------------------------------------------------------------------------
