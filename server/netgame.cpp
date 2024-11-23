@@ -43,8 +43,12 @@ CNetGame::~CNetGame()
 	delete m_pPlayerPool;
 }
 
-
-
+//----------------------------------------------------
+// Handles rotation and setting of the current
+// script file to be used. If szFile is NULL, it
+// will attempt to rotate scripts as per configuration.
+// returns FALSE if it was not able to set the script,
+// true otherwise.
 
 BOOL CNetGame::SetNextScriptFile(char *szFile)
 {

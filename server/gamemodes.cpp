@@ -33,6 +33,14 @@ CGameMode::CGameMode()
 
 //----------------------------------------------------------------------------------
 
+CGameMode::~CGameMode()
+{
+	Unload();
+	SAFE_DELETE(m_pScriptTimers);
+}
+
+//----------------------------------------------------------------------------------
+
 bool CGameMode::Load(char* pFileName)
 {
 	if (m_bInitialised)
