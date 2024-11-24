@@ -4,8 +4,6 @@
 
 extern char szGameModeFileName[256];
 
-//----------------------------------------------------------------------------------
-
 class CGameMode
 {
 private:
@@ -16,7 +14,6 @@ private:
 
 	CScriptTimers* m_pScriptTimers;
 public:
-
 	CGameMode();
 	~CGameMode();
 
@@ -26,8 +23,22 @@ public:
 	bool Load(char* pFileName);
 	void Unload();
 	void Frame(float fElapsedTime);
+
+	int CallPublic(char* szFuncName);
+
+	int OnPlayerConnect(cell playerid);
+	int OnPlayerVersion(cell playerid, cell version);
+	int OnPlayerDisconnect(cell playerid, cell reason);
+	int OnPlayerSpawn(cell playerid, cell classid, cell team);
+	int OnPlayerDeath(cell playerid, cell killerid, cell reason, cell bodypart);
+	int OnVehicleDeath(cell vehicleid, cell killerid);
+	int OnPlayerTyping(cell playerid);
+	int OnPlayerEndTyping(cell playerid);
+	int OnPlayerText(cell playerid, char * szText);
+	int OnPlayerPrivmsg(cell playerid, cell toplayerid, char * szText);
+	int OnPlayerTeamPrivmsg(cell playerid, char * szText);
+	int OnPlayerCommandText(cell playerid, char * szCommandText);
+	int OnRconCommand(char* szCommand);
 };
 
-//----------------------------------------------------------------------------------
-
-#endif // VCMPSRV_GAMEMODES_H
+#endif

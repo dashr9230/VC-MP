@@ -34,3 +34,12 @@ void CPlayer::BroadcastSyncData()
 {
 	// TODO: CPlayer::BroadcastSyncData
 }
+
+//----------------------------------------------------
+
+void CPlayer::Say(PCHAR szText, BYTE byteTextLength)
+{
+
+}
+
+//----------------------------------------------------

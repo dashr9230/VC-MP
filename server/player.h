@@ -39,6 +39,7 @@ public:
 	BOOL ValidateSyncData();
 	void BroadcastSyncData();
 
+	void Say(PCHAR szText, BYTE byteTextLength);
 	void SetID(BYTE bytePlayerID) { m_bytePlayerID = bytePlayerID; };
 };
 

@@ -78,6 +78,7 @@ void CScriptTimers::Process(int iElapsedTime)
 						amx_Exec(itor->second->pAMX, &ret, idx);
 					}
 				}
+				itor = itor_tmp;
 			}
 			else
 			{
@@ -94,8 +95,11 @@ void CScriptTimers::Process(int iElapsedTime)
 					}
 				}
 				Delete(itor->first);
+				itor = itor_tmp;
 			}
 		}
 		if (itor == m_Timers.end()) break;
 	}
 }
+
+//----------------------------------------------------------------------------------
