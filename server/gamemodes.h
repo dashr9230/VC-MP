@@ -31,6 +31,7 @@ public:
 	int OnPlayerDisconnect(cell playerid, cell reason);
 	int OnPlayerSpawn(cell playerid, cell classid, cell team);
 	int OnPlayerDeath(cell playerid, cell killerid, cell reason, cell bodypart);
+	int OnVehicleSpawn();
 	int OnVehicleDeath(cell vehicleid, cell killerid);
 	int OnPlayerTyping(cell playerid);
 	int OnPlayerEndTyping(cell playerid);
@@ -38,6 +39,15 @@ public:
 	int OnPlayerPrivmsg(cell playerid, cell toplayerid, char * szText);
 	int OnPlayerTeamPrivmsg(cell playerid, char * szText);
 	int OnPlayerCommandText(cell playerid, char * szCommandText);
+	int OnPlayerInfoChange(cell playerid);
+	int OnPlayerRequestClass(cell playerid, cell classid, cell skinid);
+	int OnPlayerRequestSpawn(cell playerid);
+	int OnPlayerEnterVehicle(cell playerid, cell vehicleid, cell ispassenger);
+	int OnPlayerExitVehicle(cell playerid, cell vehicleid);
+	int OnPlayerStateChange(cell playerid, cell newstate, cell oldstate);
+	int OnPlayerEnterCheckpoint(cell playerid);
+	int OnPlayerLeaveCheckpoint(cell playerid);
+	int OnPickedUp(cell pickupid, cell playerid);
 	int OnRconCommand(char* szCommand);
 };
 
