@@ -1,6 +1,6 @@
 
-#ifndef _RCON_H_INCLUDED
-#define _RCON_H_INCLUDED
+#ifndef VCMPSRV_RCON_H
+#define VCMPSRV_RCON_H
 
 class CRcon
 {
@@ -10,9 +10,12 @@ private:
 public:
 
 	CRcon(WORD iPort, char* szPass, WORD iMaxAdmins);
-	~CRcon(void);
+	~CRcon();
 
-	void Process(void);
+	void Process();
+
+	void ConsoleOutput(char* szOutput);
+	void ConsolePrintf( char* szFormat, ... );
 
 	void Packet_NewIncomingConnection(Packet* pPacket);
 	void Packet_DisconnectionNotification(Packet* pPacket);

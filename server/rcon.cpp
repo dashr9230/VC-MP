@@ -9,7 +9,7 @@ CRcon::CRcon(WORD iPort, char* szPass, WORD iMaxAdmins)
 	m_pRak->SetPassword(szPass);
 	szAdminPass = szPass;
 
-	for(int i=0; i<8; i++) {
+	for(int i = 0; i < 8; i++) {
 		field_4[i] = 0;
 	}
 
@@ -27,7 +27,7 @@ CRcon::~CRcon()
 		RakNetworkFactory::DestroyRakServerInterface(m_pRak);
 }
 
-void CRcon::Process(void)
+void CRcon::Process()
 {
 	if (!m_pRak)
 		return;
@@ -52,6 +52,32 @@ void CRcon::Process(void)
 		}
 		m_pRak->DeallocatePacket(pPacket);
 	}
+}
+
+void CRcon::ConsoleOutput(char* szOutput)
+{
+	if (!m_pRak) return;
+
+	BYTE bytePacketId = ID_RCON_RESPONSE;
+	RakNet::BitStream bsResponce;
+	bsResponce.Write(bytePacketId);
+	DWORD dwRespLen = (DWORD)strlen(szOutput);
+	bsResponce.Write(dwRespLen);
+	bsResponce.Write(szOutput, dwRespLen);
+
+	m_pRak->Send(&bsResponce, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_PLAYER_ID, TRUE);
+}
+
+void CRcon::ConsolePrintf( char* szFormat, ... )
+{
+	char tmp_buf[2048];
+
+	va_list args;
+	va_start(args, szFormat);
+	vsprintf(tmp_buf, szFormat, args);
+	va_end(args);
+
+	ConsoleOutput(tmp_buf);
 }
 
 void CRcon::Packet_NewIncomingConnection(Packet* pPacket)
