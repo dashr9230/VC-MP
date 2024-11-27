@@ -1,26 +1,19 @@
 
 #include "main.h"
 
-extern CNetGame *pNetGame;
+DWORD dwPickupTime = TIME_COUNT(72000,90);
 
-DWORD dwPickupTime = _cst(90,800);
+//----------------------------------------------------
 
-CPickup::CPickup(int iType, VECTOR *vecPos, int iAmount)
+CPickup::CPickup(int iType, VECTOR * vecPos, int iAmount)
 {
 	m_iType = iType;
 	m_vecPos = *vecPos;
 	m_iAmount = iAmount;
-	field_18 = 1;
+	m_bIsSpawned = TRUE;
 }
 
-void CPickup::Process()
-{
-	if(!field_18 && (pNetGame->GetCount() - field_1C) > dwPickupTime)
-	{
-		field_18 = 1;
-		SpawnForPlayer(INVALID_PLAYER_ID);
-	}
-}
+//----------------------------------------------------
 
 BOOL CPickup::ValidateSyncData()
 {
@@ -40,6 +33,30 @@ BOOL CPickup::ValidateSyncData()
 void CPickup::SpawnForPlayer(BYTE bytePlayerID)
 {
 	if(ValidateSyncData()) {
-		// TODO: CPickup::SpawnForPlayer
+		RakNet::BitStream bsPickupSpawn;
+
+		bsPickupSpawn.Write(bytePlayerID);
+		bsPickupSpawn.Write(m_iPickupID);
+		bsPickupSpawn.Write(m_iType);
+		bsPickupSpawn.Write(m_vecPos.X);
+		bsPickupSpawn.Write(m_vecPos.Y);
+		bsPickupSpawn.Write(m_vecPos.Z);
+		bsPickupSpawn.Write(m_iAmount);
+		bsPickupSpawn.Write(m_bIsSpawned);
+
+		pNetGame->GetRakServer()->RPC("PickupSpawn",&bsPickupSpawn,
+			HIGH_PRIORITY,RELIABLE,0,UNASSIGNED_PLAYER_ID,true,false);
+	}
+}
+
+void CPickup::Process()
+{
+	if(!m_bIsSpawned)
+	{
+		if((pNetGame->GetCount() - m_dwRespawnTime) > dwPickupTime)
+		{
+			m_bIsSpawned = TRUE;
+			SpawnForPlayer(INVALID_PLAYER_ID);
+		}
 	}
 }

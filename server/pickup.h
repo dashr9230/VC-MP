@@ -9,17 +9,18 @@ private:
 	int			m_iType;
 	int			m_iAmount;
 	VECTOR		m_vecPos;
-	int field_18;
-	DWORD field_1C;
+	BOOL		m_bIsSpawned;
+	DWORD		m_dwRespawnTime;
+
 public:
+	CPickup(int iType, VECTOR * vecPos, int iAmount);
+	~CPickup(){};
 
-	CPickup(int iType, VECTOR *vecPos, int iAmount);
+	void SetID(int iPickupID) { m_iPickupID = iPickupID; };
 
-	void SetID(int iPickupID) { m_iPickupID = iPickupID; }
-
-	void Process();
-	void SpawnForPlayer(BYTE bytePlayerID);
 	BOOL ValidateSyncData();
+	void SpawnForPlayer(BYTE bytePlayerID);
+	void Process();
 };
 
 #endif

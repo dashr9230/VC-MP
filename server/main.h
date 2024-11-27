@@ -17,6 +17,7 @@
 #define DEFAULT_RCON_PORT		8190
 #define DEFAULT_RCON_MAXUSERS	8
 
+#define ARRAY_SIZE(a)	( sizeof((a)) / sizeof(*(a)) )
 #define SAFE_DELETE(p)	{ if (p) { delete (p); (p) = NULL; } }
 
 // ------------
@@ -32,15 +33,15 @@
 #ifdef WIN32
 	#define WIN32_LEAN_AND_MEAN
 	#define SLEEP(x) { Sleep(x); }
-	#define _cst(t,m) (t*m)
+	#define TIME_COUNT(t1,t2) (t1)
 
 	#include <windows.h>
 	#include <malloc.h>
 #else
 	#define SLEEP(x) { usleep(x * 1000); }
-	#define _cst(t,m) (t)
 
 	#include <unistd.h>
+	#define TIME_COUNT(t1,t2) (t2)
 #endif
 
 // --------
@@ -86,6 +87,7 @@
 
 extern CConsole* pConsole;
 extern CNetGame* pNetGame;
+extern CRcon *pRcon;
 
 // -------------------
 // FUNCTION PROTOTYPES
