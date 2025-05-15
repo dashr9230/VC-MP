@@ -8,4 +8,5 @@ A work-in-progress matching decompilation of the 0.3z version of Vice City Multi
 | Name | Status | MD5 |
 | --- | --- | --- |
 | announce.exe | 100.0% (134 / 134) | `A400CFA73AB98B0E21ABA723079CD49B` |
+| rcon.exe | 0% (0 / 745) | `92DB7A4D3DCEEA23D47337142D3FD664` |
 <!-- DECOMPINFOEND -->
