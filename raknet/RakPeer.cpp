@@ -1,86 +1,49 @@
-
+/* -*- mode: c++; c-file-style: raknet; tab-always-indent: nil; -*- */
+/**
+ * @file
+ * @brief RakPeer Implementation
+ *
+ * This file is part of RakNet Copyright 2003, 2004 Rakkarsoft LLC and
+ * Kevin Jenkins.
+ *
+ * Usage of Raknet is subject to the appropriate licence agreement.
+ * "Shareware" Licensees with Rakkarsoft LLC are subject to the
+ * shareware license found at
+ * http://www.rakkarsoft.com/shareWareLicense.html which you agreed to
+ * upon purchase of a "Shareware license" "Commercial" Licensees with
+ * Rakkarsoft LLC are subject to the commercial license found at
+ * http://www.rakkarsoft.com/sourceCodeLicense.html which you agreed
+ * to upon purchase of a "Commercial license" All other users are
+ * subject to the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your
+ * option) any later version.
+ *
+ * Refer to the appropriate license agreement for distribution,
+ * modification, and warranty rights.
+ */
 #include "RakPeer.h"
-
-#include "GetTime.h"
-#include "Rand.h"
-
-static const unsigned int SYN_COOKIE_OLD_RANDOM_NUMBER_DURATION = 5000;
-
-RakPeer::RakPeer()
-{
-	memset(frequencyTable, 0, sizeof(unsigned long) * 256);
-	connectionSocket=INVALID_SOCKET;
-	MTUSize=DEFAULT_MTU_SIZE;
-	field_9=0;
-	field_7=0;
-	endThreads=true;
-	field_5=0;
-	field_6=0;
-	connectionSocket=INVALID_SOCKET;
-	myPlayerId=UNASSIGNED_PLAYER_ID;
-
-	// TODO: RakPeer::RakPeer()
-}
 
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Description:
-// Must be called while offline
-// Secures connections though a combination of SHA1, AES128, SYN Cookies, and RSA to prevent
-// connection spoofing, replay attacks, data eavesdropping, packet tampering, and MitM attacks.
-// There is a significant amount of processing and a slight amount of bandwidth
-// overhead for this feature.
-//
-// If you accept connections, you must call this or else secure connections will not be enabled
-// for incoming connections.
-// If you are connecting to another system, you can call this with values for the
-// (e and p,q) public keys before connecting to prevent MitM
+// Fills the array remoteSystems with the playerID of all the systems we are connected to
 //
 // Parameters:
-// pubKeyE, pubKeyN - A pointer to the public keys from the RSACrypt class. See the Encryption sample
-// privKeyP, privKeyQ - Private keys generated from the RSACrypt class.  See the Encryption sample
-// If the private keys are 0, then a new key will be generated when this function is called
+// remoteSystems (out): An array of PlayerID structures to be filled with the PlayerIDs of the systems we are connected to
+// - pass 0 to remoteSystems to only get the number of systems we are connected to
+// numberOfSystems (int, out): As input, the size of remoteSystems array.  As output, the number of elements put into the array
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void RakPeer::InitializeSecurity(const char *pubKeyE, const char *pubKeyN, const char *privKeyP, const char *privKeyQ )
+bool RakPeer::GetConnectionList( PlayerID *remoteSystems, unsigned short *numberOfSystems ) const
 {
-	if ( endThreads == false )
-		return ;
-
-	// Setting the client key is e,n,
-	// Setting the server key is p,q
-	if ( ( privKeyP && privKeyQ && ( pubKeyE || pubKeyN ) ) ||
-		( pubKeyE && pubKeyN && ( privKeyP || privKeyQ ) ) ||
-		( privKeyP && privKeyQ == 0 ) ||
-		( privKeyQ && privKeyP == 0 ) ||
-		( pubKeyE && pubKeyN == 0 ) ||
-		( pubKeyN && pubKeyE == 0 ) )
-	{
-		// Invalid parameters
-		assert( 0 );
-	}
-
-	seedMT( RakNet::GetTime() );
-
-	GenerateSYNCookieRandomNumber();
-
-	usingSecurity = true;
-
-
-	// TODO: RakPeer::InitializeSecurity
+	return false;
 }
 
 
-// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void RakPeer::GenerateSYNCookieRandomNumber( void )
+
+#ifdef _WIN32
+void __stdcall ProcessNetworkPacket( unsigned int binaryAddress, unsigned short port, char *data, int length, RakPeer *rakPeer )
+#else
+void ProcessNetworkPacket( unsigned int binaryAddress, unsigned short port, char *data, int length, RakPeer *rakPeer )
+#endif
 {
-	unsigned int number;
-	int i;
-	memcpy( oldRandomNumber, newRandomNumber, sizeof( newRandomNumber ) );
-
-	for ( i = 0; i < sizeof( newRandomNumber ); i += sizeof( number ) )
-	{
-		number = randomMT();
-		memcpy( newRandomNumber + i, ( char* ) & number, sizeof( number ) );
-	}
-
-	randomNumberExpirationTime = RakNet::GetTime() + SYN_COOKIE_OLD_RANDOM_NUMBER_DURATION;
+	// TODO: ProcessNetworkPacket
 }

@@ -14,8 +14,8 @@
 SimpleMutex::SimpleMutex()
 {
 #ifdef _WIN32
-	//	hMutex = CreateMutex(NULL, FALSE, 0);
-	//	assert(hMutex);
+//	hMutex = CreateMutex(NULL, FALSE, 0);
+//	assert(hMutex);
 	InitializeCriticalSection(&criticalSection);
 #else
 	int error = pthread_mutex_init(&hMutex, 0);
@@ -26,7 +26,7 @@ SimpleMutex::SimpleMutex()
 SimpleMutex::~SimpleMutex()
 {
 #ifdef _WIN32
-	//	CloseHandle(hMutex);
+//	CloseHandle(hMutex);
 	DeleteCriticalSection(&criticalSection);
 #else
 	pthread_mutex_destroy(&hMutex);
@@ -41,31 +41,31 @@ SimpleMutex::~SimpleMutex()
 
 void SimpleMutex::Lock(void)
 {
-#ifdef _WIN32
+	#ifdef _WIN32
 	/*
 	DWORD d = WaitForSingleObject(hMutex, INFINITE);
 	#ifdef _DEBUG
 	if (d==WAIT_FAILED)
 	{
-	LPVOID messageBuffer;
-	FormatMessage( 
-	FORMAT_MESSAGE_ALLOCATE_BUFFER | 
-	FORMAT_MESSAGE_FROM_SYSTEM | 
-	FORMAT_MESSAGE_IGNORE_INSERTS,
-	NULL,
-	GetLastError(),
-	MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-	(LPTSTR) &messageBuffer,
-	0,
-	NULL 
-	);
-	// Process any inserts in messageBuffer.
-	// ...
-	// Display the string.
-	//MessageBox( NULL, (LPCTSTR)messageBuffer, "Error", MB_OK | MB_ICONINFORMATION );
-	printf("SimpleMutex error: %s", messageBuffer);
-	// Free the buffer.
-	LocalFree( messageBuffer );
+		LPVOID messageBuffer;
+		FormatMessage( 
+			FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+			FORMAT_MESSAGE_FROM_SYSTEM | 
+			FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL,
+			GetLastError(),
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+			(LPTSTR) &messageBuffer,
+			0,
+			NULL 
+		);
+		// Process any inserts in messageBuffer.
+		// ...
+		// Display the string.
+		//MessageBox( NULL, (LPCTSTR)messageBuffer, "Error", MB_OK | MB_ICONINFORMATION );
+		printf("SimpleMutex error: %s", messageBuffer);
+		// Free the buffer.
+		LocalFree( messageBuffer );
 
 	}
 
@@ -73,19 +73,20 @@ void SimpleMutex::Lock(void)
 	*/
 	EnterCriticalSection(&criticalSection);
 
-#else
+	#else
 	int error = pthread_mutex_lock(&hMutex);
 	assert(error==0);
-#endif
+	#endif
 }
 
 void SimpleMutex::Unlock(void)
 {
 #ifdef _WIN32
-	//	ReleaseMutex(hMutex);
+//	ReleaseMutex(hMutex);
 	LeaveCriticalSection(&criticalSection);
 #else
 	int error = pthread_mutex_unlock(&hMutex);
 	assert(error==0);
 #endif
 }
+

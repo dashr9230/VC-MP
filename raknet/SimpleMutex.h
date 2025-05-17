@@ -20,24 +20,18 @@
 class SimpleMutex
 {
 public:
-
-	/// Constructor
 	SimpleMutex();
-	
-	// Destructor
 	~SimpleMutex();
-	
-	// Locks the mutex.  Slow!
 	void Lock(void);
-	
-	// Unlocks the mutex.
 	void Unlock(void);
 private:
 	#ifdef _WIN32
-	CRITICAL_SECTION criticalSection; /// Docs say this is faster than a mutex for single process access
+	//HANDLE hMutex;
+	CRITICAL_SECTION criticalSection; // Docs say this is faster than a mutex for single process access
 	#else
 	pthread_mutex_t hMutex;
 	#endif
 };
 
 #endif
+
