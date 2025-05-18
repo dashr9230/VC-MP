@@ -336,16 +336,13 @@ int SocketLayer::RecvFrom( SOCKET s, RakPeer *rakPeer, int *errorCode )
 		*errorCode = SOCKET_ERROR;
 		return SOCKET_ERROR;
 	}
-	
-	len2 = sizeof( sa );
-	sa.sin_family = AF_INET;
+
 	len = recvfrom( s, data, MAXIMUM_MTU_SIZE, 0, ( sockaddr* ) & sa, ( socklen_t* ) & len2 );
-	portnum = ntohs( sa.sin_port );
 	
 	// if (len>0)
 	//  printf("Got packet on port %i\n",ntohs(sa.sin_port));
 	
-	if ( len == 0 )
+	/*if ( len == 0 )
 	{
 #ifdef _DEBUG
 		printf( "Error: recvfrom returned 0 on a connectionless blocking call\non port %i.  This is a bug with Zone Alarm.  Please turn off Zone Alarm.\n", ntohs( sa.sin_port ) );
@@ -354,10 +351,11 @@ int SocketLayer::RecvFrom( SOCKET s, RakPeer *rakPeer, int *errorCode )
 		
 		*errorCode = SOCKET_ERROR;
 		return SOCKET_ERROR;
-	}
+	}*/
 	
-	if ( len > 0 )
+	if ( len != SOCKET_ERROR )
 	{
+		portnum = ntohs( sa.sin_port );
 		//strcpy(ip, inet_ntoa(sa.sin_addr));
 		//if (strcmp(ip, "0.0.0.0")==0)
 		// strcpy(ip, "127.0.0.1");
