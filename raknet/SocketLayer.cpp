@@ -534,7 +534,7 @@ void SocketLayer::GetMyIP( char ipList[ 10 ][ 16 ] )
 		
 		memcpy( &addr, phe->h_addr_list[ i ], sizeof( struct in_addr ) );
 		//cout << "Address " << i << ": " << inet_ntoa(addr) << endl;
-		strncpy( ipList[ i ], inet_ntoa( addr ), 16 );
+		strcpy( ipList[ i ], inet_ntoa( addr ) );
 	}
 }
 
