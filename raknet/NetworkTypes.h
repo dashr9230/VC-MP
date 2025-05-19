@@ -40,8 +40,7 @@ typedef unsigned short PlayerIndex;
  * This define a Player Unique Identifier.
  * In fact, it corresponds to the peer address.
  */
-#pragma pack(push,1)
-
+#pragma pack(1)
 struct PlayerID
 {
 	/**
@@ -82,12 +81,39 @@ struct PlayerID
 	 * @return 0 if left and right corresponds to the same player 1 otherwise
 	 */
 	friend int operator!=( const PlayerID& left, const PlayerID& right );
-
-
-	// TODO: struct PlayerID
 };
 
-#pragma pack(pop)
+
+/**
+ * @brief Connection request handling
+ *
+ * This structure is used internaly to store the connection request
+ * @internal
+ */
+
+struct RequestedConnectionStruct
+{
+	/**
+	 * Who we wanted to connect to.
+	 */
+	PlayerID playerId;
+	/**
+	 * When will we requested this connection.
+	 */
+	unsigned int time;
+	/**
+	 * Security key
+	 */
+	unsigned char AESKey[ 16 ];
+	/**
+	 * true if security policy are enabled
+	 */
+	bool setAESKey;
+	/**
+	 * Next time we will try to connect
+	 */
+	unsigned int nextRequestTime;
+};
 
 /**
  * @brief Network Packet
@@ -95,7 +121,6 @@ struct PlayerID
  * This structure store information concerning
  * a packet going throught the network
  */
-#pragma pack(push,1)
 
 struct Packet
 {
@@ -126,6 +151,128 @@ struct Packet
 	unsigned char* data;
 };
 
+/**
+ * @brief Store Accepted Connection
+ *
+ * Handle active connection.
+ * @internal
+ */
+#pragma pack(push,1)
+#pragma pack(1)
+
+struct ConnectionAcceptStruct
+{
+	/**
+	 *
+	 */
+	unsigned char typeId;
+	/**
+	 * peer port
+	 */
+	unsigned short remotePort;
+	/**
+	 * We tell the remote system its own IP / port this way
+	 */
+	PlayerID externalID;
+	/**
+	 * Index of the player
+	 */
+	PlayerIndex playerIndex;
+};
+
+/**
+ * @brief Store Ping informations
+ * Handle Pinging operations
+ * @internal
+ */
+#pragma pack(1)
+
+struct PingStruct
+{
+	/**
+	 * ID_PING or ID_PONG
+	 */
+	unsigned char typeId;
+	/**
+	 * Limit for sending next ping packet
+	 */
+	unsigned int sendPingTime;
+	/**
+	 * Limit for sending next pong packet
+	 */
+	unsigned int sendPongTime;
+};
+
+/**
+ * @brief Store Unconnected ping informations
+ *
+ * @internal
+ */
+#pragma pack(1)
+
+struct UnconnectedPingStruct
+{
+	/**
+	 * ID_PING or ID_PONG
+	 */
+	unsigned char typeId;
+	/**
+	 *
+	 */
+	unsigned int sendPingTime;
+};
+
+/**
+ * @brief Synchronized Random Number
+ * Timestamp automatically used for this type of packet
+ * @internal
+ */
+#pragma pack(1)
+
+struct SetRandomNumberSeedStruct
+{
+	/**
+	 * ID_TIMESTAMP
+	 */
+	unsigned char ts;
+	/**
+	 * Timestamp value
+	 */
+	unsigned int timeStamp;
+	/**
+	 * ID_SET_RANDOM_NUMBER_SEED
+	 */
+	unsigned char typeId;
+	/**
+	 * Seed value
+	 */
+	unsigned int seed;
+	/**
+	 * NextSeed value
+	 */
+	unsigned int nextSeed;
+};
+
+/**
+ * @brief Incoming Connection
+ * Manage incoming connection
+ *
+ * @internal
+ */
+#pragma pack(1)
+
+struct NewIncomingConnectionStruct
+{
+	/**
+	 * ID_NEW_INCOMING_CONNECTION
+	 */
+	unsigned char typeId;
+	/**
+	 * We tell the remote system its own IP / port this way
+	 */
+	PlayerID externalID;
+};
+
 #pragma pack(pop)
 
 /**
@@ -140,5 +287,10 @@ const PlayerID UNASSIGNED_PLAYER_ID =
  * Invalid Object Unique Id
  */
 const ObjectID UNASSIGNED_OBJECT_ID = 65535;
+
+/**
+ * Sizeof the Ping Array
+ */
+const int PING_TIMES_ARRAY_SIZE = 5;
 
 #endif

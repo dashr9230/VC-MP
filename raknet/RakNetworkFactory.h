@@ -27,6 +27,10 @@
 
 class RakClientInterface;
 
+class RakServerInterface;
+
+class RakPeerInterface;
+
 #ifdef _WIN32
 #define RAK_DLL_EXPORT __declspec(dllexport)
 #else 
@@ -57,12 +61,26 @@ public:
 	 * Returns a new instance of the network client.
 	 */
 	static RakClientInterface* GetRakClientInterface( void );
-
+	/**
+	 * Returns a new instance of the network server.
+	 */
+	static RakServerInterface* GetRakServerInterface( void );
+	/**
+	 * Returns a new instance of the network server.
+	 */
+	static RakPeerInterface* GetRakPeerInterface( void );
 	/**
 	 * Destroys an instance of the network client.
 	 */
 	static void DestroyRakClientInterface( RakClientInterface* i );
-
+	/**
+	 * Destroys an instance of the network server.
+	 */
+	static void DestroyRakServerInterface( RakServerInterface* i );
+	/**
+	 * Destroys an instance of the network server.
+	 */
+	static void DestroyRakPeerInterface( RakPeerInterface* i );
 };
 
 #endif

@@ -41,17 +41,32 @@ class InternalPacketPool
 {
 
 public:
+	/**
+	 * Constructor
+	 */
+	InternalPacketPool();
+
+	/**
+	 * Destructor
+	 */
+	~InternalPacketPool();
 
 	/**
 	 * Retrieve a new InternalPacket instance. 
 	 * @return a pointer to an InternalPacket structure. 
 	 */
 	InternalPacket* GetPointer( void );
+
 	/**
 	 * Free am InternalPacket instance
 	 * @param p a pointer to the InternalPacket instance. 
 	 */
 	void ReleasePointer( InternalPacket *p );
+
+	/**
+	 * Clear the pool
+	 */
+	void ClearPool( void );
 
 	/**
 	 * static function because only static functions can access static members
@@ -78,7 +93,12 @@ private:
 	 * Multithread access management 
 	 */
 	SimpleMutex poolMutex;
-
+#ifdef _DEBUG
+	/**
+	 * Used in debugging stage to monitor the number of internal packet released.
+	 */
+	int packetsReleased;
+#endif
 };
 
 #endif

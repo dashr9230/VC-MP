@@ -23,6 +23,41 @@
  */
 #include "InternalPacketPool.h"
 InternalPacketPool InternalPacketPool::I;
+#include <assert.h>
+
+InternalPacketPool::InternalPacketPool()
+{
+#ifdef _DEBUG
+	packetsReleased = 0;
+#endif
+
+	// Speed things up by not reallocating at runtime when a mutex is locked.
+	pool.clearAndForceAllocation( 1024 );
+}
+
+InternalPacketPool::~InternalPacketPool()
+{
+#ifdef _DEBUG
+	// If this assert hits then not all packets given through GetPointer have been returned to ReleasePointer
+	assert( packetsReleased == 0 );
+#endif
+
+	ClearPool();
+}
+
+void InternalPacketPool::ClearPool( void )
+{
+	InternalPacket * p;
+	poolMutex.Lock();
+
+	while ( pool.size() )
+	{
+		p = pool.pop();
+		delete p;
+	}
+
+	poolMutex.Unlock();
+}
 
 InternalPacket* InternalPacketPool::GetPointer( void )
 {

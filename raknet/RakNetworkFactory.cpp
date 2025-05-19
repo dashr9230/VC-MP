@@ -22,8 +22,12 @@
  * modification, and warranty rights.
  */
 #include "RakNetworkFactory.h"
+#include "RakServerInterface.h"
 #include "RakClientInterface.h"
+#include "RakServer.h"
 #include "RakClient.h"
+#include "RakPeerInterface.h"
+#include "RakPeer.h"
 
 // Returns a new instance of the network client.
 RakClientInterface* RakNetworkFactory::GetRakClientInterface( void )
@@ -31,8 +35,32 @@ RakClientInterface* RakNetworkFactory::GetRakClientInterface( void )
 	return new RakClient;
 }
 
+// Returns a new instance of the network server.
+RakServerInterface* RakNetworkFactory::GetRakServerInterface( void )
+{
+	return new RakServer;
+}
+
+// Returns a new instance of the network peer.
+RakPeerInterface* RakNetworkFactory::GetRakPeerInterface( void )
+{
+	return new RakPeer;
+}
+
 // Destroys an instance of the network client;
 void RakNetworkFactory::DestroyRakClientInterface( RakClientInterface* i )
 {
 	delete ( RakClient* ) i;
 }
+
+// Destroys an instance of the network server;
+void RakNetworkFactory::DestroyRakServerInterface( RakServerInterface* i )
+{
+	delete ( RakServer* ) i;
+}
+
+void RakNetworkFactory::DestroyRakPeerInterface( RakPeerInterface* i )
+{
+	delete ( RakPeer* ) i;
+}
+

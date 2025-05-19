@@ -47,20 +47,45 @@
  */
 
 enum {
-
-
-	ID_CONNECTION_BANNED = 17,   //!< [PEER|CLIENT] We are banned from the system we attempted to connect to.
+	//
+	// RESERVED TYPES - DO NOT CHANGE THESE
+	//
+	// Ignore these:
+	ID_PING,   //!< Ping (internal use only)
+	ID_PING_OPEN_CONNECTIONS,   //!< Only reply to the unconnected ping if we have open connections
+	ID_REQUEST_STATIC_DATA,   //!< Someone asked for our static data (internal use only)
+	ID_CONNECTION_REQUEST,   //!< Asking for a new connection (internal use only)
+	ID_SECURED_CONNECTION_RESPONSE,   //!< Connecting to a secured server/peer
+	ID_SECURED_CONNECTION_CONFIRMATION,   //!< Connecting to a secured server/peer
+	ID_RPC,   //!< Remote procedure call (internal use only)
+	ID_BROADCAST_PINGS,   //!< Server / Client only - The server is broadcasting the pings of all players in the game (internal use only)
+	ID_SET_RANDOM_NUMBER_SEED,   //!< Server / Client only - The server is broadcasting a random number seed (internal use only)
+	ID_RPC_WITH_TIMESTAMP,   //!< Same as RPC, but treat the first 4 bytes as a timestamp
+	//Handle these below.  Possible recipients in [...]
+	ID_PONG,   //!< [CLIENT|PEER] Pong.  Returned if we ping a system we are not connected so.  First byte is ID_PONG, second 4 bytes is the ping, following bytes is system specific enumeration data.
+	ID_RSA_PUBLIC_KEY_MISMATCH,   //!< [CLIENT|PEER] We preset an RSA public key which does not match what the system we connected to is using.
+	ID_REMOTE_DISCONNECTION_NOTIFICATION,   //!< [CLIENT] In a client/server enviroment, a client other than ourselves has disconnected gracefully.  Packet::playerID is modified to reflect the playerID of this client.
+	ID_REMOTE_CONNECTION_LOST,   //!< [CLIENT] In a client/server enviroment, a client other than ourselves has been forcefully dropped. Packet::playerID is modified to reflect the playerID of this client.
+	ID_REMOTE_NEW_INCOMING_CONNECTION,   //!< [CLIENT] In a client/server enviroment, a client other than ourselves has connected.  Packet::playerID is modified to reflect the playerID of this client.
+	ID_REMOTE_EXISTING_CONNECTION,   //!< [CLIENT] On our initial connection to the server, we are told of every other client in the game.  Packet::playerID is modified to reflect the playerID of this client.
+	ID_REMOTE_STATIC_DATA,   //!< [CLIENT] - Got the data for another client
+	ID_CONNECTION_BANNED,   //!< [PEER|CLIENT] We are banned from the system we attempted to connect to.
 	ID_CONNECTION_REQUEST_ACCEPTED,   //!< [CLIENT] In a client/server enviroment, our connection request to the server has been accepted.
-
-	ID_NO_FREE_INCOMING_CONNECTIONS = 20,   //!< [PEER|CLIENT] The system we attempted to connect to is not accepting new connections.
+	ID_NEW_INCOMING_CONNECTION,   //!< [PEER|SERVER] A remote system has successfully connected.
+	ID_NO_FREE_INCOMING_CONNECTIONS,   //!< [PEER|CLIENT] The system we attempted to connect to is not accepting new connections.
 	ID_DISCONNECTION_NOTIFICATION,   //!< [PEER|SERVER|CLIENT] The system specified in Packet::playerID has disconnected from us.  For the client, this would mean the server has shutdown.
 	ID_CONNECTION_LOST,   //!< [PEER|SERVER|CLIENT] Reliable packets cannot be delivered to the system specifed in Packet::playerID.  The connection to that system has been closed.
-
-	ID_INVALID_PASSWORD = 25,   //!< [PEER|CLIENT] The remote system is using a password and has refused our connection because we did not set the correct password.
+	ID_TIMESTAMP,   //!< [PEER|SERVER|CLIENT] The four bytes following this byte represent an unsigned int which is automatically modified by the difference in system times between the sender and the recipient. Requires that you call StartOccasionalPing.
+	ID_RECEIVED_STATIC_DATA,   //!< [PEER|SERVER|CLIENT] We got a bitstream containing static data.  You can now read this data. This packet is transmitted automatically on connections, and can also be manually sent.
+	ID_INVALID_PASSWORD,   //!< [PEER|CLIENT] The remote system is using a password and has refused our connection because we did not set the correct password.
+	ID_MODIFIED_PACKET,   //!< [PEER|SERVER|CLIENT] A packet has been tampered with in transit.  The sender is contained in Packet::playerID.
+	ID_REMOTE_PORT_REFUSED,   //!< [PEER|SERVER|CLIENT] The remote host is not accepting data on this port.  This only comes up when connecting to yourself on the same computer and there is no bound socket on that port.
 
 	ID_UPDATE_DISTRIBUTED_NETWORK_OBJECT = 29,   //!< [CLIENT|SERVER] Indicates creation or update of a distributed network object.  Pass to DistributedNetworkObjectManager::Instance()->HandleDistributedNetworkObjectPacket
 	ID_DISTRIBUTED_NETWORK_OBJECT_CREATION_ACCEPTED,   //!< [CLIENT] Client creation of a distributed network object was accepted.  Pass to DistributedNetworkObjectManager::Instance()->HandleDistributedNetworkObjectPacketCreationAccepted
 	ID_DISTRIBUTED_NETWORK_OBJECT_CREATION_REJECTED,   //!< [CLIENT] Client creation of a distributed network object was rejected.  Pass to DistributedNetworkObjectManager::Instance()->HandleDistributedNetworkObjectPacketCreationRejected
+
+	ID_ADVERTISE_SYSTEM = 42,   //!< [PEER|SERVER|CLIENT] Inform a remote system of our IP/Port.
 
 	// VC:MP 0.3z packets
 
