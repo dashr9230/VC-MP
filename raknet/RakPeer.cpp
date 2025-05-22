@@ -3010,7 +3010,8 @@ void ProcessNetworkPacket( unsigned int binaryAddress, unsigned short port, char
 			}
 
 			else
-				if ( rakPeer->incomingPasswordBitStream.GetNumberOfBytesUsed() == passwordLength &&
+				if ( rakPeer->incomingPasswordBitStream.GetNumberOfBytesUsed() == 0 || 
+					rakPeer->incomingPasswordBitStream.GetNumberOfBytesUsed() == passwordLength &&
 					memcmp( password, rakPeer->incomingPasswordBitStream.GetData(), passwordLength ) == 0 )
 				{
 					if ( rakPeer->usingSecurity == false )
