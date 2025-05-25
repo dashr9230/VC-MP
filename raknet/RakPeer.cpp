@@ -1075,7 +1075,7 @@ void RakPeer::UnregisterAsRemoteProcedureCall( char* uniqueID )
 
 	char uppercaseUniqueID[ 256 ];
 
-	strncpy( uppercaseUniqueID, uniqueID, 256 );
+	strcpy( uppercaseUniqueID, uniqueID );
 
 	int counter = 0;
 
