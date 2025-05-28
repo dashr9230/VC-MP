@@ -1345,7 +1345,7 @@ void RakPeer::AddToBanList( const char *IP )
 	banListMutex.Unlock();
 
 	IPCopy = new char [ 16 ];
-	strncpy( IPCopy, IP, 16 );
+	strcpy( IPCopy, IP );
 	banListMutex.Lock();
 	banList.insert( IPCopy );
 	banListMutex.Unlock();
