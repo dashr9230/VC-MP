@@ -2946,6 +2946,9 @@ void __stdcall ProcessNetworkPacket( unsigned int binaryAddress, unsigned short 
 void ProcessNetworkPacket( unsigned int binaryAddress, unsigned short port, char *data, int length, RakPeer *rakPeer )
 #endif
 {
+	if ( length == 0 )
+		return;
+
 	PlayerID playerId;
 	unsigned i;
 	playerId.binaryAddress = binaryAddress;
