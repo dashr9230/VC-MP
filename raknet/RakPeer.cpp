@@ -561,11 +561,11 @@ void RakPeer::Disconnect( unsigned int blockDuration )
 	while ( isMainLoopThreadActive )
 #ifdef _WIN32
 
-		Sleep( 15 );
+		Sleep( 10 );
 
 #else
 
-		usleep( 15 * 1000 );
+		usleep( 10 * 1000 );
 
 #endif
 
