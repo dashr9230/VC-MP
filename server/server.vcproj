@@ -31,6 +31,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)/server.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
@@ -67,7 +68,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="4"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -76,6 +77,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="wsock32.lib"
 				OutputFile="$(OutDir)/server.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
@@ -112,10 +114,127 @@
 			Name="raknet"
 			Filter="">
 			<File
+				RelativePath="..\raknet\AES128.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\AES128.h">
+			</File>
+			<File
+				RelativePath="..\raknet\ArrayList.h">
+			</File>
+			<File
+				RelativePath="..\raknet\AsynchronousFileIO.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\AsynchronousFileIO.h">
+			</File>
+			<File
+				RelativePath="..\raknet\BigTypes.h">
+			</File>
+			<File
+				RelativePath="..\raknet\BinarySearchTree.h">
+			</File>
+			<File
 				RelativePath="..\raknet\BitStream.cpp">
 			</File>
 			<File
 				RelativePath="..\raknet\BitStream.h">
+			</File>
+			<File
+				RelativePath="..\raknet\CheckSum.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\CheckSum.h">
+			</File>
+			<File
+				RelativePath="..\raknet\ClientContextStruct.h">
+			</File>
+			<File
+				RelativePath="..\raknet\DataBlockEncryptor.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\DataBlockEncryptor.h">
+			</File>
+			<File
+				RelativePath="..\raknet\DistributedNetworkObject.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\DistributedNetworkObject.h">
+			</File>
+			<File
+				RelativePath="..\raknet\DistributedNetworkObjectHeader.h">
+			</File>
+			<File
+				RelativePath="..\raknet\DistributedNetworkObjectManager.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\DistributedNetworkObjectManager.h">
+			</File>
+			<File
+				RelativePath="..\raknet\DistributedNetworkObjectStub.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\DistributedNetworkObjectStub.h">
+			</File>
+			<File
+				RelativePath="..\raknet\EncodeClassName.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\EncodeClassName.h">
+			</File>
+			<File
+				RelativePath="..\raknet\ExtendedOverlappedPool.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\ExtendedOverlappedPool.h">
+			</File>
+			<File
+				RelativePath="..\raknet\GetTime.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\GetTime.h">
+			</File>
+			<File
+				RelativePath="..\raknet\HuffmanEncodingTree.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\HuffmanEncodingTree.h">
+			</File>
+			<File
+				RelativePath="..\raknet\HuffmanEncodingTreeFactory.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\HuffmanEncodingTreeFactory.h">
+			</File>
+			<File
+				RelativePath="..\raknet\HuffmanEncodingTreeNode.h">
+			</File>
+			<File
+				RelativePath="..\raknet\InternalPacket.h">
+			</File>
+			<File
+				RelativePath="..\raknet\InternalPacketPool.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\InternalPacketPool.h">
+			</File>
+			<File
+				RelativePath="..\raknet\Itoa.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\Itoa.h">
+			</File>
+			<File
+				RelativePath="..\raknet\LinkedList.h">
+			</File>
+			<File
+				RelativePath="..\raknet\MTUSize.h">
+			</File>
+			<File
+				RelativePath="..\raknet\NetworkObject.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\NetworkObject.h">
 			</File>
 			<File
 				RelativePath="..\raknet\NetworkTypes.cpp">
@@ -127,7 +246,34 @@
 				RelativePath="..\raknet\PacketEnumerations.h">
 			</File>
 			<File
+				RelativePath="..\raknet\PacketPool.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\PacketPool.h">
+			</File>
+			<File
 				RelativePath="..\raknet\PacketPriority.h">
+			</File>
+			<File
+				RelativePath="..\raknet\Queue.h">
+			</File>
+			<File
+				RelativePath="..\raknet\QueueLinkedList.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakClient.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\RakClient.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakClientInterface.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RakNetStatistics.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\RakNetStatistics.h">
 			</File>
 			<File
 				RelativePath="..\raknet\RakNetworkFactory.cpp">
@@ -153,6 +299,54 @@
 			<File
 				RelativePath="..\raknet\RakServerInterface.h">
 			</File>
+			<File
+				RelativePath="..\raknet\rand.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\rand.h">
+			</File>
+			<File
+				RelativePath="..\raknet\ReliabilityLayer.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\ReliabilityLayer.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RPCNode.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\RPCNode.h">
+			</File>
+			<File
+				RelativePath="..\raknet\RSACrypt.h">
+			</File>
+			<File
+				RelativePath="..\raknet\SHA1.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\SHA1.h">
+			</File>
+			<File
+				RelativePath="..\raknet\SimpleMutex.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\SimpleMutex.h">
+			</File>
+			<File
+				RelativePath="..\raknet\SocketLayer.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\SocketLayer.h">
+			</File>
+			<File
+				RelativePath="..\raknet\StringCompressor.cpp">
+			</File>
+			<File
+				RelativePath="..\raknet\StringCompressor.h">
+			</File>
+			<File
+				RelativePath="..\raknet\Types.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="gamemode"
@@ -162,6 +356,12 @@
 			</File>
 			<File
 				RelativePath=".\gamemode\generic.h">
+			</File>
+			<File
+				RelativePath=".\gamemode\genericrpc.cpp">
+			</File>
+			<File
+				RelativePath=".\gamemode\genericrpc.h">
 			</File>
 		</Filter>
 		<File
@@ -211,6 +411,9 @@
 		</File>
 		<File
 			RelativePath=".\playerpool.h">
+		</File>
+		<File
+			RelativePath=".\query.cpp">
 		</File>
 		<File
 			RelativePath=".\rcon.cpp">
