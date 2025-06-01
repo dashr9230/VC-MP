@@ -1,6 +1,8 @@
 
 #pragma once
 
+//----------------------------------------------------
+
 #include "main.h"
 #include "player.h"
 #include "playerpool.h"
@@ -8,8 +10,13 @@
 #include "vehiclepool.h"
 #include "pickup.h"
 #include "pickuppool.h"
+#include "../raknet/PacketEnumerations.h"
 #include "netrpc.h"
 #include "gamemode/generic.h"
+
+//----------------------------------------------------
+
+#define INVALID_ID			0xFF
 
 //----------------------------------------------------
 
@@ -36,6 +43,11 @@ public:
 	CPlayerPool * GetPlayerPool() { return m_pPlayerPool; };
 	RakServerInterface * GetRakServer() { return m_pRak; };
 	CGameModeGeneric * GetGameLogic() { return m_pGameLogic; };
+
+	void BroadcastData( RakNet::BitStream *bitStream, PacketPriority priority,
+						PacketReliability reliability,
+						char orderingStream,
+						BYTE byteExcludedPlayer );
 
 	void LoadBanList();
 

@@ -27,6 +27,14 @@ public:
 		return m_pPlayers[bytePlayerID];
 	};
 
+	// Find out if the slot is inuse.
+	BOOL GetSlotState(BYTE bytePlayerID) {
+		if(bytePlayerID > MAX_PLAYERS) { return FALSE; }
+		return m_bPlayerSlotState[bytePlayerID];
+	};
+
+	float GetDistanceFromPlayerToPlayer(BYTE bytePlayer1, BYTE bytePlayer2);
+
 	void SetAdmin(BYTE bytePlayerID) { m_bIsAnAdmin[bytePlayerID] = TRUE; };
 };
 

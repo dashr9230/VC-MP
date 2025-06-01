@@ -51,6 +51,50 @@ CNetGame::CNetGame(int iMaxPlayers, int iPort, int iGameType,
 
 //----------------------------------------------------
 
+void CNetGame::BroadcastData( RakNet::BitStream *bitStream,
+							  PacketPriority priority,
+							  PacketReliability reliability,
+							  char orderingStream,
+							  BYTE byteExcludedPlayer )
+{
+	BYTE x=0;
+	float fDistance;
+	BOOL bShouldSend;
+	int r=0;
+	BYTE byteSpectateID=INVALID_PLAYER_ID;
+
+	while(x!=MAX_PLAYERS) {
+		if( (m_pPlayerPool->GetSlotState(x) == TRUE) && 
+			(x != byteExcludedPlayer) ) {
+
+			bShouldSend = FALSE;
+			byteSpectateID = m_pPlayerPool->GetAt(x)->GetSpectate();
+			if(byteSpectateID == INVALID_PLAYER_ID || m_pPlayerPool->GetSlotState(byteSpectateID) != TRUE) {
+				fDistance = m_pPlayerPool->GetDistanceFromPlayerToPlayer(byteExcludedPlayer,x);
+			} else {
+				fDistance = m_pPlayerPool->GetDistanceFromPlayerToPlayer(byteExcludedPlayer,byteSpectateID);
+			}
+
+			if(fDistance < 250.0f) {
+				bShouldSend = TRUE;
+			} else {
+				// If not within said distance, broadcast
+				// randomly once in ten.
+				r = (int)(rand() % 10);
+				if(!r) bShouldSend = TRUE;
+			}
+
+			if(bShouldSend) {
+				m_pRak->Send(bitStream,priority,reliability,
+					orderingStream,m_pRak->GetPlayerIDFromIndex(x),FALSE);
+			}
+		}
+		x++;
+	}
+}
+
+//----------------------------------------------------
+
 void CNetGame::SetupInitPositions()
 {
 	char *szParseMe;

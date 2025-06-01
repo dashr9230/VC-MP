@@ -2,6 +2,9 @@
 #pragma once
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdarg.h>
 
 #define MAX_PLAYER_NAME		24
 #define MAX_PLAYERS			100
