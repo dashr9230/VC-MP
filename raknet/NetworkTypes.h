@@ -293,4 +293,59 @@ const ObjectID UNASSIGNED_OBJECT_ID = 65535;
  */
 const int PING_TIMES_ARRAY_SIZE = 5;
 
+/**
+ * @defgroup RAKNET_RPC Remote Procedure Call Subsystem.
+ * @brief RPC Function Implementation
+ *
+ * The Remote Procedure Call Subsystem provide the RPC paradigm to
+ * RakNet user. It consists in providing remote function call over the
+ * network.  A call to a remote function require you to prepare the
+ * data for each parameter (using BitStream) for example.
+ *
+ *
+ * Use the following C function prototype for your callbacks
+ * @code
+ * void functionName(char *input, int numberOfBitsOfData, PlayerID sender);
+ * @encode
+ * If you pass input data, you can parse the input data in two ways.
+ *
+ * 1.
+ * Cast input to a struct (such as if you sent a struct)
+ * i.e. MyStruct *s = (MyStruct*) input;
+ * Make sure that the sizeof(MyStruct) is equal to the number of bytes passed!
+ *
+ * 2.
+ * Create a BitStream instance with input as data and the number of bytes
+ * i.e. BitStream myBitStream(input, (numberOfBitsOfData-1)/8+1)
+ *
+ * (numberOfBitsOfData-1)/8+1 is how convert from bits to bytes
+ *
+ * Full example:
+ * @code
+ * void MyFunc(char *input, int numberOfBitsOfData, PlayerID sender) {}
+ * RakClient *rakClient;
+ * REGISTER_AS_REMOTE_PROCEDURE_CALL(rakClient, MyFunc);
+ * This would allow MyFunc to be called from the server using  (for example)
+ * rakServer->RPC("MyFunc", 0, clientID, false);
+ * @endocde
+ */
+
+/**
+ * @def REGISTER_AS_REMOTE_PROCEDURE_CALL
+ * @ingroup RAKNET_RPC
+ * Register a C function as a Remote procedure.
+ * @param networkObject The object that will handle the remote procedure call
+ * @param functionName The name of the function
+ */
+#define REGISTER_AS_REMOTE_PROCEDURE_CALL(networkObject, functionName) (networkObject)->RegisterAsRemoteProcedureCall((#functionName),(functionName))
+
+/**
+ * @def UNREGISTER_AS_REMOTE_PROCEDURE_CALL
+ * @ingroup RAKNET_RPC
+ * Unregisters a remote procedure call
+ * @param networkObject The that manage the function
+ * @param functionName The function name
+ */
+#define UNREGISTER_AS_REMOTE_PROCEDURE_CALL(networkObject,functionName) (networkObject)->UnregisterAsRemoteProcedureCall((#functionName))
+
 #endif

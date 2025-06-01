@@ -22,6 +22,20 @@
  * modification, and warranty rights.
  */
 #include "NetworkTypes.h"
+#include <stdio.h>
+#include <string.h>
+
+#if defined(_WIN32)
+// IP_DONTFRAGMENT is different between winsock 1 and winsock 2.  Therefore, Winsock2.h must be linked againt Ws2_32.lib
+// winsock.h must be linked against WSock32.lib.  If these two are mixed up the flag won't work correctly
+#include <winsock2.h>
+#else
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#endif
+
+#include "Itoa.h"
 
 int operator==( const PlayerID& left, const PlayerID& right )
 {
@@ -31,4 +45,50 @@ int operator==( const PlayerID& left, const PlayerID& right )
 int operator!=( const PlayerID& left, const PlayerID& right )
 {
 	return left.binaryAddress != right.binaryAddress || left.port != right.port;
+}
+
+int operator>( const PlayerID& left, const PlayerID& right )
+{
+	return ( ( left.binaryAddress > right.binaryAddress ) || ( ( left.binaryAddress == right.binaryAddress ) && ( left.port > right.port ) ) );
+}
+
+int operator<( const PlayerID& left, const PlayerID& right )
+{
+	return ( ( left.binaryAddress < right.binaryAddress ) || ( ( left.binaryAddress == right.binaryAddress ) && ( left.port < right.port ) ) );
+}
+
+const char *PlayerID::ToString(bool writePort) const
+{
+	static unsigned char strIndex=0;
+	static char str[8][22];
+
+	unsigned char lastStrIndex=strIndex;
+	strIndex++;
+	ToString(writePort, str[lastStrIndex&7]);
+	return (char*) str[lastStrIndex&7];
+}
+
+void PlayerID::ToString(bool writePort, char *dest) const
+{
+	if (*this==UNASSIGNED_PLAYER_ID)
+	{
+		strcpy(dest, "UNASSIGNED_PLAYER_ID");
+		return;
+	}
+
+#if defined(_XBOX) || defined(X360)
+	Itoa(binaryAddress, dest, 10);
+	strcat(dest, ":");
+	Itoa(port, dest+strlen(dest), 10);
+#else
+	in_addr in;
+	in.s_addr = binaryAddress;
+	strcpy(dest, inet_ntoa( in ));
+	if (writePort)
+	{
+		strcat(dest, ":");
+		Itoa(port, dest+strlen(dest), 10);
+	}
+#endif
+
 }
