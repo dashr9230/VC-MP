@@ -1,4 +1,6 @@
 
+#include <time.h>
+
 #include "netgame.h"
 #include "../raknet/RakNetworkFactory.h"
 
@@ -46,7 +48,76 @@ CNetGame::CNetGame(int iMaxPlayers, int iPort, int iGameType,
 	// Init the game logic.
 	m_pGameLogic = new CGameModeGeneric();
 
+	// Flag we're in a running state.
+	m_iGameState = GAMESTATE_RUNNING;
+
+	// Set the ff option
+	m_byteFriendlyFire = byteFriendlyFire;
+
+	// Set the show player on radar option
+	m_byteShowOnRadar = byteShowOnRadar;
+
+	MasterServerAnnounce();
+
+	srand(time(NULL));
+
 	// TODO: CNetGame::CNetGame
+}
+
+//----------------------------------------------------
+
+CNetGame::~CNetGame()
+{
+	logprintf("--- Server Shutting Down.");
+	UnRegisterRPCs(m_pRak);
+	RakNetworkFactory::DestroyRakServerInterface(m_pRak);
+	delete m_pPlayerPool;
+}
+
+//----------------------------------------------------
+
+void CNetGame::Process()
+{
+	UpdateNetwork();
+
+	// TODO: CNetGame::Process
+}
+
+//----------------------------------------------------
+
+void CNetGame::UpdateNetwork()
+{
+	Packet* p;
+	unsigned char packetIdentifier;
+
+	while(p=m_pRak->Receive())
+	{
+		packetIdentifier = GetPacketID(p);
+
+		switch(packetIdentifier) {
+
+		case ID_DISCONNECTION_NOTIFICATION:
+			m_pPlayerPool->Delete((BYTE)p->playerIndex,1);
+			break;
+		case ID_CONNECTION_LOST:
+			m_pPlayerPool->Delete((BYTE)p->playerIndex,0);
+			break;
+		case ID_PLAYER_SYNC:
+			PlayerSync(p);
+			break;
+		case ID_AIM_SYNC:
+			AimSync(p);
+			break;
+		case ID_VEHICLE_SYNC:
+			VehicleSync(p);
+			break;
+		case ID_PASSENGER_SYNC:
+			PassengerSync(p);
+			break;
+		}
+
+		m_pRak->DeallocatePacket(p);
+	}
 }
 
 //----------------------------------------------------
@@ -91,6 +162,50 @@ void CNetGame::BroadcastData( RakNet::BitStream *bitStream,
 		}
 		x++;
 	}
+}
+
+//----------------------------------------------------
+
+void CNetGame::PlayerSync(Packet *p)
+{
+	// TODO: CNetGame::PlayerSync
+}
+
+//----------------------------------------------------
+
+void CNetGame::AimSync(Packet *p)
+{
+	// TODO: CNetGame::AimSync
+}
+
+//----------------------------------------------------
+
+void CNetGame::VehicleSync(Packet *p)
+{
+	// TODO: CNetGame::VehicleSync
+}
+
+//----------------------------------------------------
+
+void CNetGame::PassengerSync(Packet *p)
+{
+	CPlayer * pPlayer = GetPlayerPool()->GetAt((BYTE)p->playerIndex);
+	RakNet::BitStream bsPassengerSync((PCHAR)p->data, p->length, FALSE);
+	RakNet::BitStream bsPassengerSend;
+
+	BYTE		bytePacketID=0;
+	BYTE		byteVehicleID=0;
+	UINT		uiPassengerSeat;
+	float		x,y,z;
+
+	bsPassengerSync.Read(bytePacketID);
+	bsPassengerSync.Read(byteVehicleID);
+	bsPassengerSync.Read(uiPassengerSeat);
+	bsPassengerSync.Read(x);
+	bsPassengerSync.Read(y);
+	bsPassengerSync.Read(z);
+
+	// TODO: CNetGame::PassengerSync
 }
 
 //----------------------------------------------------
@@ -148,6 +263,22 @@ void CNetGame::LoadBanList()
 	}
 
 	fclose(fileBanList);
+}
+
+//----------------------------------------------------
+
+void CNetGame::MasterServerAnnounce()
+{
+	char szPort[256];
+	sprintf(szPort, "%i", iListenPort);
+
+#ifdef WIN32
+	ShellExecute(0, "open", "announce.exe", szPort, NULL, SW_HIDE);
+#else
+	char szAnnounceCmd[256];
+	sprintf(szAnnounceCmd, "./announce %s &", szPort);
+	system(szAnnounceCmd);
+#endif
 }
 
 //----------------------------------------------------
