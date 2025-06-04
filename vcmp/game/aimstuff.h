@@ -11,6 +11,11 @@ typedef struct _CAMERA_AIM
 
 } CAMERA_AIM;
 
+void GameSetPlayerCameraMode(BYTE byteMode, BYTE bytePlayerID);
+BYTE GameGetPlayerCameraMode(BYTE bytePlayerID);
+void GameSetLocalPlayerCameraMode(BYTE byteMode);
+BYTE GameGetLocalPlayerCameraMode();
+
 void GameAimSyncInit();
 void GameStoreLocalPlayerAim();
 void GameSetLocalPlayerAim();

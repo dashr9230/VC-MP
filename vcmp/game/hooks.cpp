@@ -5,6 +5,11 @@
 
 //-----------------------------------------------------------
 
+BYTE	*pbyteCameraMode = (BYTE *)0x7E481C;
+BYTE	*pbyteCurrentPlayer = (BYTE *)0xA10AFB;
+
+//-----------------------------------------------------------
+
 BYTE PreGameProcess_HookJmpCode[]	= {0xFF,0x25,0x77,0x5D,0x4A,0x00}; //4A5D77
 BYTE PedSetObjective_HookJmpCode[]	= {0xFF,0x25,0x75,0x11,0x40,0x00,0x90,0x90,0x90};
 BYTE RadarTranslateColor_HookJmpCode[] = {0xFF,0x25,0x44,0x30,0x4C,0x00,0x90}; // 4C3044

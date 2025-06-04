@@ -15,13 +15,19 @@
 
 #pragma pack(1)
 typedef struct _PED_TYPE {
-	char _gap0;
+
+	BYTE _gap0;
+
 } PED_TYPE;
 
 #pragma pack(1)
 typedef struct _VEHICLE_TYPE {
-	char _gap0;
+
+	BYTE _gap0;
+
 } VEHICLE_TYPE;
+
+//-----------------------------------------------------------
 
 #define WEAPON_MODEL_CELLPHONE			258
 #define WEAPON_MODEL_BRASSKNUCKLE		259
@@ -60,6 +66,8 @@ typedef struct _VEHICLE_TYPE {
 #define WEAPON_MODEL_CAMERA				292
 #define WEAPON_MODEL_FINGERS			293
 #define WEAPON_MODEL_MINIGUN2			294
+
+//-----------------------------------------------------------
 
 #define WEAPON_UNARMED					0
 #define WEAPON_BRASSKNUCKLE				1
@@ -103,3 +111,5 @@ typedef struct _VEHICLE_TYPE {
 #define WEAPON_DROWN					43
 #define WEAPON_WATER					50
 #define WEAPON_EXPLOSION				51
+
+//-----------------------------------------------------------

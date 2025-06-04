@@ -209,6 +209,52 @@ int VCMP_SAFECALL GameGetWeaponModelFromWeapon(int iWeaponID)
 
 //-----------------------------------------------------------
 
+DWORD dwHudColors[] = {
+0x778899FF, // light slate grey
+0xFF8C13FF, // dark orange
+0xC715FFFF, // Medium violet red
+0x20B2AAFF, // sea green
+0xFFD720FF, // gold
+0xDC143CFF, // crimson
+0x6495EDFF, // cornflower blue
+0xFF1493FF, // deeppink
+0xF4A460FF, // sandy
+0xEE82EEFF, // violet
+0x8b4513FF, // chocolate
+0xf0e68cFF, // khaki
+0x148b8bFF, // dark cyan
+0x14ff7fFF, // spring green
+0x556b2fFF, // olive green
+0x191970FF // midnight blue
+};
+
+DWORD VCMP_SAFECALL TranslateColorCodeToRGBA(int iCode)
+{
+	if(iCode < sizeof(dwHudColors)) {
+		return dwHudColors[iCode];
+	} else {
+		return 0xFFFFFFFF;
+	}
+}
+
+//-----------------------------------------------------------
+
+BOOL VCMP_SAFECALL GameIsEntityOnScreen(DWORD * pdwEnt)
+{
+	BYTE byteRet=0;
+
+	_asm mov ecx, pdwEnt
+	_asm mov edx, ADDR_ENTITY_ONSCREEN
+	_asm call edx
+	_asm mov byteRet, al
+
+	if(byteRet) return TRUE;
+
+	return FALSE;
+}
+
+//-----------------------------------------------------------
+
 void VCMP_SAFECALL InitPlayerPedPtrRecords()
 {
 	memset(&dwPlayerPedPtrs[0],0,sizeof(DWORD) * MAX_PLAYERS);

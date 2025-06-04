@@ -4,6 +4,8 @@
 #define ADDR_HWND								0x7897A4
 #define ADDR_ID3D8DEVICE						0x7897A8
 #define ADDR_KEYSTATES							0x7DBCB0
+
+#define ADDR_ENTITY_ONSCREEN					0x4885D0 // CEntity_GetIsOnScreen __thiscall (void)
 #define ADDR_PRE_GAME_PROCESS					0x4A6190 // Poor naming, is actually Render2DStuff
 #define ADDR_PRE_GAME_PROCESS_STORAGE			0x4A5D77
 

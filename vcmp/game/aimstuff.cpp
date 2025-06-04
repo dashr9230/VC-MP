@@ -9,12 +9,45 @@ CAMERA_AIM * pcaInternalAim = (CAMERA_AIM *)0x7E4978;
 CAMERA_AIM caLocalPlayerAim;
 CAMERA_AIM caRemotePlayerAim[MAX_PLAYERS];
 
+BYTE byteCameraMode[MAX_PLAYERS];
+
+extern BYTE * pbyteCameraMode;
+
+//----------------------------------------------------------
+
+void GameSetPlayerCameraMode(BYTE byteMode, BYTE bytePlayerID)
+{
+	byteCameraMode[bytePlayerID] = byteMode;
+}
+
+//----------------------------------------------------------
+
+BYTE GameGetPlayerCameraMode(BYTE bytePlayerID)
+{
+	return byteCameraMode[bytePlayerID];
+}
+
+//----------------------------------------------------------
+
+void GameSetLocalPlayerCameraMode(BYTE byteMode)
+{
+	*pbyteCameraMode = byteMode;
+}
+
+//----------------------------------------------------------
+
+BYTE GameGetLocalPlayerCameraMode()
+{
+	return *pbyteCameraMode;
+}
+
 //----------------------------------------------------------
 
 void GameAimSyncInit()
 {
 	memset(&caLocalPlayerAim,0,sizeof(CAMERA_AIM));
 	memset(caRemotePlayerAim,0,sizeof(CAMERA_AIM) * MAX_PLAYERS);
+	memset(byteCameraMode,0,sizeof(BYTE) * MAX_PLAYERS);
 }
 
 //----------------------------------------------------------
