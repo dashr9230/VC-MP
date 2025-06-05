@@ -14,6 +14,10 @@ CLocalPlayer::CLocalPlayer()
 	field_13E = 0;
 	field_140 = GetTickCount();
 	field_144 = GetTickCount();
+	field_149 = GetTickCount();
+
+	if(m_pPlayerPed) m_pPlayerPed->SetDrivebyState(1);
 }
 
 //----------------------------------------------------------
+

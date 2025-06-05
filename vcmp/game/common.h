@@ -10,9 +10,6 @@
 
 //-----------------------------------------------------------
 
-#define MAP_VICE			0
-#define MAP_LIBERTY			1
-
 #pragma pack(1)
 typedef struct _PED_TYPE {
 

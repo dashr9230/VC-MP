@@ -7,6 +7,9 @@
 #define MAX_PLAYER_NAME		24
 #define MAX_SETTINGS_STRING 128
 
+#define MAP_VICE			0
+#define MAP_LIBERTY			1
+
 #define SAFE_DELETE(p)       { if(p) { delete (p);     (p)=NULL; } }
 
 typedef struct _GAME_SETTINGS {
@@ -30,6 +33,7 @@ typedef struct _GAME_SETTINGS {
 #include "../raknet/BitStream.h"
 
 #include "net/localplayer.h"
+#include "net/netrpc.h"
 #include "net/playerpool.h"
 #include "net/vehiclepool.h"
 #include "net/netgame.h"

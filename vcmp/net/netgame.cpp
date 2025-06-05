@@ -14,7 +14,15 @@ CNetGame::CNetGame(PCHAR szHostOrIp, int iPort,
 
 	m_pRakClient = RakNetworkFactory::GetRakClientInterface();
 
-	m_pRakClient->InitializeSecurity(0,0);
+	RegisterRPCs(m_pRakClient);
+
+	m_pRakClient->SetPassword(szPass);
+	m_pRakClient->Connect(szHostOrIp,iPort,(iPort+1),0,5);
+	m_pRakClient->StartOccasionalPing();
+
+	m_iGameState = GAMESTATE_CONNECTING;
+
+	// TODO: CNetGame::CNetGame
 }
 
 //----------------------------------------------------

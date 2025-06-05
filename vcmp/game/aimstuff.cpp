@@ -47,7 +47,7 @@ void GameAimSyncInit()
 {
 	memset(&caLocalPlayerAim,0,sizeof(CAMERA_AIM));
 	memset(caRemotePlayerAim,0,sizeof(CAMERA_AIM) * MAX_PLAYERS);
-	memset(byteCameraMode,0,sizeof(BYTE) * MAX_PLAYERS);
+	memset(byteCameraMode,4,sizeof(BYTE) * MAX_PLAYERS);
 }
 
 //----------------------------------------------------------
