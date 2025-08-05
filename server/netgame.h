@@ -51,7 +51,15 @@ public:
 	void LoadBanList();
 	DWORD GetCount();
 	void ProcessGameTime();
-	int CanFileBeOpenedForReading(char * filename);
+
+	int CanFileBeOpenedForReading(char * filename) {
+		FILE *f;
+		if(f=fopen(filename,"r")) {
+			fclose(f);
+			return 1;
+		}
+		return 0;
+	}
 
 	// CLASS SYSTEM
 	int					m_iSpawnsAvailable;
