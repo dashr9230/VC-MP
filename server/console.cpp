@@ -3,6 +3,7 @@
 
 #ifdef LINUX
 
+// strlwr is not included with the GNU C lib it seems.
 char* strlwr(char* str)
 {
 	for (size_t i=0; i<strlen(str); i++)
@@ -16,6 +17,20 @@ char* strlwr(char* str)
 }
 
 #endif	// #ifdef LINUX
+
+char* strrtrim(char* str)
+{
+	for (int i=strlen(str)-1; i>=0; i--)
+	{
+		if ((str[i] == ' ') || (str[i] == '\t'))
+		{
+			str[i] = 0;
+		} else {
+			break;
+		}
+	}
+	return str;
+}
 
 CConsole::CConsole()
 {
