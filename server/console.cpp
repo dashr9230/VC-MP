@@ -1,6 +1,29 @@
 
 #include "main.h"
 
+void con_echo()
+{
+	char* arg = strtok(NULL, "");
+	if (arg)
+	{
+		logprintf("%s", arg);
+	} else {
+		logprintf("");
+	}
+}
+
+#define CON_CMDFLAG_DEBUG		1
+#define CON_CMDFLAG_HIDDEN		2
+
+struct ConsoleCommand_s
+{
+	char CmdName[255];
+	DWORD CmdFlags;
+	void (*CmdFunc)();
+} ConsoleCommands[] = {
+	{"echo",		0,	con_echo},
+};
+
 #ifdef LINUX
 
 // strlwr is not included with the GNU C lib it seems.
