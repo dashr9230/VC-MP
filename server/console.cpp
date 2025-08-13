@@ -12,6 +12,45 @@ void con_echo()
 	}
 }
 
+void con_exec()
+{
+	char* arg = strtok(NULL, " ");
+	if (arg)
+	{
+		char tmp[256];
+		sprintf(tmp, "%s.cfg", arg);
+		FILE* f = fopen(tmp, "r");
+		if (!f)
+		{
+			logprintf("Unable to exec file '%s'.", tmp);
+		} else {
+			while (fgets(tmp, 1024, f))
+			{
+				if (tmp[strlen(tmp)-1] == '\n')
+					tmp[strlen(tmp)-1] = 0;
+				// If the line has a comment, finish it there.
+				for (size_t i=0; i<strlen(tmp)-1; i++)
+				{
+					if ((tmp[i] == '/') && (tmp[i+1] == '/'))
+					{
+						tmp[i] = 0;
+						break;
+					}
+				}
+				if (strlen(tmp) > 2)
+				{
+					if ((tmp[0] != '/') && (tmp[1] != '/'))
+						pConsole->Execute(tmp);
+				}
+			}
+			fclose(f);
+		}
+	} else {
+		logprintf("Usage:");
+		logprintf("  exec <filename>");
+	}
+}
+
 #define CON_CMDFLAG_DEBUG		1
 #define CON_CMDFLAG_HIDDEN		2
 
@@ -22,6 +61,7 @@ struct ConsoleCommand_s
 	void (*CmdFunc)();
 } ConsoleCommands[] = {
 	{"echo",		0,	con_echo},
+	{"exec",		0,	con_exec},
 };
 
 #ifdef LINUX
