@@ -53,6 +53,11 @@ void con_exec()
 
 void con_cmdlist();
 
+void con_varlist()
+{
+	pConsole->PrintVariableList();
+}
+
 #define CON_CMDFLAG_DEBUG		1
 #define CON_CMDFLAG_HIDDEN		2
 
@@ -65,6 +70,7 @@ struct ConsoleCommand_s
 	{"echo",		0,	con_echo},
 	{"exec",		0,	con_exec},
 	{"cmdlist",		0,	con_cmdlist},
+	{"varlist",		0,	con_varlist},
 };
 
 void con_cmdlist()
