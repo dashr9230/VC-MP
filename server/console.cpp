@@ -51,6 +51,8 @@ void con_exec()
 	}
 }
 
+void con_cmdlist();
+
 #define CON_CMDFLAG_DEBUG		1
 #define CON_CMDFLAG_HIDDEN		2
 
@@ -62,7 +64,18 @@ struct ConsoleCommand_s
 } ConsoleCommands[] = {
 	{"echo",		0,	con_echo},
 	{"exec",		0,	con_exec},
+	{"cmdlist",		0,	con_cmdlist},
 };
+
+void con_cmdlist()
+{
+	logprintf("Console Commands:");
+	for (int i=0; i<ARRAY_SIZE(ConsoleCommands); i++)
+	{
+		logprintf("  %s%s", ConsoleCommands[i].CmdName, (ConsoleCommands[i].CmdFlags & CON_CMDFLAG_DEBUG)?" (DEBUG)":"");
+	}
+	logprintf("");
+}
 
 #ifdef LINUX
 
