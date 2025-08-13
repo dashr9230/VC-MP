@@ -1,6 +1,13 @@
 
 #include "main.h"
 
+extern bool	bQuitApp;
+
+void con_exit()
+{
+	bQuitApp = true;
+}
+
 void con_echo()
 {
 	char* arg = strtok(NULL, "");
@@ -71,6 +78,7 @@ struct ConsoleCommand_s
 	{"exec",		0,	con_exec},
 	{"cmdlist",		0,	con_cmdlist},
 	{"varlist",		0,	con_varlist},
+	{"exit",		0,	con_exit},
 };
 
 void con_cmdlist()
