@@ -71,6 +71,16 @@ void con_varlist()
 	pConsole->PrintVariableList();
 }
 
+void con_say()
+{
+	char* arg = strtok(NULL, "");
+	char Message[255];
+	if (arg) {
+		sprintf(Message, "* Admin: %s", arg);
+		//pNetGame->SendClientMessageToAll(0x2587CEAA, Message);
+	}
+}
+
 #define CON_CMDFLAG_DEBUG		1
 #define CON_CMDFLAG_HIDDEN		2
 
@@ -86,6 +96,7 @@ struct ConsoleCommand_s
 	{"varlist",		0,	con_varlist},
 	{"exit",		0,	con_exit},
 	{"gmx",			0,	con_gmx},
+	{"say",			0,	con_say},
 };
 
 void con_cmdlist()
