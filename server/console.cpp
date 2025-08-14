@@ -64,6 +64,18 @@ void con_gmx()
 	bGameModeFinished = TRUE;
 }
 
+void con_changemode()
+{
+	char* arg = strtok(NULL, "");
+	if (arg)
+	{
+		if(pNetGame->SetNextScriptFile(arg)) {
+			bGameModeFinished = TRUE;
+		}
+		// do nothing if we can't set the requested script.
+	}
+}
+
 void con_cmdlist();
 
 void con_varlist()
@@ -101,6 +113,7 @@ struct ConsoleCommand_s
 	{"varlist",		0,	con_varlist},
 	{"exit",		0,	con_exit},
 	{"gmx",			0,	con_gmx},
+	{"changemode",	0,	con_changemode},
 	{"say",			0,	con_say},
 	{"reloadbans",	0,	con_reloadbans},
 };
