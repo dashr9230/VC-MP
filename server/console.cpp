@@ -81,6 +81,11 @@ void con_say()
 	}
 }
 
+void con_reloadbans()
+{
+	pNetGame->LoadBanList();
+}
+
 #define CON_CMDFLAG_DEBUG		1
 #define CON_CMDFLAG_HIDDEN		2
 
@@ -97,6 +102,7 @@ struct ConsoleCommand_s
 	{"exit",		0,	con_exit},
 	{"gmx",			0,	con_gmx},
 	{"say",			0,	con_say},
+	{"reloadbans",	0,	con_reloadbans},
 };
 
 void con_cmdlist()
