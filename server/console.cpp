@@ -58,6 +58,12 @@ void con_exec()
 	}
 }
 
+extern BOOL bGameModeFinished;
+void con_gmx()
+{
+	bGameModeFinished = TRUE;
+}
+
 void con_cmdlist();
 
 void con_varlist()
@@ -79,6 +85,7 @@ struct ConsoleCommand_s
 	{"cmdlist",		0,	con_cmdlist},
 	{"varlist",		0,	con_varlist},
 	{"exit",		0,	con_exit},
+	{"gmx",			0,	con_gmx},
 };
 
 void con_cmdlist()
