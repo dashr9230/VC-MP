@@ -60,6 +60,11 @@ public:
 		}
 		return 0;
 	}
+	
+	void SetSleep(int iSleepTime)
+	{
+		SLEEP(iSleepTime);
+	}
 
 	// CLASS SYSTEM
 	int					m_iSpawnsAvailable;
