@@ -322,6 +322,23 @@ void CNetGame::PassengerSync(Packet *p)
 	// TODO: CNetGame::PassengerSync
 }
 
+void CNetGame::KickPlayer(BYTE byteKickPlayer)
+{
+	if (byteKickPlayer < MAX_PLAYERS)
+	{
+		if (m_pPlayerPool->GetSlotState(byteKickPlayer))
+		{
+			RakNet::BitStream bs;
+			bs.Write(byteKickPlayer);
+			m_pRak->RPC("Kicked", &bs, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_PLAYER_ID, true, false);
+
+			SetSleep(500);
+
+			m_pPlayerPool->Delete(byteKickPlayer,2);
+			m_pRak->Kick(m_pRak->GetPlayerIDFromIndex(byteKickPlayer));
+		}
+	}
+}
 
 //----------------------------------------------------
 

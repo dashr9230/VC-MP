@@ -48,6 +48,7 @@ public:
 	void PassengerSync(Packet *p);
 
 	void MasterServerAnnounce();
+	void KickPlayer(BYTE byteKickPlayer);
 	void LoadBanList();
 	DWORD GetCount();
 	void ProcessGameTime();
