@@ -58,6 +58,26 @@ void con_exec()
 	}
 }
 
+void con_kick()
+{
+	char* arg = strtok(NULL, "");
+	if(arg)
+	{
+		CPlayerPool* pPlayerPool = pNetGame->GetPlayerPool();
+		BYTE bytePlayerId = atoi(arg);
+
+		if(pPlayerPool->GetSlotState(bytePlayerId))
+		{
+			RakServerInterface* pRak = pNetGame->GetRakServer();
+			PlayerID Player = pRak->GetPlayerIDFromIndex(bytePlayerId);
+			in_addr in;
+			in.s_addr = Player.binaryAddress;
+			logprintf("%s <#%d - %s> has been kicked.",pPlayerPool->GetPlayerName(bytePlayerId), bytePlayerId, inet_ntoa(in));
+			pNetGame->KickPlayer(bytePlayerId);
+		}
+	}
+}
+
 extern BOOL bGameModeFinished;
 void con_gmx()
 {
@@ -112,6 +132,7 @@ struct ConsoleCommand_s
 	{"cmdlist",		0,	con_cmdlist},
 	{"varlist",		0,	con_varlist},
 	{"exit",		0,	con_exit},
+	{"kick",		0,	con_kick},
 	{"gmx",			0,	con_gmx},
 	{"changemode",	0,	con_changemode},
 	{"say",			0,	con_say},
