@@ -31,6 +31,10 @@ public:
 		return m_bPlayerSlotState[bytePlayerID];
 	};
 
+	PCHAR GetPlayerName(BYTE bytePlayerID) {
+		if(bytePlayerID >= MAX_PLAYERS) { return FALSE; }
+		return m_szPlayerName[bytePlayerID];
+	};
 
 	void ResetPlayerScoresAndMoney() {
 		memset(&m_iPlayerScore[0],0,sizeof(int) * MAX_PLAYERS);
