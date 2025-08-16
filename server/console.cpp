@@ -78,6 +78,26 @@ void con_kick()
 	}
 }
 
+void con_ban()
+{
+	char* arg = strtok(NULL, "");
+	if (arg)
+	{
+		CPlayerPool* pPlayerPool = pNetGame->GetPlayerPool();
+		BYTE bytePlayerId = atoi(arg);
+		if (pPlayerPool->GetSlotState(bytePlayerId))
+		{
+			RakServerInterface* pRak = pNetGame->GetRakServer();
+			PlayerID Player = pRak->GetPlayerIDFromIndex(bytePlayerId);
+			in_addr in;
+			in.s_addr = Player.binaryAddress;
+			logprintf("%s <#%d - %s> has been banned.", pPlayerPool->GetPlayerName(bytePlayerId), bytePlayerId, inet_ntoa(in));
+			pNetGame->AddBan(inet_ntoa(in));
+			pNetGame->KickPlayer(bytePlayerId);
+		}
+	}
+}
+
 extern BOOL bGameModeFinished;
 void con_gmx()
 {
@@ -133,6 +153,7 @@ struct ConsoleCommand_s
 	{"varlist",		0,	con_varlist},
 	{"exit",		0,	con_exit},
 	{"kick",		0,	con_kick},
+	{"ban",			0,	con_ban},
 	{"gmx",			0,	con_gmx},
 	{"changemode",	0,	con_changemode},
 	{"say",			0,	con_say},
