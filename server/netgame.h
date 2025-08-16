@@ -49,6 +49,7 @@ public:
 
 	void MasterServerAnnounce();
 	void KickPlayer(BYTE byteKickPlayer);
+	void AddBan(char * ip_mask);
 	void LoadBanList();
 	DWORD GetCount();
 	void ProcessGameTime();

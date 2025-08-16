@@ -340,6 +340,18 @@ void CNetGame::KickPlayer(BYTE byteKickPlayer)
 	}
 }
 
+void CNetGame::AddBan(char * ip_mask)
+{
+	m_pRak->AddToBanList(ip_mask);
+	
+	FILE * fileBanList = fopen("vcmp-svr.banlist","a");
+	if(!fileBanList) return;
+
+	fprintf(fileBanList,"%s\n",ip_mask);
+
+	fclose(fileBanList);
+}
+
 //----------------------------------------------------
 
 void CNetGame::LoadBanList()
