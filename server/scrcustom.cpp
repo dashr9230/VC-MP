@@ -244,7 +244,12 @@ static cell AMX_NATIVE_CALL n_GetMaxPlayers(AMX *amx, cell *params)
 	return pConsole->GetIntVariable("maxplayers");
 }
 
-
+// native ShowPlayerMarkers(show)
+static cell AMX_NATIVE_CALL n_ShowPlayerMarkers(AMX *amx, cell *params)
+{
+	pNetGame->m_byteShowOnRadar = (BYTE)params[1];
+	return 1;
+}
 
 
 //----------------------------------------------------------------------------------
@@ -269,10 +274,10 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "AddStaticVehicle",		n_AddStaticVehicle },
 	{ "AddStaticVehicleEx",		n_AddStaticVehicleEx },
 	{ "AddStaticPickup", n_AddStaticPickup },
-/*	{ "SetWorldBounds", n_SetWorldBounds },
-	{ "ShowNameTags", n_ShowNameTags },
+//	{ "SetWorldBounds", n_SetWorldBounds },
+//	{ "ShowNameTags", n_ShowNameTags },
 	{ "ShowPlayerMarkers", n_ShowPlayerMarkers },
-	{ "SetWorldTime", n_SetWorldTime },
+	/*{ "SetWorldTime", n_SetWorldTime },
 	{ "GetWeaponName", n_GetWeaponName },
 	{ "SetGravity", n_SetGravity },
 	{ "ResetNormalGravity", n_ResetNormalGravity },

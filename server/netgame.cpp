@@ -141,7 +141,7 @@ void CNetGame::Init()
 		m_pGameMode = new CGameMode();
 	}
 
-	field_8A1 = 1;
+	m_byteShowOnRadar = 1;
 	field_8A7 = 12;
 
 	// Start the gamemode script.

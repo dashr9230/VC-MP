@@ -73,7 +73,11 @@ public:
 	PLAYER_SPAWN_INFO	m_AvailableSpawns[MAX_SPAWNS];
 	void AddSpawn(PLAYER_SPAWN_INFO *pSpawnInfo);
 
-	BYTE field_8A1;
+	char _gap868[57];
+
+	BYTE m_byteShowOnRadar;
+
+	char _gap8A2;
 
 	DWORD field_8A3;
 	BYTE field_8A7;
