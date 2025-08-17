@@ -70,9 +70,32 @@ BOOL CPlayerPool::New(BYTE bytePlayerID, PCHAR szPlayerName)
 
 BOOL CPlayerPool::Delete(BYTE bytePlayerID, BYTE byteReason)
 {
-	// TODO: CPlayerPool::Delete
+	if(!GetSlotState(bytePlayerID) || !m_pPlayers[bytePlayerID])
+	{
+		return FALSE; // Player already deleted or not used.
+	}
 
-	return FALSE;
+	pNetGame->GetFilterScripts()->OnPlayerDisconnect(bytePlayerID, byteReason);
+	CGameMode *pGameMode = pNetGame->GetGameMode();
+	if(pGameMode) {
+		pGameMode->OnPlayerDisconnect(bytePlayerID, byteReason);
+	}
+
+	m_bPlayerSlotState[bytePlayerID] = FALSE;
+	field_190[bytePlayerID] = 0;
+	delete m_pPlayers[bytePlayerID];
+	m_pPlayers[bytePlayerID] = NULL;
+
+	// Notify all the other players that this client is quiting.
+	RakNet::BitStream bsSend;
+	bsSend.Write(bytePlayerID);
+	bsSend.Write(byteReason);
+	pNetGame->GetRakServer()->RPC("ServerQuit" ,&bsSend,HIGH_PRIORITY,RELIABLE_ORDERED,0,
+		pNetGame->GetRakServer()->GetPlayerIDFromIndex(bytePlayerID),true,false);
+
+	pRcon->ConsolePrintf("[part] %u %s %u", bytePlayerID, m_szPlayerName[bytePlayerID], byteReason);
+
+	return TRUE;
 }
 
 void CPlayerPool::Process()
