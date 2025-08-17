@@ -95,13 +95,13 @@ void ServerMaxPlayersChanged()
 
 int main (int argc, char** argv)
 {
-	iMaxPlayers	= DEFAULT_MAX_PLAYERS;
-	iListenPort	= DEFAULT_LISTEN_PORT;
+	iMaxPlayers = DEFAULT_MAX_PLAYERS;
+	iListenPort = DEFAULT_LISTEN_PORT;
 	int iRconPort = DEFAULT_RCON_PORT;
 	int iRconMaxUsers = DEFAULT_RCON_MAXUSERS;
 	int iLanMode = 0;
-	szMap = 1;
-	BYTE byteFriendlyFire=0;
+	szMap = MAP_VICE;
+	BYTE byteFriendlyFire = 0;
 
 	// Open the log file
 	pLogFile = fopen("server_log.txt", "w");

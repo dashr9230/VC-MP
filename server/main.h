@@ -20,6 +20,9 @@
 #define ARRAY_SIZE(a)	( sizeof((a)) / sizeof(*(a)) )
 #define SAFE_DELETE(p)	{ if (p) { delete (p); (p) = NULL; } }
 
+#define MAP_VICE				1
+#define MAP_LIBERTY				2
+
 // ------------
 // VERSION INFO
 // ------------
