@@ -10,7 +10,7 @@ char *szAdminPass;
 int			iListenPort;
 int			iMaxPlayers;
 BYTE		szMap;
-bool		bFriendyFire;
+BYTE		bFriendyFire;
 
 FILE		*pLogFile;
 bool		bQuitApp = false;
