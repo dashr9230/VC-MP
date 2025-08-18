@@ -22,8 +22,14 @@ public:
 	~CPlayerPool();
 
 	void Process();
-	BOOL Delete(BYTE bytePlayerID, BYTE byteReason);
 	BOOL New(BYTE bytePlayerID, PCHAR szPlayerName);
+	BOOL Delete(BYTE bytePlayerID, BYTE byteReason);
+	
+	// Retrieve a player
+	CPlayer* GetAt(BYTE bytePlayerID) {
+		if (bytePlayerID > MAX_PLAYERS) { return NULL; }
+		return m_pPlayers[bytePlayerID];
+	};
 
 	// Find out if the slot is inuse.
 	BOOL GetSlotState(BYTE bytePlayerID) {
