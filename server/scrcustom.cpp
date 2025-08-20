@@ -250,6 +250,30 @@ static cell AMX_NATIVE_CALL n_ShowNameTags(AMX *amx, cell *params)
 	return 1;
 }
 
+// native SetPlayerWorldBounds(Float:x_max,Float:y_max,Float:x_min,Float:y_min);
+static cell AMX_NATIVE_CALL n_SetPlayerWorldBounds(AMX *amx, cell *params)
+{
+	RakNet::BitStream bsBounds;
+	float fBounds[4];
+
+	fBounds[0] = amx_ctof(params[1]);
+	fBounds[1] = amx_ctof(params[2]);
+	fBounds[2] = amx_ctof(params[3]);
+	fBounds[3] = amx_ctof(params[4]);
+
+	bsBounds.Write(fBounds[0]);
+	bsBounds.Write(fBounds[1]);
+	bsBounds.Write(fBounds[2]);
+	bsBounds.Write(fBounds[3]);
+
+	pNetGame->m_WorldBounds[0] = fBounds[0];
+	pNetGame->m_WorldBounds[1] = fBounds[1];
+	pNetGame->m_WorldBounds[2] = fBounds[2];
+	pNetGame->m_WorldBounds[3] = fBounds[3];
+
+	return 0;
+}
+
 // native ShowPlayerMarkers(show)
 static cell AMX_NATIVE_CALL n_ShowPlayerMarkers(AMX *amx, cell *params)
 {
@@ -301,7 +325,7 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "AddStaticVehicle",		n_AddStaticVehicle },
 	{ "AddStaticVehicleEx",		n_AddStaticVehicleEx },
 	{ "AddStaticPickup", n_AddStaticPickup },
-//	{ "SetWorldBounds", n_SetWorldBounds },
+	{ "SetWorldBounds", n_SetPlayerWorldBounds },
 	{ "ShowNameTags", n_ShowNameTags },
 	{ "ShowPlayerMarkers", n_ShowPlayerMarkers },
 	{ "SetWorldTime", n_SetWorldTime },
