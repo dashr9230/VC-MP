@@ -31,6 +31,8 @@ CNetGame::CNetGame()
 	RegisterRPCs(m_pRak);
 
 	// TODO: CNetGame::CNetGame()
+
+	SetupWepDam();
 }
 
 //----------------------------------------------------

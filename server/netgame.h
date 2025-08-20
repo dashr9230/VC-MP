@@ -68,6 +68,14 @@ public:
 		SLEEP(iSleepTime);
 	}
 
+	void SetupWepDam()
+	{
+		for(BYTE i = 1; i != 33; i++)
+		{
+			m_byteWeaponDamage[i] = 0;
+		}
+	}
+
 	// CLASS SYSTEM
 	int					m_iSpawnsAvailable;
 	PLAYER_SPAWN_INFO	m_AvailableSpawns[MAX_SPAWNS];
@@ -85,6 +93,10 @@ public:
 
 	DWORD		field_8A3;
 	BYTE		m_byteWorldTime;
+
+	char _gap8A8[26];
+
+	BYTE m_byteWeaponDamage[33];
 };
 
 #endif
