@@ -53,6 +53,7 @@ public:
 	void LoadBanList();
 	DWORD GetCount();
 	void ProcessGameTime();
+	void SetWepDam(BYTE byteWeaponID, BYTE byteDamage);
 
 	int CanFileBeOpenedForReading(char * filename) {
 		FILE *f;
@@ -62,7 +63,7 @@ public:
 		}
 		return 0;
 	}
-	
+
 	void SetSleep(int iSleepTime)
 	{
 		SLEEP(iSleepTime);

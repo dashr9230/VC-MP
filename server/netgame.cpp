@@ -401,3 +401,13 @@ void CNetGame::ProcessGameTime()
 }
 
 //----------------------------------------------------
+
+void CNetGame::SetWepDam(BYTE byteWeaponID, BYTE byteDamage)
+{
+	m_byteWeaponDamage[byteWeaponID] = byteDamage;
+
+	RakNet::BitStream bsSend;
+	bsSend.Write(byteWeaponID);
+	bsSend.Write(byteDamage);
+	m_pRak->RPC("SetWepDam", &bsSend, HIGH_PRIORITY, RELIABLE_ORDERED, 0, UNASSIGNED_PLAYER_ID, true, false);
+}
