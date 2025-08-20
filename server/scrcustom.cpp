@@ -257,6 +257,12 @@ static cell AMX_NATIVE_CALL n_ShowPlayerMarkers(AMX *amx, cell *params)
 	return 1;
 }
 
+static cell AMX_NATIVE_CALL n_SetWorldTime(AMX *amx, cell *params)
+{
+	pNetGame->m_byteWorldTime = (BYTE)params[1];
+	return 1;
+}
+
 // native GetWeaponName(weaponid, const name[], len)
 static cell AMX_NATIVE_CALL n_GetWeaponName(AMX *amx, cell *params)
 {
@@ -290,7 +296,7 @@ AMX_NATIVE_INFO custom_Natives[] =
 //	{ "SetWorldBounds", n_SetWorldBounds },
 	{ "ShowNameTags", n_ShowNameTags },
 	{ "ShowPlayerMarkers", n_ShowPlayerMarkers },
-//	{ "SetWorldTime", n_SetWorldTime },
+	{ "SetWorldTime", n_SetWorldTime },
 	{ "GetWeaponName", n_GetWeaponName },
 	/*{ "SetGravity", n_SetGravity },
 	{ "ResetNormalGravity", n_ResetNormalGravity },

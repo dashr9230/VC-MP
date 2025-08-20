@@ -75,12 +75,12 @@ public:
 
 	char _gap868[57];
 
-	BYTE m_byteShowOnRadar;
+	BYTE		m_byteShowOnRadar;
 
 	char _gap8A2;
 
-	DWORD field_8A3;
-	BYTE field_8A7;
+	DWORD		field_8A3;
+	BYTE		m_byteWorldTime;
 };
 
 #endif

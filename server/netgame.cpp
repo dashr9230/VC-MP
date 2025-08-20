@@ -141,8 +141,11 @@ void CNetGame::Init()
 		m_pGameMode = new CGameMode();
 	}
 
+	// Default tags/markers
 	m_byteShowOnRadar = 1;
-	field_8A7 = 12;
+
+	// Set the default world time for clients.
+	m_byteWorldTime = 12;
 
 	// Start the gamemode script.
 	m_pGameMode->Load(szGameModeFile);
