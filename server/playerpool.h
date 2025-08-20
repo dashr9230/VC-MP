@@ -47,6 +47,11 @@ public:
 		memset(&m_iPlayerMoney[0],0,sizeof(int) * MAX_PLAYERS);
 	};
 
+	BOOL IsAdmin(BYTE bytePlayerID) {
+		if(bytePlayerID >= MAX_PLAYERS) { return FALSE; }
+		return m_bIsAnAdmin[bytePlayerID];
+	};
+
 };
 
 #endif
