@@ -295,6 +295,12 @@ static cell AMX_NATIVE_CALL n_GetWeaponName(AMX *amx, cell *params)
 	return 0;
 }
 
+static cell AMX_NATIVE_CALL n_SetWeaponDamage(AMX *amx, cell *params)
+{
+	pNetGame->SetWepDam((BYTE)params[1], (BYTE)params[2]);
+	return 1;
+}
+
 // native IsPlayerAdmin(playerid)
 static cell AMX_NATIVE_CALL n_IsPlayerAdmin(AMX *amx, cell *params)
 {
@@ -347,9 +353,9 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "Flyingcars", n_Flyingcars },
 	{ "Taxiboostjump", n_Taxiboostjump },
 	{ "FastSwitch", n_FastSwitch },
-	{ "Jumpswitch", n_Jumpswitch },
+	{ "Jumpswitch", n_Jumpswitch },*/
 	{ "SetWeaponDamage", n_SetWeaponDamage },
-	{ "SetSpikes", n_SetSpikes },
+	/*{ "SetSpikes", n_SetSpikes },
 	{ "DisableDriveby", n_DisableDriveby },
 	{ "PerfectHandling", n_PerfectHandling },
 	{ "Syncframelimiter", n_Syncframelimiter },
