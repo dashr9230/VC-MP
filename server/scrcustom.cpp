@@ -271,6 +271,14 @@ static cell AMX_NATIVE_CALL n_GetWeaponName(AMX *amx, cell *params)
 	return 0;
 }
 
+// native IsPlayerAdmin(playerid)
+static cell AMX_NATIVE_CALL n_IsPlayerAdmin(AMX *amx, cell *params)
+{
+	CHECK_PARAMS(1);
+
+	return pNetGame->GetPlayerPool()->IsAdmin((BYTE)params[1]);;
+}
+
 //----------------------------------------------------------------------------------
 
 AMX_NATIVE_INFO custom_Natives[] =
@@ -324,9 +332,9 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "RemovePlayerMarker", n_RemovePlayerMarker },
 	{ "SetPlayerMarker", n_SetPlayerMarker },
 	{ "SetWantedLevel", n_SetWantedLevel },
-	{ "SetWaterLevel", n_SetWaterLevel },
+	{ "SetWaterLevel", n_SetWaterLevel },*/
 	{ "IsPlayerAdmin", n_IsPlayerAdmin },
-	{ "Kick", n_Kick },
+	/*{ "Kick", n_Kick },
 	{ "Ban", n_Ban },
 	{ "SetPlayerTeam", n_SetPlayerTeam },
 	{ "SetPlayerFriendlyFire", n_SetPlayerFriendlyFire },
