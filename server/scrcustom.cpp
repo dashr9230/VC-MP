@@ -309,6 +309,17 @@ static cell AMX_NATIVE_CALL n_IsPlayerAdmin(AMX *amx, cell *params)
 	return pNetGame->GetPlayerPool()->IsAdmin((BYTE)params[1]);;
 }
 
+// native Kick(playerid)
+static cell AMX_NATIVE_CALL n_Kick(AMX *amx, cell *params)
+{
+	CHECK_PARAMS(1);
+
+	if (pNetGame->GetPlayerPool()->GetSlotState((BYTE)params[1])) {
+		pNetGame->KickPlayer((BYTE)params[1]);
+	}
+	return 0;
+}
+
 // native Ban(playerid)
 static cell AMX_NATIVE_CALL n_Ban(AMX *amx, cell *params)
 {
@@ -381,7 +392,7 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "SetWantedLevel", n_SetWantedLevel },
 	{ "SetWaterLevel", n_SetWaterLevel },*/
 	{ "IsPlayerAdmin", n_IsPlayerAdmin },
-//	{ "Kick", n_Kick },
+	{ "Kick", n_Kick },
 	{ "Ban", n_Ban },
 /*	{ "SetPlayerTeam", n_SetPlayerTeam },
 	{ "SetPlayerFriendlyFire", n_SetPlayerFriendlyFire },
