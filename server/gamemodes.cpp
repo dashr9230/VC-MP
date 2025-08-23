@@ -186,6 +186,7 @@ int CGameMode::OnPlayerConnect(cell playerid)
 
 //----------------------------------------------------------------------------------
 
+// forward OnPlayerVersion(playerid, version);
 int CGameMode::OnPlayerVersion(cell playerid, cell version)
 {
 	CHECK_INIT();

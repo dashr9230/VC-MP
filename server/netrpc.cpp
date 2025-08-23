@@ -6,7 +6,22 @@ RakServerInterface		*pRak=0;
 //----------------------------------------------------
 
 void ClientJoin(RPCParameters *rpcParams) {} // TODO: ClientJoin
-void ClientJoinPatch(RPCParameters *rpcParams) {} // TODO: ClientJoinPatch
+
+void ClientJoinPatch(RPCParameters *rpcParams)
+{
+	RakNet::BitStream bsData(rpcParams->input,(rpcParams->numberOfBitsOfData-1)/8+1,false);
+	RakNet::BitStream bsSend;
+
+	BYTE bytePlayerID = pRak->GetIndexFromPlayerID(rpcParams->sender);
+
+	int iVersion;
+	bsData.Read(iVersion);
+
+	pRcon->ConsolePrintf("[joinpatch] %u %i", bytePlayerID, iVersion);
+
+	pNetGame->GetGameMode()->OnPlayerVersion(bytePlayerID, iVersion);
+}
+
 void Chat(RPCParameters *rpcParams) {} // TODO: Chat
 void ME(RPCParameters *rpcParams) {} // TODO: ME
 void MsgChat(RPCParameters *rpcParams) {} // TODO: MsgChat
