@@ -20,7 +20,7 @@ class CPlayer
 private:
 	BYTE					m_bytePlayerID;
 	BOOL					m_bIsWasted;
-	BYTE					field_5;
+	BYTE					m_byteSpectateID;
 	BYTE					m_byteUpdateFromNetwork;
 	BOOL					m_bIsActive;
 
@@ -41,6 +41,8 @@ public:
 
 	void Say(PCHAR szText, BYTE byteTextLength);
 	void SetID(BYTE bytePlayerID) { m_bytePlayerID = bytePlayerID; };
+
+	BYTE GetSpectate() { return m_byteSpectateID; };
 };
 
 #endif

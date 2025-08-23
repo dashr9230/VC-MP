@@ -3,7 +3,7 @@
 
 void CPlayer::Process()
 {
-	if(m_bIsActive || field_5 != -1)
+	if(m_bIsActive || m_byteSpectateID != INVALID_ID)
 	{
 		if(m_byteUpdateFromNetwork != UPDATE_TYPE_NONE)
 		{
