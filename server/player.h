@@ -18,17 +18,24 @@ typedef struct _PLAYER_SPAWN_INFO
 class CPlayer
 {
 private:
+
 	BYTE					m_bytePlayerID;
 	BOOL					m_bIsWasted;
 	BYTE					m_byteSpectateID;
 	BYTE					m_byteUpdateFromNetwork;
 	BOOL					m_bIsActive;
 
+	char _padB[287];
+
 public:
 
 	VECTOR					m_vecPos;
 
+	char _pad136[36];
+
 	BYTE					m_byteState;
+
+	char _pad15B[44];
 
 	BYTE GetState() { return m_byteState; };
 
