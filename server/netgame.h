@@ -35,10 +35,12 @@ public:
 	void ShutdownForGameModeRestart();
 	BOOL SetNextScriptFile(char *szFile);
 
+	CPlayerPool * GetPlayerPool() { return m_pPlayerPool; };
 	CVehiclePool * GetVehiclePool() { return m_pVehiclePool; };
 	CPickUpPool * GetPickupPool() { return m_pPickUpPool; };
 	RakServerInterface * GetRakServer() { return m_pRak; };
 	CGameMode * GetGameMode() { return m_pGameMode; };
+	CFilterScripts * GetFilterScripts() { return m_pFilterScripts; };
 
 	void Process();
 
