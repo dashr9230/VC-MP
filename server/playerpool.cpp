@@ -110,3 +110,19 @@ void CPlayerPool::Process()
 	}
 }
 
+float CPlayerPool::GetDistanceFromPlayerToPlayer(BYTE bytePlayer1, BYTE bytePlayer2)
+{
+	float	fSX,fSY;
+
+	CPlayer * pPlayer1 = GetAt(bytePlayer1);
+	CPlayer * pPlayer2 = GetAt(bytePlayer2);
+
+	if(!pPlayer1 || !pPlayer2)
+		return 0.0f;
+
+	fSX = (pPlayer2->m_vecPos.X - pPlayer1->m_vecPos.X) * (pPlayer2->m_vecPos.X - pPlayer1->m_vecPos.X);
+	fSY = (pPlayer2->m_vecPos.Y - pPlayer1->m_vecPos.Y) * (pPlayer2->m_vecPos.Y - pPlayer1->m_vecPos.Y);
+
+	return (float)sqrt(fSX + fSY);
+}
+

@@ -52,6 +52,8 @@ public:
 		return m_bIsAnAdmin[bytePlayerID];
 	};
 
+	float GetDistanceFromPlayerToPlayer(BYTE bytePlayer1, BYTE bytePlayer2);
+
 };
 
 #endif
