@@ -301,6 +301,54 @@ void CNetGame::UpdateNetwork()
 	}
 }
 
+void CNetGame::BroadcastData( RakNet::BitStream *bitStream,
+							  PacketPriority priority,
+							  PacketReliability reliability,
+							  char orderingStream,
+							  BYTE byteExcludedPlayer )
+{
+	BYTE x=0;
+	int r=0;
+	BYTE byteSpectateID=INVALID_ID;
+	float fDistance;
+	BOOL bShouldSend;
+	CPlayer *pPlayer;
+
+	while(x!=MAX_PLAYERS)
+	{
+		if( (m_pPlayerPool->GetSlotState(x) == TRUE) && 
+			(x != byteExcludedPlayer) )
+		{
+			pPlayer = m_pPlayerPool->GetAt(x);
+
+			if(pPlayer)
+			{
+				bShouldSend = FALSE;
+				byteSpectateID = pPlayer->GetSpectate();
+				if(byteSpectateID != INVALID_ID && m_pPlayerPool->GetSlotState(byteSpectateID) == TRUE)
+					fDistance = m_pPlayerPool->GetDistanceFromPlayerToPlayer(byteExcludedPlayer, byteSpectateID);
+				else
+					fDistance = m_pPlayerPool->GetDistanceFromPlayerToPlayer(byteExcludedPlayer, x);
+
+				if(fDistance < 320.0f) {
+					bShouldSend = TRUE;
+				} else {
+					// If not within said distance, broadcast
+					// randomly once in ten.
+					r = (int)(rand() % 10);
+					if(!r) bShouldSend = TRUE;
+				}
+
+				if(bShouldSend) {
+			 		m_pRak->Send(bitStream,priority,reliability,
+						orderingStream,m_pRak->GetPlayerIDFromIndex(x),FALSE);
+				}
+			}
+		}
+		x++;
+	}
+}
+
 //----------------------------------------------------
 // PACKET HANDLERS
 //----------------------------------------------------

@@ -42,6 +42,11 @@ public:
 
 	void Process();
 
+	void BroadcastData( RakNet::BitStream *bitStream, PacketPriority priority,
+						PacketReliability reliability,
+						char orderingStream,
+						BYTE byteExcludedPlayer );
+
 	void PlayerSync(Packet *p);
 	void AimSync(Packet *p);
 	void VehicleSync(Packet *p);
