@@ -89,7 +89,9 @@ public:
 	PLAYER_SPAWN_INFO	m_AvailableSpawns[MAX_SPAWNS];
 	void AddSpawn(PLAYER_SPAWN_INFO *pSpawnInfo);
 
-	char _gap868[36];
+	VECTOR		m_vecInitPlayerPos;
+
+	char _gap874[24];
 	
 	float		m_WorldBounds[4]; // pos_x neg_x pos_y neg_y
 

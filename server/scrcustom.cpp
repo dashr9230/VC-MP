@@ -337,6 +337,17 @@ static cell AMX_NATIVE_CALL n_Ban(AMX *amx, cell *params)
 	return 0;
 }
 
+static cell AMX_NATIVE_CALL n_SetPlayerStartPos(AMX *amx, cell *params)
+{
+	CHECK_PARAMS(3);
+
+	pNetGame->m_vecInitPlayerPos.X = amx_ctof(params[1]);
+	pNetGame->m_vecInitPlayerPos.Y = amx_ctof(params[2]);
+	pNetGame->m_vecInitPlayerPos.Z = amx_ctof(params[3]);
+
+	return 1;
+}
+
 // native SetPlayerScore(playerid,score)
 static cell AMX_NATIVE_CALL n_SetPlayerScore(AMX *amx, cell *params)
 {
@@ -421,9 +432,9 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "GetPlayerTeam", n_GetPlayerTeam },
 	{ "SetPlayerSkin", n_SetPlayerSkin },
 	{ "GetPlayerPos", n_GetPlayerPos },
-	{ "SetPlayerPos", n_SetPlayerPos },
+	{ "SetPlayerPos", n_SetPlayerPos },*/
 	{ "SetPlayerStartPos", n_SetPlayerStartPos },
-	{ "GetPlayerHealth", n_GetPlayerHealth },
+	/*{ "GetPlayerHealth", n_GetPlayerHealth },
 	{ "SetPlayerHealth", n_SetPlayerHealth },
 	{ "GetPlayerArmour", n_GetPlayerArmour },
 	{ "SetPlayerArmour", n_SetPlayerArmour },
