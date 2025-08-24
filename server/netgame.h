@@ -90,8 +90,9 @@ public:
 	void AddSpawn(PLAYER_SPAWN_INFO *pSpawnInfo);
 
 	VECTOR		m_vecInitPlayerPos;
+	VECTOR		m_vecInitCameraPos;
 
-	char _gap874[24];
+	char _gap880[12];
 	
 	float		m_WorldBounds[4]; // pos_x neg_x pos_y neg_y
 

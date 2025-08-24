@@ -348,6 +348,26 @@ static cell AMX_NATIVE_CALL n_SetPlayerStartPos(AMX *amx, cell *params)
 	return 1;
 }
 
+static cell AMX_NATIVE_CALL n_SetPlayerCameraPos(AMX *amx, cell *params)
+{
+	RakNet::BitStream bsParams;
+	VECTOR vecPos;
+
+	vecPos.X = amx_ctof(params[1]);
+	vecPos.Y = amx_ctof(params[2]);
+	vecPos.Z = amx_ctof(params[3]);
+
+	bsParams.Write(vecPos.X);
+	bsParams.Write(vecPos.Y);
+	bsParams.Write(vecPos.Z);
+
+	pNetGame->m_vecInitCameraPos.X = vecPos.X;
+	pNetGame->m_vecInitCameraPos.Y = vecPos.Y;
+	pNetGame->m_vecInitCameraPos.Z = vecPos.Z;
+
+	return 1;
+}
+
 // native SetPlayerScore(playerid,score)
 static cell AMX_NATIVE_CALL n_SetPlayerScore(AMX *amx, cell *params)
 {
@@ -447,9 +467,9 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "IsPlayerDriver_Passanger", n_IsPlayerDriver_Passanger },
 	{ "GetPlayerName", n_GetPlayerName },
 	{ "GetPlayerVehicleID", n_GetPlayerVehicleID },
-	{ "SetCameraLookAt", n_SetCameraLookAt },
-	{ "SetCameraPos", n_SetCameraPos },
-	{ "TogglePlayerControllable", n_TogglePlayerControllable },
+	{ "SetCameraLookAt", n_SetCameraLookAt }, */
+	{ "SetCameraPos", n_SetPlayerCameraPos },
+	/*{ "TogglePlayerControllable", n_TogglePlayerControllable },
 	{ "SetPlayerAnimation", n_SetPlayerAnimation },
 	{ "SetPlayerDrunk", n_SetPlayerDrunk },
 	{ "PlayerPlaySound", n_PlayerPlaySound },*/
