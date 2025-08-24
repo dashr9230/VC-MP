@@ -348,6 +348,23 @@ static cell AMX_NATIVE_CALL n_SetPlayerStartPos(AMX *amx, cell *params)
 	return 1;
 }
 
+// native SetPlayerCameraLookAt(x,y,z)
+static cell AMX_NATIVE_CALL n_SetPlayerCameraLookAt(AMX *amx, cell *params)
+{
+	RakNet::BitStream bsParams;
+	VECTOR vecPos;
+
+	vecPos.X = amx_ctof(params[1]);
+	vecPos.Y = amx_ctof(params[2]);
+	vecPos.Z = amx_ctof(params[3]);
+
+	pNetGame->m_vecInitCameraLook.X = vecPos.X;
+	pNetGame->m_vecInitCameraLook.Y = vecPos.Y;
+	pNetGame->m_vecInitCameraLook.Z = vecPos.Z;
+
+	return 1;
+}
+
 static cell AMX_NATIVE_CALL n_SetPlayerCameraPos(AMX *amx, cell *params)
 {
 	RakNet::BitStream bsParams;
@@ -466,8 +483,8 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "IsPlayerInAnyVehicle", n_IsPlayerInAnyVehicle },
 	{ "IsPlayerDriver_Passanger", n_IsPlayerDriver_Passanger },
 	{ "GetPlayerName", n_GetPlayerName },
-	{ "GetPlayerVehicleID", n_GetPlayerVehicleID },
-	{ "SetCameraLookAt", n_SetCameraLookAt }, */
+	{ "GetPlayerVehicleID", n_GetPlayerVehicleID },*/
+	{ "SetCameraLookAt", n_SetPlayerCameraLookAt },
 	{ "SetCameraPos", n_SetPlayerCameraPos },
 	/*{ "TogglePlayerControllable", n_TogglePlayerControllable },
 	{ "SetPlayerAnimation", n_SetPlayerAnimation },

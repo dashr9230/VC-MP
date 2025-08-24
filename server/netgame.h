@@ -91,9 +91,7 @@ public:
 
 	VECTOR		m_vecInitPlayerPos;
 	VECTOR		m_vecInitCameraPos;
-
-	char _gap880[12];
-	
+	VECTOR		m_vecInitCameraLook;
 	float		m_WorldBounds[4]; // pos_x neg_x pos_y neg_y
 
 	char _gap89C[5];
