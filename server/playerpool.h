@@ -42,6 +42,11 @@ public:
 		return m_szPlayerName[bytePlayerID];
 	};
 
+	void SetScore(BYTE bytePlayerID, int iScore) {
+		if(bytePlayerID > MAX_PLAYERS) return;
+		m_iPlayerScore[bytePlayerID] = iScore;
+	};
+
 	void ResetPlayerScoresAndMoney() {
 		memset(&m_iPlayerScore[0],0,sizeof(int) * MAX_PLAYERS);
 		memset(&m_iPlayerMoney[0],0,sizeof(int) * MAX_PLAYERS);
