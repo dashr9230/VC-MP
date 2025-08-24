@@ -337,6 +337,18 @@ static cell AMX_NATIVE_CALL n_Ban(AMX *amx, cell *params)
 	return 0;
 }
 
+// native SetPlayerScore(playerid,score)
+static cell AMX_NATIVE_CALL n_SetPlayerScore(AMX *amx, cell *params)
+{
+	BYTE bytePlayerID = (BYTE)params[1];
+	int iScore = (int)params[2];
+
+	if(pNetGame->GetPlayerPool()->GetSlotState(bytePlayerID)) {
+		pNetGame->GetPlayerPool()->SetScore(bytePlayerID,iScore);
+	}
+	return 1;
+}
+
 //----------------------------------------------------------------------------------
 
 AMX_NATIVE_INFO custom_Natives[] =
@@ -419,9 +431,9 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "TogglePlayerControllable", n_TogglePlayerControllable },
 	{ "SetPlayerAnimation", n_SetPlayerAnimation },
 	{ "SetPlayerDrunk", n_SetPlayerDrunk },
-	{ "PlayerPlaySound", n_PlayerPlaySound },
+	{ "PlayerPlaySound", n_PlayerPlaySound },*/
 	{ "SetPlayerScore", n_SetPlayerScore },
-	{ "GetPlayerScore", n_GetPlayerScore },
+	/*{ "GetPlayerScore", n_GetPlayerScore },
 	{ "SetPlayerFacingAngle", n_SetPlayerFacingAngle },
 	{ "GetPlayerFacingAngle", n_GetPlayerFacingAngle },
 	{ "GivePlayerMoney", n_GivePlayerMoney },
