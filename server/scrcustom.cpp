@@ -295,6 +295,16 @@ static cell AMX_NATIVE_CALL n_GetWeaponName(AMX *amx, cell *params)
 	return 0;
 }
 
+static cell AMX_NATIVE_CALL n_ResetNormalGamespeed(AMX *amx, cell *params)
+{
+	float fGameSpeed = 100 * 0.01f;
+	if(!(fGameSpeed > 0.0f && fGameSpeed < 1000.0f))
+		fGameSpeed = 1.0f;
+	pNetGame->m_GameSettings.fGameSpeed = fGameSpeed;
+	pNetGame->SendGameSettingsToAll();
+	return 1;
+}
+
 static cell AMX_NATIVE_CALL n_SetWeaponDamage(AMX *amx, cell *params)
 {
 	pNetGame->SetWepDam((BYTE)params[1], (BYTE)params[2]);
@@ -436,9 +446,9 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "GetWeaponName", n_GetWeaponName },
 	/*{ "SetGravity", n_SetGravity },
 	{ "ResetNormalGravity", n_ResetNormalGravity },
-	{ "SetGamespeed", n_SetGamespeed },
+	{ "SetGamespeed", n_SetGamespeed },*/
 	{ "ResetNormalGamespeed", n_ResetNormalGamespeed },
-	{ "SetGravityForPlayer", n_SetGravityForPlayer },
+	/*{ "SetGravityForPlayer", n_SetGravityForPlayer },
 	{ "ResetNormalGravityForPlayer", n_ResetNormalGravityForPlayer },
 	{ "SetGamespeedForPlayer", n_SetGamespeedForPlayer },
 	{ "ResetNormalGamespeedForPlayer", n_ResetNormalGamespeedForPlayer },
