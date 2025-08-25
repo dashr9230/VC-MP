@@ -6,6 +6,12 @@
 
 #define GAMESTATE_RUNNING	 1
 
+typedef struct _GAME_SETTINGS {
+
+	char _pad0[21];
+
+} GAME_SETTINGS;
+
 class CNetGame
 {
 private:
@@ -60,6 +66,7 @@ public:
 	void LoadBanList();
 	DWORD GetCount();
 	void ProcessGameTime();
+	void SendGameSettingsToAll();
 	void SetWepDam(BYTE byteWeaponID, BYTE byteDamage);
 
 	int CanFileBeOpenedForReading(char * filename) {
@@ -103,8 +110,9 @@ public:
 	DWORD		field_8A3;
 	BYTE		m_byteWorldTime;
 
-	char _gap8A8[26];
+	char _gap8A8[5];
 
+	GAME_SETTINGS m_GameSettings;
 	BYTE m_byteWeaponDamage[33];
 };
 

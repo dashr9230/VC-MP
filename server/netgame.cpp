@@ -434,6 +434,13 @@ DWORD CNetGame::GetCount()
 #endif
 }
 
+void CNetGame::SendGameSettingsToAll()
+{
+	RakNet::BitStream bsSend;
+	bsSend.Write((PCHAR)&m_GameSettings, sizeof(GAME_SETTINGS));
+	m_pRak->RPC("GameSettings", &bsSend, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_PLAYER_ID, true, false);
+}
+
 void CNetGame::AddSpawn(PLAYER_SPAWN_INFO *pSpawnInfo)
 {
 	if (m_iSpawnsAvailable < MAX_SPAWNS)
