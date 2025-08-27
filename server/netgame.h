@@ -7,8 +7,9 @@
 #define GAMESTATE_RUNNING	 1
 
 typedef struct _GAME_SETTINGS {
-	char _pad0[6];
+	char _pad0[2];
 
+	float fGravity;
 	float fGameSpeed;
 
 	char _padA[11];
