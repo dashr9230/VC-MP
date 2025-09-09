@@ -342,6 +342,13 @@ static cell AMX_NATIVE_CALL n_Flyingcars(AMX *amx, cell *params)
 	return 1;
 }
 
+static cell AMX_NATIVE_CALL n_Taxiboostjump(AMX *amx, cell *params)
+{
+	pNetGame->m_GameSettings.bTaxiBoostJump = (BYTE)params[1] == 1;
+	pNetGame->SendGameSettingsToAll();
+	return 1;
+}
+
 static cell AMX_NATIVE_CALL n_SetWeaponDamage(AMX *amx, cell *params)
 {
 	pNetGame->SetWepDam((BYTE)params[1], (BYTE)params[2]);
@@ -496,8 +503,8 @@ AMX_NATIVE_INFO custom_Natives[] =
 	{ "ToggleWidescreenForAll", n_ToggleWidescreenForAll },
 	{ "ToggleWidescreenForPlayer", n_ToggleWidescreenForPlayer },*/
 	{ "Flyingcars", n_Flyingcars },
-	/*{ "Taxiboostjump", n_Taxiboostjump },
-	{ "FastSwitch", n_FastSwitch },
+	{ "Taxiboostjump", n_Taxiboostjump },
+	/*{ "FastSwitch", n_FastSwitch },
 	{ "Jumpswitch", n_Jumpswitch },*/
 	{ "SetWeaponDamage", n_SetWeaponDamage },
 	/*{ "SetSpikes", n_SetSpikes },

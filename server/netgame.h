@@ -11,8 +11,9 @@ typedef struct _GAME_SETTINGS {
 
 	float fGravity;
 	float fGameSpeed;
+	bool bTaxiBoostJump;
 
-	char _padA[5];
+	char _padB[4];
 
 	bool bFlyingCars;
 
